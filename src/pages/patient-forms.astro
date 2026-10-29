@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import Contact from '../components/sections/Contact.astro';
+import { practice } from '../data/site';
+
+const groups = [
+  {
+    title: 'Before your visit',
+    text: 'Fill this in at home and bring it with you. It saves time at the front desk.',
+    shade: '#8fcbe6', sheet: '#bfe8f8',
+    items: [
+      { name: 'New patient form', note: 'PDF. Print it, fill it in and bring it to your visit.', href: 'https://sa1s3optim.patientpop.com/assets/docs/451382.pdf', cta: 'Open the form' },
+    ],
+  },
+  {
+    title: 'Child growth',
+    text: 'Free tools from trusted groups. They help you spot early signs and plan questions for your visit.',
+    shade: '#7fcf9f', sheet: '#cdefd7',
+    items: [
+      { name: 'Ages & Stages questionnaire (ASQ) calculator', note: 'A free online tool that checks learning and development at each age.', href: 'https://agesandstages.com/free-resources/asq-calculator/', cta: 'Open the tool' },
+      { name: 'M-CHAT autism screening', note: 'A short online questionnaire for toddlers. It does not give a diagnosis. Share the result with us.', href: 'https://m-chat.org/en-us/page/take-m-chat-test/online', cta: 'Take the test' },
+    ],
+  },
+  {
+    title: 'Consent forms',
+    text: 'For our grown-up services. Read and sign before your treatment.',
+    shade: '#f2a999', sheet: '#ffd6cc',
+    items: [
+      { name: 'IV therapy and vitamin IV consent form', note: 'PDF.', href: 'https://sa1s3.patientpop.com/assets/docs/304000.pdf', cta: 'Open the form' },
+      { name: 'Microneedling consent form', note: 'PDF.', href: 'https://sa1s3.patientpop.com/assets/docs/303998.pdf', cta: 'Open the form' },
+    ],
+  },
+];
+---
+<BaseLayout title="Patient forms | Peds For Kids" description="Download new patient and consent forms for Peds For Kids in Rego Park, Queens, and find free child development tools.">
+  <PageHero crumb="Patient forms" title="Patient forms" lede="Get your paperwork done before you come. Download the forms below, or call us if you need help." tone="sky">
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+    </div>
+  </PageHero>
+
+  <section class="section-pad relative bg-paper">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="container-x relative z-[2]">
+      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {groups.flatMap((g) => g.items.map((it) => ({ ...it, g }))).map((it) => (
+          <li class="flex">
+            <a href={it.href} target="_blank" rel="noopener" class="sheet group flex w-full flex-col p-7 transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet:${it.g.sheet};--sheet-shade:${it.g.shade};`}>
+              <span class="relative z-[1] flex items-center justify-between gap-3">
+                <span class="grid size-12 place-items-center rounded-full bg-paper shadow-[0_4px_0_rgba(42,34,80,0.15)] transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" class="size-6" fill="none" stroke="#2a2250" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M7 3h7l5 5v13H7z" /><path d="M14 3v5h5M10 13h6M10 17h6" /></svg>
+                </span>
+                <span class="rounded-full bg-paper/80 px-3 py-1 text-sm font-bold">{it.g.title}</span>
+              </span>
+              <h2 class="relative z-[1] mt-5 text-2xl">{it.name}</h2>
+              <p class="relative z-[1] mt-2 text-ink-soft">{it.note}</p>
+              <span class="relative z-[1] mt-auto self-start pt-6 font-display text-lg font-bold underline decoration-coral decoration-[3px] underline-offset-4">{it.cta}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-10 text-ink-soft">Need a form on paper? Ask at the front desk. For a medical emergency, call 911.</p>
+    </div>
+  </section>
+  <Contact />
+</BaseLayout>

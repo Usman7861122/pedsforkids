@@ -161,7 +161,7 @@ export default function HeroSlider() {
   return (
     <section
       aria-roledescription="carousel"
-      aria-label="Welcome to Peds 4 Kids"
+      aria-label="Welcome to Peds For Kids"
       className="relative h-[100svh] min-h-[640px] w-full overflow-hidden"
       style={{ backgroundColor: slide.bg, transition: 'background-color .8s ease' }}
       onMouseEnter={() => setHover(true)}
@@ -205,7 +205,7 @@ export default function HeroSlider() {
               exit={{ opacity: 0, y: reduce ? 0 : -12, transition: { duration: 0.22 } }}
             >
               <motion.p
-                className="mb-4 inline-block rounded-full bg-paper px-4 py-1.5 font-display text-base font-bold shadow-[0_4px_0_rgba(42,34,80,0.18)] sm:text-lg"
+                className="mb-4 inline-block rounded-full bg-paper px-4 py-1.5 font-display text-base font-bold text-ink shadow-[0_4px_0_rgba(42,34,80,0.18)] sm:text-lg"
                 initial={{ opacity: 0, y: reduce ? 0 : -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: reduce ? 0 : 0.1, duration: 0.4 }}

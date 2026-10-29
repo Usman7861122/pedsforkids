@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import PaperEdge from '../../components/ui/PaperEdge.astro';
+import Contact from '../../components/sections/Contact.astro';
+import { allPosts, featuredPosts } from '../../data/blog';
+
+const shades = ['#8fcbe6', '#e3bd3a', '#f2a999', '#7fcf9f'];
+const posts = featuredPosts.map((f) => ({ ...f, post: allPosts.find((p) => p.slug === f.slug)! }));
+---
+<BaseLayout title="Health blog | Peds For Kids" description="Clear answers to common children's health questions from Peds For Kids in Rego Park, Queens.">
+  <PageHero crumb="Health blog" title="Answers for curious parents" lede="Short, clear reads on the health questions families ask us most." tone="sun" />
+
+  <section class="section-pad relative bg-paper">
+    <PaperEdge variant="zigzag" class="text-paper" />
+    <div class="container-x relative z-[2]">
+      <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {posts.map((p, i) => (
+          <li class="flex">
+            <a href={`/blog/${p.slug}`} class="sheet group flex w-full flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet-shade:${shades[i % shades.length]};`}>
+              <div class="relative z-[1] aspect-[4/3] overflow-hidden">
+                <img src={p.image} alt={p.alt} loading="lazy" width="900" height="675" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              </div>
+              <div class="relative z-[1] flex flex-1 flex-col p-5">
+                <p class="text-sm font-bold text-ink-soft">{p.post.date}</p>
+                <h2 class="mt-1 text-[1.35rem] leading-snug">{p.post.title}</h2>
+                <p class="mt-2 text-ink-soft">{p.summary}</p>
+                <span class="mt-auto pt-4 font-display text-lg font-bold underline decoration-coral decoration-[3px] underline-offset-4">Read article</span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <Contact />
+</BaseLayout>

@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import PhotoFrame from '../components/ui/PhotoFrame.astro';
+import Press from '../components/sections/Press.astro';
+import DoctorsDay from '../components/sections/DoctorsDay.astro';
+import Book from '../components/sections/Book.astro';
+import Contact from '../components/sections/Contact.astro';
+import { Butterfly, Cloud, Daisy, Glyph, Star, Sun } from '../components/art/Art';
+import { practice, press } from '../data/site';
+import { affiliations } from '../data/about';
+import { doctor, path, focus, honors, stats } from '../data/doctor';
+
+const tone: Record<string, { bg: string; shade: string }> = {
+  sky: { bg: '#bfe8f8', shade: '#8fcbe6' },
+  coral: { bg: '#ffd6cc', shade: '#f2a999' },
+  sun: { bg: '#ffe88f', shade: '#e3c453' },
+  meadow: { bg: '#cdefd7', shade: '#7fcf9f' },
+  grape: { bg: '#e4dbfa', shade: '#bda9ef' },
+};
+---
+<BaseLayout title={`${doctor.name} | Peds For Kids`} description="Meet Dr. Daniela Atanassova-Lineva, a board certified pediatrician in Rego Park, Queens. Training, experience and the care she gives families.">
+  <!-- Intro -->
+  <section class="relative overflow-hidden bg-sky-soft pb-24 pt-36 md:pb-32 md:pt-44">
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer bg-skyfade"></div>
+      <div class="bg-layer bg-doodle-sky"></div>
+      <Sun className="bob absolute right-[5%] top-28 hidden w-24 md:block" />
+      <Cloud className="drift absolute left-[3%] top-36 hidden w-32 md:block" />
+      <Butterfly className="bob absolute left-[46%] bottom-20 hidden w-12 md:block" color="#8f6be0" />
+    </div>
+    <div class="container-x relative z-[2] grid items-center gap-12 md:grid-cols-[1.1fr_minmax(0,22rem)] lg:gap-20">
+      <div>
+        <p class="font-display text-lg font-bold text-ink-soft">{doctor.role}</p>
+        <h1 class="h-display mt-2">{doctor.name}</h1>
+        <p class="lede mt-5">{doctor.lede}</p>
+        <ul class="mt-6 flex flex-wrap gap-2.5" aria-label="Highlights">
+          {doctor.quickFacts.map((f, i) => (
+            <li class="tag" style={`--tag-shade:${['#f0c200', '#ff9d8e', '#7fcf9f', '#bda9ef'][i]}`}>{f}</li>
+          ))}
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href={practice.bookUrl} class="btn">Book with {doctor.short}</a>
+          <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+        </div>
+      </div>
+      <div class="group relative mx-auto w-full max-w-sm">
+        <span class="absolute -left-6 -top-4 h-full w-full -rotate-3 rounded-[45%_55%_40%_60%/50%_45%_55%_50%] bg-sun-soft" aria-hidden="true"></span>
+        <span class="absolute -bottom-4 -right-5 h-3/4 w-3/4 rotate-6 rounded-[55%_45%_60%_40%/45%_55%_45%_55%] bg-paper/70" aria-hidden="true"></span>
+        <PhotoFrame slot="doctor" shape="arch" tape="#ffd23f" class="relative aspect-[4/5] w-full transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.02] motion-reduce:transition-none" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Her story -->
+  <section class="relative overflow-hidden bg-paper py-12 md:py-16">
+    <PaperEdge variant="cloud" class="text-paper" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer" style="background:radial-gradient(40% 50% at 90% 20%, rgba(255,232,143,0.5), transparent 70%), radial-gradient(40% 50% at 5% 90%, rgba(205,239,215,0.7), transparent 70%)"></div>
+      <Star className="bob absolute right-[8%] top-20 hidden w-9 md:block" color="#ffd23f" />
+      <Daisy className="absolute bottom-3 left-[10%] hidden w-9 md:block" />
+    </div>
+    <div class="container-x relative z-[2] grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-12">
+      <div>
+        <h2 class="h-section">Her story</h2>
+        <div class="mt-5 space-y-4 text-lg">
+          {doctor.story.map((t) => <p class="max-w-[60ch]">{t}</p>)}
+        </div>
+        <h3 class="mt-6 font-display text-xl">Hospital connections</h3>
+        <ul class="mt-3 flex flex-wrap gap-2.5">
+          {affiliations.map((a, i) => (
+            <li class="tag" style={`--tag-shade:${['#f0c200', '#ff9d8e', '#7fcf9f'][i]}`}>{a}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="grid gap-5">
+        <figure class="sheet relative p-7 md:p-8" style="--sheet:#fff3b8;--sheet-shade:#e3c453;">
+          <span class="absolute -top-3 left-1/2 z-[2] h-6 w-24 -translate-x-1/2 -rotate-3 bg-coral opacity-85" aria-hidden="true"></span>
+          <blockquote class="relative z-[1] font-display text-2xl font-bold leading-snug">“{doctor.promise}”</blockquote>
+          <figcaption class="relative z-[1] mt-4 text-sm text-ink-soft">Our promise to every family</figcaption>
+        </figure>
+        <ul class="grid grid-cols-2 gap-5">
+          {stats.map((st) => (
+            <li class="sheet group p-5 text-center transition-transform duration-300 hover:-translate-y-1.5 hover:rotate-1 motion-reduce:transition-none motion-reduce:hover:transform-none" style={`--sheet:${tone[st.color].bg};--sheet-shade:${tone[st.color].shade};`}>
+              <p class="relative z-[1] font-display text-4xl font-extrabold leading-none">{st.value}</p>
+              <p class="relative z-[1] mt-2 text-sm font-bold leading-snug">{st.label}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Path -->
+  <section class="section-pad relative overflow-hidden bg-sun-soft">
+    <PaperEdge variant="scallop" class="text-sun-soft" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer bg-dots"></div>
+      <Cloud className="drift absolute -left-10 top-24 hidden w-44 opacity-90 md:block" />
+      <Butterfly className="bob absolute right-[8%] top-40 hidden w-12 md:block" />
+      <Daisy className="absolute left-[8%] top-[45%] hidden w-9 lg:block" />
+      <Daisy className="absolute right-[7%] top-[70%] hidden w-8 lg:block" />
+      <Star className="bob absolute left-[12%] bottom-24 hidden w-8 lg:block" color="#ff7a66" />
+    </div>
+    <div class="container-x relative z-[2]">
+      <div class="max-w-2xl">
+        <h2 class="h-section">Her path to your family</h2>
+        <p class="lede mt-4 font-medium !text-ink">Follow the little footprints from medical school to the office on Austin Street.</p>
+      </div>
+      <ol id="pathway" class="relative mx-auto mt-14 max-w-5xl space-y-10 pb-4 lg:space-y-12">
+        <span class="pathway-road pointer-events-none absolute -bottom-2 -top-6 left-[2.25rem] w-16 -translate-x-1/2 lg:left-1/2 lg:w-28" aria-hidden="true">
+          <span class="pathway-feet pathway-feet-faint"></span>
+          <span class="pathway-feet pathway-feet-walked"></span>
+        </span>
+        {path.map((s, i) => (
+          <li class="group/step relative grid grid-cols-[4.5rem_1fr] items-center gap-x-2 lg:grid-cols-[1fr_7rem_1fr] lg:gap-x-4">
+            <span class="relative z-[2] col-start-1 row-start-1 grid size-14 cursor-default place-items-center justify-self-center rounded-full font-display text-xl font-extrabold opacity-60 saturate-50 transition duration-500 group-data-[reached]/step:opacity-100 group-data-[reached]/step:saturate-100 hover:-rotate-12 hover:scale-125 group-hover/step:scale-110 motion-reduce:transition-none motion-reduce:hover:transform-none lg:col-start-2" style={`background:${tone[s.color].bg};box-shadow:0 5px 0 ${tone[s.color].shade}, 0 0 0 6px #fffdf7`}>{i + 1}</span>
+            <div class={`sheet group col-start-2 row-start-1 w-full max-w-md p-6 transition-transform duration-300 hover:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:transform-none ${i % 2 === 0 ? 'lg:col-start-1 lg:justify-self-end lg:hover:-rotate-1' : 'lg:col-start-3 lg:hover:rotate-1'}`} style="--sheet:#fffdf7;--sheet-shade:#e3c453;">
+              <p class="relative z-[1] font-display text-sm font-bold text-ink-soft">{s.year}</p>
+              <h3 class="relative z-[1] mt-1 text-[1.3rem] leading-tight">{s.title}</h3>
+              <p class="relative z-[1] mt-2 text-ink-soft">{s.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Focus -->
+  <section class="section-pad relative bg-meadow-soft">
+    <PaperEdge variant="wave" class="text-meadow-soft" />
+    <div class="absolute inset-0" aria-hidden="true"><div class="bg-layer bg-doodle-meadow"></div></div>
+    <div class="container-x relative z-[2]">
+      <h2 class="h-section max-w-2xl">What she cares about most</h2>
+      <ul class="mt-12 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        {focus.map((f) => (
+          <li class="flex">
+            <div class="sheet group flex w-full items-start gap-4 p-6 transition-transform duration-300 hover:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:transform-none" style="--sheet:#fffdf7;--sheet-shade:#7fcf9f;">
+              <span class="relative z-[1] grid size-14 shrink-0 place-items-center rounded-2xl transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" style={`background:${tone[f.color].bg};box-shadow:0 4px 0 ${tone[f.color].shade}`}>
+                <Glyph name={f.glyph as any} className="w-8" />
+              </span>
+              <div class="relative z-[1]">
+                <h3 class="text-[1.2rem] leading-tight">{f.title}</h3>
+                <p class="mt-1.5 text-ink-soft">{f.text}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div class="sheet mt-12 p-7 md:p-9" style="--sheet:#fffdf7;--sheet-shade:#7fcf9f;">
+        <h3 class="relative z-[1] text-2xl">Honors and writing</h3>
+        <ul class="relative z-[1] mt-4 grid gap-2.5 sm:grid-cols-2">
+          {honors.map((h) => (
+            <li class="flex gap-3"><span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-coral" aria-hidden="true"></span>{h}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Press />
+  <DoctorsDay />
+  <Book />
+  <Contact />
+</BaseLayout>
+
+<script>
+  // Footprints "walk" down the road as the visitor scrolls, and each stop lights up when reached.
+  const road = document.getElementById('pathway');
+  if (road) {
+    const steps = Array.from(road.querySelectorAll<HTMLElement>('li'));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = road.getBoundingClientRect();
+      const line = window.innerHeight * 0.6; // the "walker" stays about 60% down the screen
+      const y = reduce ? r.height : Math.min(Math.max(line - r.top + 24, 0), r.height);
+      road.style.setProperty('--p', `${y}px`);
+      steps.forEach((li) => {
+        const node = li.firstElementChild as HTMLElement;
+        const nr = node.getBoundingClientRect();
+        if (reduce || nr.top + nr.height / 2 < line) li.setAttribute('data-reached', '');
+        else li.removeAttribute('data-reached');
+      });
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+</script>

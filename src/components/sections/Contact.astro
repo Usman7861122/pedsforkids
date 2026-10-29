@@ -4,7 +4,7 @@ import ContactForm from '../islands/ContactForm';
 import TodayHours from '../islands/TodayHours';
 import { Butterfly, Cloud, HotAirBalloon } from '../art/Art';
 import PhotoFrame from '../ui/PhotoFrame.astro';
-import { hours, practice } from '../../data/site';
+import { hours, practice, serviceAreas } from '../../data/site';
 ---
 <section id="contact" class="section-pad relative bg-cloud !pb-52 md:!pb-72">
   <PaperEdge variant="cloud" class="text-cloud" />
@@ -54,6 +54,24 @@ import { hours, practice } from '../../data/site';
       <div class="sheet p-7 md:p-9" style="--sheet:#ffe88f;--sheet-shade:#e3c453;">
         <h3 class="relative z-[1] text-2xl">Send us a message</h3>
         <ContactForm client:visible />
+      </div>
+    </div>
+
+    <div class="mt-12 border-t-2 border-dashed border-sky/60 pt-8">
+      <div class="group flex items-start gap-4">
+        <span class="grid size-12 shrink-0 place-items-center rounded-full bg-paper shadow-[0_4px_0_#8fcbe6] transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110">
+          <svg viewBox="0 0 24 24" class="size-7" aria-hidden="true">
+            <path d="M12 21s7-6.2 7-11.2A7 7 0 0 0 5 9.8C5 14.8 12 21 12 21Z" fill="#ff7a66" stroke="#2a2250" stroke-width="1.8" stroke-linejoin="round" />
+            <circle cx="12" cy="9.8" r="2.6" fill="#fffdf7" stroke="#2a2250" stroke-width="1.8" />
+          </svg>
+        </span>
+        <div>
+          <p class="flex min-h-12 items-center font-display text-xl font-bold leading-snug">Families are welcome from across Queens and the nearby neighborhoods.</p>
+          <ul class="mt-4 flex flex-wrap gap-2.5" aria-label="Neighborhoods we serve">
+            {serviceAreas.map((a, i) => <li class="tag" style={`--tag-shade:${['#f0c200', '#ff9d8e', '#7fcf9f', '#bda9ef', '#8fcbe6'][i % 5]}`}>{a}</li>)}
+            <li class="tag" style="--tag-shade:#e3c453">and more</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

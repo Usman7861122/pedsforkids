@@ -1,11 +1,9 @@
 ---
 import PaperEdge from '../ui/PaperEdge.astro';
-import { Animal, Plane, Star } from '../art/Art';
-import { photos } from '../../data/images';
-import { posts } from '../../data/site';
+import { Plane, Star } from '../art/Art';
+import { allPosts, featuredPosts } from '../../data/blog';
 
-const top: Record<string, string> = { sky: '#bfe8f8', meadow: '#cdefd7', coral: '#ffd6cc' };
-const shade: Record<string, string> = { sky: '#8fcbe6', meadow: '#7fcf9f', coral: '#f2a999' };
+const posts = featuredPosts.slice(0, 3).map((f) => ({ ...f, post: allPosts.find((p) => p.slug === f.slug)! }));
 ---
 <section id="blog" class="section-pad relative bg-sun-soft">
   <PaperEdge variant="zigzag" class="text-sun-soft" />
@@ -24,20 +22,14 @@ const shade: Record<string, string> = { sky: '#8fcbe6', meadow: '#7fcf9f', coral
     </div>
 
     <ul class="mt-12 grid gap-8 md:grid-cols-3">
-      {posts.map((p, i) => (
+      {posts.map((p) => (
         <li class="flex">
           <a href={`/blog/${p.slug}`} class="sheet group flex w-full flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1.5" style="--sheet-shade:#e3bd3a;">
-            {photos[`blog${i}`]?.src ? (
-              <img src={photos[`blog${i}`].src} alt={photos[`blog${i}`].alt} loading="lazy" class="relative z-[1] h-44 w-full object-cover" />
-            ) : (
-              <div class="relative z-[1] grid h-44 place-items-end overflow-hidden" style={`background:${top[p.color]}`}>
-                <Animal name={p.art} className="w-36 translate-y-4 transition-transform duration-200 group-hover:-translate-y-0" />
-              </div>
-            )}
+            <img src={p.image} alt={p.alt} loading="lazy" width="900" height="675" class="relative z-[1] h-44 w-full object-cover" />
             <div class="relative z-[1] flex flex-1 flex-col p-6">
-              <p class="text-sm font-bold text-ink-soft">{p.date}</p>
-              <h3 class="mt-1 text-[1.5rem]">{p.title}</h3>
-              <p class="mt-2 text-ink-soft">{p.text}</p>
+              <p class="text-sm font-bold text-ink-soft">{p.post.date}</p>
+              <h3 class="mt-1 text-[1.5rem]">{p.post.title}</h3>
+              <p class="mt-2 text-ink-soft">{p.summary}</p>
               <span class="mt-auto pt-5 font-display text-lg font-bold underline decoration-coral decoration-[3px] underline-offset-4">Read article</span>
             </div>
           </a>

@@ -1,0 +1,48 @@
+---
+// Photo card used in service grids. Shows a photo when one is set in data/images.ts,
+// otherwise a colored disc with an icon. Hover reveals the description.
+import { Glyph, type GlyphName } from '../art/Art';
+import { photos } from '../../data/images';
+
+interface Props {
+  href: string;
+  title: string;
+  text: string;
+  glyph: GlyphName;
+  color: 'sun' | 'coral' | 'sky' | 'meadow' | 'grape';
+  slot: string;
+  tilt?: string;
+  shade?: string;
+}
+const { href, title, text, glyph, color, slot, tilt = '0deg', shade = '#d9b030' } = Astro.props;
+const disc: Record<string, string> = { sun: 'bg-sun', coral: 'bg-coral', sky: 'bg-sky', meadow: 'bg-meadow', grape: 'bg-grape' };
+const tint: Record<string, string> = { sun: 'bg-sun', coral: 'bg-coral', sky: 'bg-sky', meadow: 'bg-meadow', grape: 'bg-grape-soft' };
+const photo = photos[slot];
+---
+<a
+  href={href}
+  class="group relative block aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-paper outline-offset-4 transition-transform duration-300 hover:-translate-y-1.5 hover:rotate-0 focus-visible:-translate-y-1.5 focus-visible:rotate-0"
+  style={`transform:rotate(${tilt});box-shadow:0 7px 0 ${shade}`}
+  aria-label={`${title}. ${text}`}
+>
+  {photo?.src ? (
+    <img src={photo.src} alt="" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-110 group-focus-visible:scale-110" />
+  ) : (
+    <div class={`absolute inset-0 grid place-items-center ${disc[color]} transition-transform duration-700 group-hover:scale-110`}>
+      <Glyph name={glyph} className="w-2/5 opacity-95" />
+    </div>
+  )}
+  <div class="absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-t from-ink/80 via-ink/25 to-transparent transition-opacity duration-300 group-hover:opacity-0 group-focus-visible:opacity-0 [@media(hover:none)]:opacity-0" aria-hidden="true"></div>
+  <h3 class="absolute inset-x-5 bottom-5 text-[1.7rem] leading-tight text-paper transition-all duration-300 group-hover:translate-y-3 group-hover:opacity-0 group-focus-visible:opacity-0 [@media(hover:none)]:hidden" aria-hidden="true">{title}</h3>
+  <div class={`absolute inset-x-0 bottom-0 flex h-[68%] translate-y-full flex-col justify-end rounded-t-[1.75rem] ${tint[color]} p-6 transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 [@media(hover:none)]:h-[62%] [@media(hover:none)]:translate-y-0`}>
+    <h3 class="text-[1.6rem] leading-tight">{title}</h3>
+    <p class="mt-2 text-[1rem] leading-snug">{text}</p>
+    <span class="mt-4 inline-flex items-center gap-2 font-display text-lg font-bold">
+      Learn more
+      <svg viewBox="0 0 24 24" class="size-5 transition-transform group-hover:translate-x-1" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </span>
+  </div>
+  <span class={`absolute left-4 top-4 grid size-12 place-items-center rounded-2xl ${disc[color]} shadow-[0_3px_0_rgba(42,34,80,0.25)] transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110`}>
+    <Glyph name={glyph} className="size-7" />
+  </span>
+</a>

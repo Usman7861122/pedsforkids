@@ -1,7 +1,7 @@
 // All homepage content lives here so pages stay clean and copy is easy to edit.
 
 export const practice = {
-  name: 'Peds 4 Kids',
+  name: 'Peds For Kids',
   legalName: 'Atanassova-Lineva MD Pediatrics PC',
   slogan: 'Let your dreams soar like dragon wings',
   tagline: 'Pediatric and adolescent medicine in Rego Park, Queens',
@@ -17,6 +17,9 @@ export const practice = {
     { name: 'TikTok', href: 'https://tiktok.com/@askdrd' },
   ],
 };
+
+// Nearby neighborhoods shown under the contact form. TODO: ask the practice to review this list.
+export const serviceAreas = ['Rego Park', 'Forest Hills', 'Elmhurst', 'Middle Village', 'Kew Gardens', 'Corona', 'Jackson Heights', 'Flushing'];
 
 // 0 = Sunday ... 6 = Saturday
 export const hours: { day: string; time: string | null }[] = [
@@ -50,14 +53,33 @@ export const grownUpServices = [
   'IV vitamin infusions',
 ];
 
+// Adult aesthetic services shown as cards on the About page. Pages at /services/<slug> come later.
+export const grownUpCards = [
+  { slug: 'botox', title: 'Botox', text: 'Smooth fine lines with quick, gentle treatments.', glyph: 'star', color: 'grape' },
+  { slug: 'dermal-fillers', title: 'Dermal fillers', text: 'Restore volume and a fresh, natural look.', glyph: 'heart', color: 'coral' },
+  { slug: 'microneedling', title: 'Microneedling', text: 'Help skin look smoother and more even.', glyph: 'shield', color: 'sky' },
+  { slug: 'facial-rejuvenation', title: 'Facial rejuvenation', text: 'Treatments that bring back glow and tone.', glyph: 'flower', color: 'meadow' },
+  { slug: 'led-light-therapy', title: 'LED light therapy', text: 'Gentle light care for calmer, clearer skin.', glyph: 'star', color: 'sun' },
+  { slug: 'prp-treatments', title: 'PRP treatments', text: 'Use your own natural healing power for renewed skin.', glyph: 'thermo', color: 'coral' },
+  { slug: 'iv-vitamin-infusions', title: 'IV vitamin infusions', text: 'Vitamins and fluids to help you feel your best.', glyph: 'apple', color: 'meadow' },
+] as const;
+
 export const nav = {
   about: {
     label: 'About us',
     items: [
-      { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/about', color: 'sun' },
-      { label: 'Our providers', text: 'Doctor and nurse practitioners', href: '#providers', color: 'meadow' },
+      { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela', color: 'sun' },
       { label: 'Observership program', text: 'For international medical graduates', href: '/observership', color: 'grape' },
       { label: "Dr. Daniela's book", text: 'Prescription for a Happy and Healthy Child', href: '/book-by-dr-daniela', color: 'coral' },
+    ],
+  },
+  providers: {
+    label: 'Providers',
+    items: [
+      { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela', color: 'sun' },
+      { label: 'Lisa M. Guan, CPNP', text: 'Nurse practitioner', href: '/about#providers', color: 'coral' },
+      { label: 'Miriam Samekhova, CFNP', text: 'Nurse practitioner', href: '/about#providers', color: 'sky' },
+      { label: 'Michal Sarikov, FNP-BC', text: 'Nurse practitioner', href: '/about#providers', color: 'meadow' },
     ],
   },
   services: {
@@ -70,8 +92,8 @@ export const nav = {
     label: 'Families',
     items: [
       { label: 'Patient forms', text: 'Fill in before you visit', href: '/patient-forms', color: 'sky' },
-      { label: 'Reviews', text: 'What parents say', href: '#reviews', color: 'sun' },
-      { label: 'Art from our kids', text: 'Our little artists', href: '#art', color: 'coral' },
+      { label: 'Reviews', text: 'What parents say', href: '/testimonials', color: 'sun' },
+      { label: 'Art from our kids', text: 'Our little artists', href: '/art-from-our-kids', color: 'coral' },
       { label: 'Health blog', text: 'Answers to common questions', href: '/blog', color: 'meadow' },
     ],
   },

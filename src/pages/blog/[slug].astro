@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import PaperEdge from '../../components/ui/PaperEdge.astro';
+import Contact from '../../components/sections/Contact.astro';
+import { allPosts, postBodies, featuredPosts } from '../../data/blog';
+import { blogPdfs, blogImages } from '../../data/blogFiles';
+import { practice } from '../../data/site';
+
+export function getStaticPaths() {
+  return featuredPosts.map((f) => ({ params: { slug: f.slug }, props: { post: allPosts.find((p) => p.slug === f.slug)! } }));
+}
+const { post } = Astro.props;
+const body = postBodies[post.slug];
+const pdf = blogPdfs[post.slug];
+const slides = blogImages[post.slug];
+const feat = featuredPosts.find((f) => f.slug === post.slug);
+const pub = featuredPosts.map((f) => allPosts.find((p) => p.slug === f.slug)!);
+const idx = pub.findIndex((p) => p.slug === post.slug);
+const others = pub.filter((p) => p.slug !== post.slug);
+const from = Math.min(Math.max(0, idx - 1), others.length - 3);
+const more = others.slice(from, from + 3);
+const oldUrl = `https://www.peds4kids.com/blog/${post.slug}`;
+---
+<BaseLayout title={`${post.title} | Peds For Kids`} description={post.excerpt || `${post.title}. A health article from Peds For Kids in Rego Park, Queens.`}>
+  <PageHero crumb="Health blog" title={post.title} tone="sun">
+    <p class="mt-4 font-bold text-ink-soft">{post.date}{post.author && ` · By ${post.author}`}</p>
+  </PageHero>
+
+  <section class="section-pad relative bg-paper">
+    <PaperEdge variant="wave" class="text-paper" />
+    <div class="container-x relative z-[2] grid gap-10 lg:grid-cols-[minmax(0,44rem)_1fr]">
+      <article class="grid gap-8 text-lg leading-relaxed">
+        {feat && <img src={feat.image} alt={feat.alt} width="900" height="675" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover shadow-[0_7px_0_rgba(42,34,80,0.18)]" />}
+        {(feat?.summary || post.excerpt) && !body && <p class="lede">{feat?.summary || post.excerpt}</p>}
+        {body && body.map((s) => (
+          <div>
+            {s.heading && <h2 class="text-3xl">{s.heading}</h2>}
+            {s.paras && <div class={`grid gap-3 ${s.heading ? 'mt-3' : ''}`}>{s.paras.map((t) => <p>{t}</p>)}</div>}
+            {s.items && <ul class="mt-3 grid list-disc gap-1.5 pl-6 marker:text-coral">{s.items.map((i) => <li>{i}</li>)}</ul>}
+            {s.text && <p class="mt-3 font-bold">{s.text}</p>}
+          </div>
+        ))}
+        {pdf && (
+          <div class="grid gap-4">
+            <div class="flex flex-wrap items-center gap-3">
+              <a href={pdf} target="_blank" rel="noopener" class="btn btn-paper">Open the slides (PDF)</a>
+              <a href={pdf} download class="font-bold underline decoration-coral decoration-[3px] underline-offset-4">Download</a>
+            </div>
+            <object data={pdf} type="application/pdf" class="h-[75vh] min-h-[28rem] w-full rounded-[1.5rem] border-2 border-ink/15 bg-white" aria-label={`${post.title} slides`}>
+              <p class="p-6">Your browser can’t show the slides here. <a href={pdf} target="_blank" rel="noopener" class="font-bold underline">Open the PDF</a>.</p>
+            </object>
+          </div>
+        )}
+        {slides && (
+          <div class="grid gap-5">
+            {slides.map((src, n) => <img src={src} alt={`${post.title}, slide ${n + 1}`} loading="lazy" class="w-full rounded-[1rem] border-2 border-ink/15 bg-white" />)}
+          </div>
+        )}
+        {!body && !pdf && !slides && (
+          <div class="sheet p-7" style="--sheet:#ffe88f;--sheet-shade:#e3c453;">
+            <p class="relative z-[1]">We are still moving this article to our new site. You can read the full version on our old site for now.</p>
+            <a href={oldUrl} target="_blank" rel="noopener" class="btn btn-paper relative z-[1] mt-4">Read the full article</a>
+          </div>
+        )}
+        <p class="border-t-2 border-dashed border-ink/20 pt-6 text-base text-ink-soft">This article is for learning only. It does not replace advice from your child's doctor. For a medical emergency, call 911.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/blog" class="btn btn-paper">All articles</a>
+          <a href={practice.bookUrl} class="btn">Book a visit</a>
+        </div>
+      </article>
+
+      <aside>
+        <h2 class="text-2xl">More to read</h2>
+        <ul class="mt-4 grid gap-4">
+          {more.map((p) => (
+            <li>
+              <a href={`/blog/${p.slug}`} class="sheet block p-5 transition-transform duration-200 hover:-translate-y-1" style="--sheet-shade:#e3bd3a;">
+                <span class="relative z-[1] block text-sm font-bold text-ink-soft">{p.date}</span>
+                <span class="relative z-[1] block font-display text-xl font-bold leading-snug">{p.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </section>
+  <Contact />
+</BaseLayout>

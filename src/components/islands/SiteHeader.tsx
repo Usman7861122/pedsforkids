@@ -5,9 +5,9 @@ import AnimatedLogo from './AnimatedLogo';
 import { Bear, Glyph, type GlyphName } from '../art/Art';
 import { services } from '../../data/site';
 
-type MenuKey = 'about' | 'services' | 'families';
-const order: MenuKey[] = ['about', 'services', 'families'];
-const widths: Record<MenuKey, number> = { about: 400, services: 620, families: 400 };
+type MenuKey = 'about' | 'providers' | 'services' | 'families';
+const order: MenuKey[] = ['about', 'providers', 'services', 'families'];
+const widths: Record<MenuKey, number> = { about: 400, providers: 400, services: 620, families: 400 };
 
 const chip: Record<string, string> = {
   sun: 'bg-sun',
@@ -160,12 +160,12 @@ export default function SiteHeader() {
       <div className="container-x">
         <div ref={barRef} className="relative">
           <div className="sheet flex items-center justify-between gap-3 rounded-[2rem] py-2 pl-4 pr-2.5" style={sheetVars}>
-            <a href="/" className="flex items-center gap-2.5" aria-label="Peds 4 Kids, home">
+            <a href="/" className="flex items-center gap-2.5" aria-label="Peds For Kids, home">
               <AnimatedLogo />
             </a>
 
-            <nav aria-label="Main" className="hidden lg:block">
-              <ul className="flex items-center gap-1 font-display text-[1.05rem] font-bold">
+            <nav aria-label="Main" className="hidden xl:block">
+              <ul className="flex items-center gap-1 whitespace-nowrap font-display text-[1.05rem] font-bold">
                 <li>
                   <a href="/" className="block rounded-full px-4 py-2 transition-colors hover:bg-cloud">Home</a>
                 </li>
@@ -181,7 +181,7 @@ export default function SiteHeader() {
                       onMouseEnter={() => openMenu(key)}
                       onFocus={() => openMenu(key)}
                       onClick={() => (open === key ? setOpen(null) : openMenu(key))}
-                      className={`flex items-center gap-1.5 rounded-full px-4 py-2 transition-colors ${open === key ? 'bg-sun-soft' : 'hover:bg-cloud'}`}
+                      className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 transition-colors ${open === key ? 'bg-sun-soft' : 'hover:bg-cloud'}`}
                     >
                       {nav[key].label}
                       <Caret open={open === key} />
@@ -197,16 +197,16 @@ export default function SiteHeader() {
             <div className="flex items-center gap-2">
               <a
                 href={practice.phoneHref}
-                className="hidden items-center gap-2 rounded-full px-3 py-2.5 font-display font-bold transition-colors hover:bg-cloud md:flex"
+                className="hidden items-center gap-2 rounded-full px-3 py-2.5 font-display font-bold transition-colors hover:bg-cloud md:flex whitespace-nowrap"
                 aria-label={`Call ${practice.phone}`}
               >
                 <PhoneIcon />
-                <span className="hidden xl:inline">{practice.phone}</span>
+                <span className="hidden 2xl:inline">{practice.phone}</span>
               </a>
               <a href={practice.bookUrl} className="btn whitespace-nowrap !px-4 !py-2.5 !text-[0.95rem] sm:!px-5 sm:!py-3 sm:!text-base">Book a visit</a>
               <button
                 type="button"
-                className="grid size-11 place-items-center rounded-full bg-sky-soft lg:hidden"
+                className="grid size-11 place-items-center rounded-full bg-sky-soft xl:hidden"
                 aria-label="Open menu"
                 aria-expanded={drawer}
                 onClick={() => setDrawer(true)}
@@ -219,7 +219,7 @@ export default function SiteHeader() {
           </div>
 
           {/* One panel that slides and resizes between menus */}
-          <div className="pointer-events-none absolute left-0 top-full hidden w-full pt-3 lg:block">
+          <div className="pointer-events-none absolute left-0 top-full hidden w-full pt-3 xl:block">
             <AnimatePresence>
               {open && (
                 <motion.div

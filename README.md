@@ -1,4 +1,4 @@
-# Peds 4 Kids
+# Peds For Kids
 
 Astro + React islands + Tailwind CSS v4 + Framer Motion. Paper-craft kids theme.
 

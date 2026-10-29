@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import Contact from '../components/sections/Contact.astro';
+import { Star } from '../components/art/Art';
+import { practice } from '../data/site';
+
+// Real reviews from the practice's own testimonials page (peds4kids.com/testimonials).
+const all = [
+  { name: 'Boris J.', note: 'Parent, June 2024', quote: 'Dr. Daniela is knowledgeable and compassionate. Happy to have my daughter under her care.', sheet: '#ffe88f', shade: '#e3c453' },
+  { name: 'Martha E.', note: 'Parent, July 2021', quote: 'Ms. Goldenberg was great. She had an excellent bedside manner, she was thorough and attentive. She was able to make us feel comfortable and reassured with some questions we had.', sheet: '#ffd6cc', shade: '#f2a999' },
+  { name: 'Vicente F.', note: 'Patient, October 2020', quote: 'I like the service they provide.', sheet: '#cdefd7', shade: '#7fcf9f' },
+  { name: 'Tarathya D.', note: 'Medical student, February 2020', quote: 'Thank you for opening your clinic as a place for students to learn. It has been a privilege to meet and learn from an inspirational pediatrician like you.', sheet: '#e4dbfa', shade: '#bda9ef' },
+];
+const tilt = ['-1deg', '0.8deg', '0.6deg', '-0.8deg'];
+---
+<BaseLayout title="Reviews | Peds For Kids" description="Read what parents and students say about Peds For Kids in Rego Park, Queens. 5 out of 5 stars from 4 reviews.">
+  <PageHero crumb="Reviews" title="Parents say it best" lede="Your feedback means a lot to us. Here is what families and students shared about their time at Peds For Kids." tone="sky">
+    <p class="sheet mt-8 inline-flex items-center gap-3 px-5 py-3" style="--sheet-shade:#8fcbe6;">
+      <span class="relative z-[1] flex" aria-hidden="true">{[0, 1, 2, 3, 4].map(() => <Star className="w-6" />)}</span>
+      <span class="relative z-[1] font-bold">5 out of 5 from 4 reviews</span>
+    </p>
+  </PageHero>
+
+  <section class="section-pad relative bg-paper">
+    <PaperEdge variant="cloud" class="text-paper" />
+    <div class="container-x relative z-[2]">
+      <ul class="grid gap-8 md:grid-cols-2">
+        {all.map((r, i) => (
+          <li class="flex">
+            <figure class="sheet relative flex w-full flex-col p-8 transition-transform duration-200 hover:-translate-y-1.5 hover:rotate-0" style={`--sheet:${r.sheet};--sheet-shade:${r.shade};transform:rotate(${tilt[i]})`}>
+              <span class="relative z-[1] flex" aria-label="5 out of 5 stars">{[0, 1, 2, 3, 4].map(() => <Star className="w-5" />)}</span>
+              <span class="relative z-[1] mt-3 font-display text-6xl leading-[0.6] text-coral-deep" aria-hidden="true">“</span>
+              <blockquote class="relative z-[1] mt-2 text-[1.2rem] leading-relaxed">{r.quote}</blockquote>
+              <figcaption class="relative z-[1] mt-auto pt-6">
+                <span class="block font-display text-xl font-bold">{r.name}</span>
+                <span class="text-sm text-ink-soft">{r.note}</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-14 flex flex-wrap items-center gap-5">
+        <p class="font-display text-2xl font-bold">Seen us recently? Tell us how it went.</p>
+        <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+        <a href={practice.bookUrl} class="btn">Book a visit</a>
+      </div>
+    </div>
+  </section>
+  <Contact />
+</BaseLayout>

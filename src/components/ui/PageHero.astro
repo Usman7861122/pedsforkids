@@ -1,0 +1,21 @@
+---
+// Simple top banner for inner pages.
+import { Cloud, Sun } from '../art/Art';
+interface Props { crumb: string; title: string; lede?: string; tone?: 'sky' | 'coral' | 'sun' | 'meadow' }
+const { crumb, title, lede, tone = 'sky' } = Astro.props;
+const bg = { sky: 'bg-sky-soft', coral: 'bg-coral-soft', sun: 'bg-sun-soft', meadow: 'bg-meadow-soft' }[tone];
+---
+<section class={`relative overflow-hidden ${bg} pb-16 pt-36 md:pb-24 md:pt-44`}>
+  <div class="absolute inset-0" aria-hidden="true">
+    <div class="bg-layer bg-skyfade"></div>
+    <div class="bg-layer bg-doodle-sky"></div>
+    <Sun className="bob absolute right-[6%] top-28 hidden w-24 md:block" />
+    <Cloud className="drift absolute left-[3%] top-32 hidden w-32 md:block" />
+  </div>
+  <div class="container-x relative z-[2]">
+    <p class="font-display text-lg font-bold text-ink-soft"><a href="/" class="hover:underline">Home</a> / {crumb}</p>
+    <h1 class="h-display mt-2 max-w-3xl">{title}</h1>
+    {lede && <p class="lede mt-5 max-w-[60ch]">{lede}</p>}
+    <slot />
+  </div>
+</section>

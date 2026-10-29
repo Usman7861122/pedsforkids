@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PaperEdge from '../../components/ui/PaperEdge.astro';
+import PhotoFrame from '../../components/ui/PhotoFrame.astro';
+import ServiceCard from '../../components/ui/ServiceCard.astro';
+import Testimonials from '../../components/sections/Testimonials.astro';
+import Contact from '../../components/sections/Contact.astro';
+import { Butterfly, Cloud, Daisy, Glyph, Star, Sun } from '../../components/art/Art';
+import { practice, services } from '../../data/site';
+import { servicePages } from '../../data/serviceContent';
+
+export function getStaticPaths() {
+  return servicePages.map((p) => ({ params: { slug: p.slug }, props: { page: p } }));
+}
+const { page } = Astro.props;
+const areaText = page.local.areas.length > 1 ? `${page.local.areas.slice(0, -1).join(', ')} and ${page.local.areas.at(-1)}` : page.local.areas.join('');
+const others = services.filter((s) => s.slug !== page.slug);
+const tone: Record<string, { bg: string; shade: string }> = {
+  sky: { bg: '#bfe8f8', shade: '#8fcbe6' },
+  coral: { bg: '#ffd6cc', shade: '#f2a999' },
+  sun: { bg: '#ffe88f', shade: '#e3c453' },
+  meadow: { bg: '#cdefd7', shade: '#7fcf9f' },
+  grape: { bg: '#e4dbfa', shade: '#bda9ef' },
+};
+const shades = ['#f0c200', '#ff9d8e', '#7fcf9f', '#bda9ef', '#8fcbe6'];
+const tilt = ['-1.2deg', '0.8deg', '-0.6deg', '1.2deg'];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: page.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<BaseLayout title={`${page.title} in Rego Park, Queens | Peds For Kids`} description={page.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+
+  <!-- Intro -->
+  <section class="relative overflow-hidden bg-sky-soft pb-24 pt-36 md:pb-32 md:pt-44">
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer bg-skyfade"></div>
+      <div class="bg-layer bg-doodle-sky"></div>
+      <Sun className="bob absolute right-[4%] top-28 hidden w-20 md:block" />
+      <Cloud className="drift absolute left-[3%] top-36 hidden w-32 md:block" />
+      <Butterfly className="bob absolute left-[48%] bottom-16 hidden w-12 md:block" color="#8f6be0" />
+    </div>
+    <div class="container-x relative z-[2] grid items-center gap-12 md:grid-cols-[1.1fr_minmax(0,24rem)] lg:gap-20">
+      <div>
+        <nav aria-label="Breadcrumb" class="font-display text-base font-bold text-ink-soft">
+          <a href="/" class="hover:underline">Home</a> <span aria-hidden="true">/</span> <a href="/#services" class="hover:underline">Services</a>
+        </nav>
+        <h1 class="h-display mt-3">{page.h1}</h1>
+        <p class="lede mt-5">{page.lede}</p>
+        <ul class="mt-6 flex flex-wrap gap-2.5" aria-label="Highlights">
+          {page.tags.map((t, i) => <li class="tag" style={`--tag-shade:${shades[i % shades.length]}`}>{t}</li>)}
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href={practice.bookUrl} class="btn">Book a visit</a>
+          <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+        </div>
+      </div>
+      <div class="group relative mx-auto w-full max-w-sm">
+        <span class="absolute -left-6 -top-4 h-full w-full -rotate-3 rounded-[45%_55%_40%_60%/50%_45%_55%_50%] bg-sun-soft" aria-hidden="true"></span>
+        <span class="absolute -bottom-4 -right-5 h-3/4 w-3/4 rotate-6 rounded-[55%_45%_60%_40%/45%_55%_45%_55%] bg-paper/70" aria-hidden="true"></span>
+        <PhotoFrame slot={page.photos.hero} shape="arch" tape="#ffd23f" class="relative aspect-[4/5] w-full transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.02] motion-reduce:transition-none" />
+      </div>
+      <div class="group flex items-start gap-4 border-t-2 border-dashed border-ink/20 pt-7 md:col-span-2">
+        <span class="grid size-11 shrink-0 place-items-center rounded-full bg-paper shadow-[0_4px_0_#8fcbe6] transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110">
+          <svg viewBox="0 0 24 24" class="size-6" aria-hidden="true">
+            <path d="M12 21s7-6.2 7-11.2A7 7 0 0 0 5 9.8C5 14.8 12 21 12 21Z" fill="#ff7a66" stroke="#2a2250" stroke-width="1.8" stroke-linejoin="round" />
+            <circle cx="12" cy="9.8" r="2.6" fill="#fffdf7" stroke="#2a2250" stroke-width="1.8" />
+          </svg>
+        </span>
+        <p class="flex min-h-11 items-center text-lg font-medium leading-snug">
+          Patients are welcome from across {areaText}, and the greater Queens area.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What happens at a visit -->
+  <section class="relative overflow-hidden bg-paper py-14 md:py-20">
+    <PaperEdge variant="cloud" class="text-paper" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer" style="background:radial-gradient(40% 50% at 92% 15%, rgba(255,232,143,0.5), transparent 70%), radial-gradient(40% 50% at 4% 90%, rgba(205,239,215,0.7), transparent 70%)"></div>
+      <Star className="bob absolute right-[6%] top-16 hidden w-9 md:block" color="#ffd23f" />
+    </div>
+    <div class="container-x relative z-[2] grid items-stretch gap-10 lg:grid-cols-[minmax(0,29rem)_1fr] lg:gap-12">
+      <div class="hidden lg:block">
+        <PhotoFrame slot={page.photos.a} shape="wobble" tape="#59bfea" pos="50% center" class="h-full min-h-[28rem] w-full" />
+      </div>
+      <div>
+        <h2 class="h-section max-w-2xl">{page.visit.title}</h2>
+        <p class="lede mt-3">{page.visit.text}</p>
+        <ul class="mt-8 grid gap-5 sm:grid-cols-2">
+          {page.visit.items.map((it) => (
+            <li class="flex">
+              <div class="sheet group flex w-full items-start gap-4 p-5 transition-transform duration-300 hover:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:transform-none" style={`--sheet:#fffdf7;--sheet-shade:${tone[it.color].shade};`}>
+                <span class="relative z-[1] grid size-12 shrink-0 place-items-center rounded-2xl transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" style={`background:${tone[it.color].bg};box-shadow:0 4px 0 ${tone[it.color].shade}`}>
+                  <Glyph name={it.glyph} className="w-7" />
+                </span>
+                <div class="relative z-[1]">
+                  <h3 class="text-[1.15rem] leading-tight">{it.title}</h3>
+                  <p class="mt-1 text-ink-soft">{it.text}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- When to visit -->
+  <section class="relative bg-sun-soft py-14 md:py-20">
+    <PaperEdge variant="scallop" class="text-sun-soft" />
+    <div class="absolute inset-0" aria-hidden="true"><div class="bg-layer bg-dots"></div></div>
+    <div class="container-x relative z-[2] grid items-center gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-14">
+      <div>
+        <h2 class="h-section max-w-2xl">{page.schedule.title}</h2>
+        <p class="lede mt-3 font-medium !text-ink">{page.schedule.text}</p>
+        <ol class="mt-7 flex flex-wrap gap-2.5" aria-label="Recommended visit ages">
+          {page.schedule.ages.map((a, i) => <li class="tag" style={`--tag-shade:${shades[i % shades.length]}`}>{a}</li>)}
+          <li class="tag" style="--tag-shade:#e3c453">Then every year until 21</li>
+        </ol>
+        <p class="mt-6 max-w-[58ch] text-lg">{page.schedule.after}</p>
+      </div>
+      <PhotoFrame slot={page.photos.b} shape="blob" tape="#ff7a66" class="mx-auto aspect-square w-full max-w-sm rotate-2" />
+    </div>
+  </section>
+
+  <!-- Teens -->
+  <section class="relative bg-grape-soft py-14 md:py-20">
+    <PaperEdge variant="zigzag" class="text-grape-soft" />
+    <div class="absolute inset-0 overflow-hidden" aria-hidden="true"><Cloud className="drift absolute -right-10 top-24 hidden w-44 opacity-90 md:block" /></div>
+    <div class="container-x relative z-[2] grid items-center gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-14">
+      <PhotoFrame slot={page.photos.c} shape="arch" tape="#43c37a" class="mx-auto aspect-[4/5] w-full max-w-xs" />
+      <div>
+        <h2 class="h-section max-w-2xl">{page.teen.title}</h2>
+        <p class="lede mt-3 font-medium !text-ink">{page.teen.text}</p>
+        <ul class="mt-6 flex flex-wrap gap-2.5">
+          {page.teen.topics.map((t, i) => <li class="tag" style={`--tag-shade:${shades[i % shades.length]}`}>{t}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vaccines + what to bring -->
+  <section class="relative overflow-hidden bg-meadow-soft py-14 md:py-20">
+    <PaperEdge variant="wave" class="text-meadow-soft" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer bg-doodle-meadow"></div>
+      <Daisy className="absolute bottom-4 left-[6%] hidden w-9 md:block" />
+      <Daisy className="absolute bottom-6 right-[9%] hidden w-8 md:block" />
+    </div>
+    <div class="container-x relative z-[2] grid items-start gap-8 lg:grid-cols-2">
+      <div class="sheet p-7 md:p-9" style="--sheet:#fffdf7;--sheet-shade:#7fcf9f;">
+        <div class="relative z-[1] flex items-center gap-4">
+          <PhotoFrame slot={page.photos.d} shape="round" class="size-20 shrink-0" />
+          <h2 class="text-2xl md:text-3xl">{page.vaccines.title}</h2>
+        </div>
+        <p class="relative z-[1] mt-4 text-ink-soft">{page.vaccines.text}</p>
+        <ul class="relative z-[1] mt-5 space-y-3">
+          {page.vaccines.shots.map((s) => (
+            <li class="flex gap-3"><span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-meadow" aria-hidden="true"></span><span><b>{s.name}.</b> {s.text}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="sheet p-7 md:p-9" style="--sheet:#fffdf7;--sheet-shade:#f2a999;">
+        <h2 class="relative z-[1] text-2xl md:text-3xl">What to bring</h2>
+        <ul class="relative z-[1] mt-5 space-y-3">
+          {page.bring.map((b) => (
+            <li class="flex gap-3"><span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-coral" aria-hidden="true"></span>{b}</li>
+          ))}
+        </ul>
+        <a href={practice.bookUrl} class="btn relative z-[1] mt-7">Book a visit</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="relative bg-paper py-14 md:py-20">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="container-x relative z-[2] grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-14">
+      <div>
+        <h2 class="h-section">Questions parents ask</h2>
+        <p class="lede mt-3">Do not see your question? Call us on {practice.phone}.</p>
+      </div>
+      <div class="space-y-4">
+        {page.faqs.map((f) => (
+          <details class="sheet group p-5 open:bg-cloud" style="--sheet:#fffdf7;--sheet-shade:#e3dcc6;">
+            <summary class="relative z-[1] flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg font-bold">
+              {f.q}
+              <span class="grid size-8 shrink-0 place-items-center rounded-full bg-sun text-xl transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="relative z-[1] mt-3 text-ink-soft">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Local -->
+  <section class="relative bg-sky-soft py-12 md:py-16">
+    <PaperEdge variant="cloud" class="text-sky-soft" />
+    <div class="container-x relative z-[2]">
+      <h2 class="h-section max-w-2xl">{page.local.title}</h2>
+      <p class="lede mt-3">{page.local.text}</p>
+      <ul class="mt-6 flex flex-wrap gap-2.5">
+        {page.local.areas.map((a, i) => <li class="tag" style={`--tag-shade:${shades[i % shades.length]}`}>{a}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Other services -->
+  <section class="relative bg-sun-soft py-14 md:py-20">
+    <PaperEdge variant="scallop" class="text-sun-soft" />
+    <div class="absolute inset-0" aria-hidden="true"><div class="bg-layer bg-doodle-coral"></div></div>
+    <div class="container-x relative z-[2]">
+      <h2 class="h-section max-w-2xl">Other ways we can help</h2>
+      <ul class="mt-10 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+        {others.map((s, i) => (
+          <li>
+            <ServiceCard href={`/services/${s.slug}`} title={s.title} text={s.text} glyph={s.glyph} color={s.color} slot={`svc-${s.slug}`} tilt={tilt[i % 4]} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Testimonials />
+  <Contact />
+</BaseLayout>

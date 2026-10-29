@@ -132,6 +132,26 @@
   .h-section { font-size: clamp(2rem, 4.2vw, 3.25rem); }
   .lede { font-size: 1.2rem; max-width: 56ch; color: var(--color-ink-soft); }
 
+
+  /* Kids' footprint pathway used by the timeline on the Dr. Daniela page */
+  .pathway-road {
+    background-color: rgba(255, 253, 247, 0.7);
+    border-radius: 999px;
+    border: 4px dashed rgba(224, 168, 0, 0.55);
+  }
+  .pathway-feet {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22112%22 height=%22170%22 viewBox=%220 0 112 170%22%3E%3Cg transform=%22rotate(180 56 85)%22%3E%3Cg fill=%22%23ff7a66%22 transform=%22translate(16 12) scale(1.55) rotate(-10 12 24)%22%3E%3Cg%3E%3Cellipse cx=%2212%22 cy=%2230%22 rx=%227.5%22 ry=%2210%22/%3E%3Cellipse cx=%2212%22 cy=%2240%22 rx=%225.5%22 ry=%224.5%22/%3E%3Ccircle cx=%2216%22 cy=%229%22 r=%223.6%22/%3E%3Ccircle cx=%228.4%22 cy=%2211.6%22 r=%222.8%22/%3E%3Ccircle cx=%224%22 cy=%2216.6%22 r=%222.4%22/%3E%3Ccircle cx=%222.6%22 cy=%2222.4%22 r=%222.1%22/%3E%3Ccircle cx=%2221.6%22 cy=%2215%22 r=%222.2%22/%3E%3C/g%3E%3C/g%3E%3Cg fill=%22%2359bfea%22 transform=%22translate(98 98) scale(-1.55 1.55) rotate(-10 12 24)%22%3E%3Cg%3E%3Cellipse cx=%2212%22 cy=%2230%22 rx=%227.5%22 ry=%2210%22/%3E%3Cellipse cx=%2212%22 cy=%2240%22 rx=%225.5%22 ry=%224.5%22/%3E%3Ccircle cx=%2216%22 cy=%229%22 r=%223.6%22/%3E%3Ccircle cx=%228.4%22 cy=%2211.6%22 r=%222.8%22/%3E%3Ccircle cx=%224%22 cy=%2216.6%22 r=%222.4%22/%3E%3Ccircle cx=%222.6%22 cy=%2222.4%22 r=%222.1%22/%3E%3Ccircle cx=%2221.6%22 cy=%2215%22 r=%222.2%22/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 100% auto;
+    background-repeat: repeat-y;
+  }
+  .pathway-feet-faint { opacity: 0.22; }
+  /* Full-color footprints are revealed down the road as the page scrolls (--p is set in dr-daniela.astro) */
+  .pathway-feet-walked {
+    clip-path: inset(0 0 calc(100% - var(--p, 100%)) 0);
+  }
   .tag {
     display: inline-flex;
     align-items: center;
@@ -141,6 +161,17 @@
     box-shadow: 0 3px 0 var(--tag-shade, #d9d1b8);
     font-weight: 700;
     font-size: 0.95rem;
+    cursor: default;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  .tag:hover {
+    transform: translateY(-3px) rotate(-1.5deg);
+    background: color-mix(in srgb, var(--tag-shade, #d9d1b8) 28%, var(--color-paper));
+    box-shadow: 0 6px 0 var(--tag-shade, #d9d1b8);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tag { transition: none; }
+    .tag:hover { transform: none; }
   }
 }
 
@@ -184,7 +215,20 @@
   mask-image: linear-gradient(to bottom, transparent 0, #000 160px);
 }
 .bg-rays { background: repeating-conic-gradient(from 0deg at 50% -8%, rgba(255, 196, 30, 0.3) 0 6deg, transparent 6deg 12deg); }
-.bg-dots { background-image: radial-gradient(circle, rgba(143, 107, 224, 0.3) 3.5px, transparent 4px); background-size: 30px 30px; }
+.bg-dots { background-image: radial-gradient(circle, rgba(143, 107, 224, 0.17) 3.5px, transparent 4px); background-size: 30px 30px; }
+/* Dots near the pointer pop up bigger and brighter (pointer position set by a small script in BaseLayout) */
+.bg-dots::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 122, 102, 0.8) 7px, transparent 7.5px);
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(circle 130px at var(--mx, -999px) var(--my, -999px), #000 0, transparent 100%);
+  mask-image: radial-gradient(circle 130px at var(--mx, -999px) var(--my, -999px), #000 0, transparent 100%);
+  opacity: var(--dots-on, 0);
+  transition: opacity 0.35s ease;
+}
+@media (prefers-reduced-motion: reduce), (hover: none) { .bg-dots::after { display: none; } }
 .bg-gingham {
   background-image: linear-gradient(90deg, rgba(255, 122, 102, 0.2) 50%, transparent 50%), linear-gradient(rgba(255, 122, 102, 0.2) 50%, transparent 50%);
   background-size: 64px 64px;

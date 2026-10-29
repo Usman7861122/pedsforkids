@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import PhotoFrame from '../components/ui/PhotoFrame.astro';
+import Providers from '../components/sections/Providers.astro';
+import Press from '../components/sections/Press.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Contact from '../components/sections/Contact.astro';
+import { Butterfly, Cloud, Daisy, Sun, Star, Glyph } from '../components/art/Art';
+import ServiceCard from '../components/ui/ServiceCard.astro';
+import { practice, grownUpCards } from '../data/site';
+import { aboutIntro, drBio, credentials, affiliations, inOffice } from '../data/about';
+
+const tone: Record<string, { bg: string; shade: string }> = {
+  sky: { bg: '#bfe8f8', shade: '#8fcbe6' },
+  coral: { bg: '#ffd6cc', shade: '#f2a999' },
+  sun: { bg: '#ffe88f', shade: '#e3c453' },
+  meadow: { bg: '#cdefd7', shade: '#7fcf9f' },
+};
+---
+<BaseLayout title="About us | Peds For Kids" description="Meet Dr. Daniela Atanassova-Lineva and the Peds For Kids team. Pediatric and adolescent care in Rego Park, Queens.">
+  <!-- Page intro -->
+  <section class="relative overflow-hidden bg-sky-soft pb-20 pt-36 md:pb-28 md:pt-44">
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer bg-skyfade"></div>
+      <div class="bg-layer bg-doodle-sky"></div>
+      <Sun className="bob absolute right-[6%] top-28 hidden w-24 md:block" />
+      <Cloud className="drift absolute left-[4%] top-32 hidden w-32 md:block" />
+      <Cloud className="drift-slow absolute right-[22%] bottom-6 hidden w-24 md:block" />
+    </div>
+    <div class="container-x relative z-[2]">
+      <p class="font-display text-lg font-bold text-ink-soft">{practice.name}</p>
+      <h1 class="h-display mt-2 max-w-3xl">{aboutIntro.title}</h1>
+      <p class="lede mt-5 max-w-[60ch]">{aboutIntro.lede}</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href={practice.bookUrl} class="btn">Book a visit</a>
+        <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet Dr. Daniela -->
+  <section id="meet" class="section-pad relative bg-paper">
+    <PaperEdge variant="cloud" class="text-paper" />
+    <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div class="bg-layer" style="background:radial-gradient(45% 55% at 12% 55%, rgba(255,232,143,0.55), transparent 70%), radial-gradient(40% 50% at 92% 15%, rgba(191,232,248,0.7), transparent 70%), radial-gradient(40% 45% at 85% 95%, rgba(205,239,215,0.7), transparent 70%)"></div>
+      <div class="bg-layer bg-doodle-sky" style="opacity:0.14"></div>
+      <Butterfly className="bob absolute right-[8%] top-24 hidden w-14 md:block" />
+      <Butterfly className="bob absolute left-[5%] bottom-24 hidden w-10 md:block" color="#8f6be0" style={{ animationDelay: '-2s' }} />
+      <Star className="bob absolute left-[38%] top-16 hidden w-8 md:block" color="#ffd23f" />
+      <Cloud className="drift absolute right-[3%] bottom-16 hidden w-28 opacity-80 md:block" />
+      <Daisy className="absolute bottom-6 left-[44%] hidden w-9 md:block" />
+      <Daisy className="absolute bottom-10 right-[34%] hidden w-7 md:block" />
+    </div>
+    <div class="container-x relative z-[2] grid items-center gap-12 md:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
+      <div class="group relative mx-auto w-full max-w-sm">
+        <span class="absolute -left-6 -top-4 h-full w-full -rotate-3 rounded-[45%_55%_40%_60%/50%_45%_55%_50%] bg-sun-soft" aria-hidden="true"></span>
+        <span class="absolute -bottom-4 -right-5 h-3/4 w-3/4 rotate-6 rounded-[55%_45%_60%_40%/45%_55%_45%_55%] bg-sky-soft" aria-hidden="true"></span>
+        <PhotoFrame slot="doctor" shape="arch" tape="#ffd23f" class="relative aspect-[4/5] w-full transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.02] motion-reduce:transition-none" />
+        <div class="absolute -bottom-6 -left-4 z-[3] grid h-28 w-28 -rotate-6 place-items-center rounded-full bg-coral transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110 p-3 text-center font-display text-sm font-extrabold leading-tight shadow-[0_5px_0_var(--color-coral-deep)]">
+          Top Pediatrician 2022
+        </div>
+      </div>
+      <div>
+        <p class="font-display text-lg font-bold text-ink-soft">{drBio.role}</p>
+        <h2 class="h-section mt-2">Meet {drBio.name}</h2>
+        <div class="mt-5 space-y-4 text-lg">
+          {drBio.paragraphs.map((t) => <p class="max-w-[58ch]">{t}</p>)}
+        </div>
+        <h3 class="mt-8 font-display text-xl">She works with</h3>
+        <ul class="mt-3 flex flex-wrap gap-2.5">
+          {affiliations.map((a, i) => (
+            <li class="tag" style={`--tag-shade:${['#f0c200', '#ff9d8e', '#7fcf9f'][i]}`}>{a}</li>
+          ))}
+        </ul>
+        <a href="/dr-daniela" class="btn mt-8">Read her full story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credentials -->
+  <section class="section-pad relative bg-sun-soft">
+    <PaperEdge variant="scallop" class="text-sun-soft" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer bg-dots"></div>
+      <Star className="bob absolute right-[6%] top-20 hidden w-10 md:block" color="#ffd23f" />
+    </div>
+    <div class="container-x relative z-[2]">
+      <h2 class="h-section max-w-2xl">Why families trust us</h2>
+      <ul class="mt-12 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        {credentials.map((c) => (
+          <li class="flex">
+            <div class="sheet group flex w-full flex-col items-start p-6 transition-transform duration-300 ease-out hover:-translate-y-2 hover:rotate-1 motion-reduce:transition-none motion-reduce:hover:transform-none" style="--sheet:#fffdf7;--sheet-shade:#e3c453;">
+              <span class="relative z-[1] grid h-16 w-16 place-items-center rounded-full transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110 motion-reduce:transition-none" style={`background:${tone[c.color].bg};box-shadow:0 4px 0 ${tone[c.color].shade}`}>
+                <Glyph name={c.glyph as any} className="w-9" />
+              </span>
+              <h3 class="relative z-[1] mt-5 text-[1.3rem]">{c.title}</h3>
+              <p class="relative z-[1] mt-2 text-ink-soft">{c.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- What we do in the office -->
+  <section class="section-pad relative bg-coral-soft">
+    <PaperEdge variant="wave" class="text-coral-soft" />
+    <div class="absolute inset-0" aria-hidden="true"><div class="bg-layer bg-doodle-coral"></div></div>
+    <div class="container-x relative z-[2]">
+      <div class="sheet grid items-center gap-8 p-8 transition-transform duration-300 hover:-translate-y-1.5 motion-reduce:transition-none md:grid-cols-2 md:gap-12 md:p-12" style="--sheet:#fffdf7;--sheet-shade:#f2a999;">
+        <div class="relative z-[1]">
+          <h2 class="text-3xl md:text-4xl">Answers on the same day</h2>
+          <p class="mt-3 text-ink-soft">Many tests happen right in our office, so you often leave with answers.</p>
+          <ul class="mt-5 space-y-2.5">
+            {inOffice.map((t) => (
+              <li class="flex gap-3"><span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-coral" aria-hidden="true"></span>{t}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="relative z-[1]">
+          <p class="text-lg text-ink-soft">Video visits are also open through the Healow app, for families across the US.</p>
+          <a href="/#services" class="btn btn-sun mt-6">See all services</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Care for grown-ups -->
+  <section class="section-pad relative bg-grape-soft">
+    <PaperEdge variant="zigzag" class="text-grape-soft" />
+    <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div class="bg-layer bg-dots"></div>
+      <Cloud className="drift absolute -left-10 top-24 hidden w-48 opacity-90 md:block" />
+      <Star className="bob absolute right-[7%] top-20 hidden w-10 md:block" color="#ffd23f" />
+    </div>
+    <div class="container-x relative z-[2]">
+      <div class="max-w-2xl">
+        <h2 class="h-section">Care for grown-ups too</h2>
+        <p class="lede mt-4">Dr. Daniela also offers aesthetic and wellness treatments for parents and adults. Pick a service to learn more.</p>
+      </div>
+      <ul class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+        {grownUpCards.map((c, i) => (
+          <li>
+            <ServiceCard
+              href={`/services/${c.slug}`}
+              title={c.title}
+              text={c.text}
+              glyph={c.glyph}
+              color={c.color}
+              slot={`adult-${c.slug}`}
+              tilt={['-1.2deg', '0.8deg', '-0.6deg', '1.2deg'][i % 4]}
+              shade="#bda9ef"
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Providers />
+  <Press />
+  <Testimonials />
+  <Contact />
+</BaseLayout>
