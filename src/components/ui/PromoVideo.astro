@@ -1,0 +1,52 @@
+---
+// Muted looping video with a sound button. Plays only while on screen.
+interface Props { src: string; poster: string; label: string; class?: string }
+const { src, poster, label, class: cls = '' } = Astro.props;
+---
+<div class={`promo-video relative ${cls}`}>
+  <span class="absolute -top-3 left-1/2 z-[2] h-6 w-24 -translate-x-1/2 -rotate-3 opacity-85" style="background:#ffd23f" aria-hidden="true"></span>
+  <div class="h-full overflow-hidden rounded-[2rem] bg-paper p-2.5 shadow-[0_9px_0_rgba(42,34,80,0.2)]">
+    <div class="relative h-full overflow-hidden rounded-[1.5rem] bg-ink">
+      <video class="h-full w-full object-cover" muted loop playsinline preload="metadata" poster={poster} aria-label={label}>
+        <source src={src} type="video/mp4" />
+      </video>
+      <button type="button" data-sound class="absolute bottom-3 right-3 flex items-center gap-2 rounded-full bg-paper px-4 py-2 font-display text-base font-bold shadow-[0_4px_0_rgba(42,34,80,0.25)] transition-transform hover:-translate-y-0.5" aria-pressed="false">
+        <svg viewBox="0 0 24 24" class="size-5" aria-hidden="true">
+          <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+          <g data-on class="hidden"><path d="M16 8.5a5 5 0 010 7M18.5 6a8.5 8.5 0 010 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></g>
+          <g data-off><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></g>
+        </svg>
+        <span data-label>Sound off</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.promo-video').forEach((box) => {
+    const v = box.querySelector('video');
+    const b = box.querySelector<HTMLButtonElement>('[data-sound]');
+    if (!v || !b) return;
+    const on = b.querySelector<SVGGElement>('[data-on]')!;
+    const off = b.querySelector<SVGGElement>('[data-off]')!;
+    const label = b.querySelector('[data-label]')!;
+    const paint = () => {
+      const sound = !v.muted;
+      b.setAttribute('aria-pressed', String(sound));
+      b.setAttribute('aria-label', sound ? 'Turn sound off' : 'Turn sound on');
+      label.textContent = sound ? 'Sound on' : 'Sound off';
+      on.classList.toggle('hidden', !sound);
+      off.classList.toggle('hidden', sound);
+    };
+    b.addEventListener('click', () => { v.muted = !v.muted; if (v.paused) v.play().catch(() => {}); paint(); });
+    paint();
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still) { v.controls = true; return; }
+    new IntersectionObserver((es) => {
+      es.forEach((e) => {
+        if (e.isIntersecting) v.play().catch(() => {});
+        else { v.pause(); if (!v.muted) { v.muted = true; paint(); } }
+      });
+    }, { threshold: 0.35 }).observe(v);
+  });
+</script>
