@@ -1,0 +1,20 @@
+---
+// Big, soft stacked "peds / for / kids" logo for section backgrounds. Brand colors, low opacity.
+interface Props { class?: string; size?: string }
+const { class: cls = '', size = 'clamp(5rem,11vw,11rem)' } = Astro.props;
+const rows = [
+  { t: 'peds', c: ['#29a0dd', '#7dbd32', '#f5912b', '#f5912b'] },
+  { t: 'for', c: ['#2a2a2e', '#2a2a2e', '#2a2a2e'] },
+  { t: 'kids', c: ['#f4801d', '#6a2c91', '#7dbd32', '#29a0dd'] },
+];
+---
+<div aria-hidden="true" class={`pointer-events-none select-none ${cls}`}>
+  <div class="flex items-stretch gap-[0.12em] font-display font-light leading-[0.98] tracking-tight" style={`font-size:${size}`}>
+    <span class="w-[0.035em] rounded-full bg-ink"></span>
+    <span class="flex flex-col">
+      {rows.map((r) => (
+        <span class="flex">{r.t.split('').map((ch, i) => <span style={`color:${r.c[i]}`}>{ch}</span>)}</span>
+      ))}
+    </span>
+  </div>
+</div>

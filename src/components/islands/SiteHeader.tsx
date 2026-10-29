@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { nav, practice } from '../../data/site';
+import AnimatedLogo from './AnimatedLogo';
 import { Bear, Glyph, type GlyphName } from '../art/Art';
 import { services } from '../../data/site';
 
@@ -160,7 +161,7 @@ export default function SiteHeader() {
         <div ref={barRef} className="relative">
           <div className="sheet flex items-center justify-between gap-3 rounded-[2rem] py-2 pl-4 pr-2.5" style={sheetVars}>
             <a href="/" className="flex items-center gap-2.5" aria-label="Peds 4 Kids, home">
-              <img src="/images/logo.png" alt="Peds for Kids" width={121} height={120} className="h-14 w-auto sm:h-16" />
+              <AnimatedLogo />
             </a>
 
             <nav aria-label="Main" className="hidden lg:block">
@@ -272,7 +273,7 @@ export default function SiteHeader() {
             <div className="container-x py-4">
               <div className="flex items-center justify-between">
                 <a href="/" className="flex items-center gap-2.5">
-                  <img src="/images/logo.png" alt="Peds for Kids" width={121} height={120} className="h-14 w-auto" />
+                  <AnimatedLogo size="lg" />
                 </a>
                 <button type="button" onClick={() => setDrawer(false)} aria-label="Close menu" className="grid size-11 place-items-center rounded-full bg-sun">
                   <svg viewBox="0 0 24 24" className="size-6" aria-hidden="true">

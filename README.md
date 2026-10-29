@@ -20,3 +20,10 @@ Astro + React islands + Tailwind CSS v4 + Framer Motion. Paper-craft kids theme.
 - Replace sample art with real photos (Dr. Daniela, gallery drawings)
 - Set `practice.bookUrl` in `src/data/site.ts` to the Zocdoc/Healow link
 - Connect the contact form in `ContactForm.tsx`
+
+### Moved to the future About page
+- Board certified in pediatric and adolescent medicine; speaks five languages
+- Visits: check-ups, walk-in care, asthma and allergies
+- Tests in the office: rapid strep and flu, lung function, EKG, blood work, genetic testing
+- Affiliated with Mount Sinai, Northwell and NewYork-Presbyterian Queens
+- "Insured or self-pay" highlight
