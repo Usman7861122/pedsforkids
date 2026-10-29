@@ -1,0 +1,48 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import { Balloon, Crayon, Star } from '../art/Art';
+import PhotoFrame from '../ui/PhotoFrame.astro';
+
+// TODO: replace these sample drawings with real art from patients.
+const art = [
+  { kind: 'house', alt: 'Crayon drawing of a house under a sunny sky', rot: '-2deg', span: '' },
+  { kind: 'rainbow', alt: 'Crayon drawing of a rainbow', rot: '1.5deg', span: '' },
+  { kind: 'rocket', alt: 'Crayon drawing of a rocket flying past stars', rot: '-1deg', span: '' },
+  { kind: 'cat', alt: 'Crayon drawing of a cat face', rot: '2deg', span: '' },
+  { kind: 'flower', alt: 'Crayon drawing of a flower', rot: '-1.5deg', span: '' },
+  { kind: 'fish', alt: 'Crayon drawing of a fish in the sea', rot: '1deg', span: '' },
+] as const;
+const tape = ['#ffd23f', '#59bfea', '#8f6be0', '#43c37a', '#ff7a66', '#ffd23f'];
+---
+<section id="art" class="section-pad relative bg-coral-soft">
+  <PaperEdge variant="cloud" class="text-coral-soft" />
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-gingham"></div>
+    <Star className="bob absolute left-[5%] top-40 hidden w-10 md:block" color="#ffd23f" />
+    <Star className="bob absolute right-[8%] top-28 hidden w-8 md:block" color="#8f6be0" style={{ animationDelay: '-1s' }} />
+    <Balloon className="bob absolute right-[3%] bottom-24 hidden w-14 md:block" color="#59bfea" shade="#2c8fc2" />
+  </div>
+  <div class="container-x relative z-[2]">
+    <div class="max-w-2xl">
+      <h2 class="h-section">Art from our kids</h2>
+      <p class="lede mt-4">Little artists are always welcome. Bring a drawing to your next visit and we will hang it up.</p>
+    </div>
+
+    <ul class="mt-12 grid grid-cols-2 gap-x-5 gap-y-9 md:grid-cols-3 md:gap-x-8">
+      {art.map((a, i) => (
+        <li>
+          <PhotoFrame slot={`gallery${i}`} shape="sheet" tape={tape[i]} class="aspect-[4/5]" style={`transform:rotate(${a.rot})`}>
+          <div class="sheet relative p-3 transition-transform duration-200 hover:-translate-y-1 hover:rotate-0 md:p-4" style={`--sheet-shade:#f0a595;transform:rotate(${a.rot})`}>
+            <span class="absolute -top-3 left-1/2 z-[2] h-6 w-20 -translate-x-1/2 -rotate-3 opacity-80" style={`background:${tape[i]}`} aria-hidden="true"></span>
+            <Crayon kind={a.kind} aria-label={a.alt} className="relative z-[1] w-full rounded-lg" />
+          </div>
+          </PhotoFrame>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-12">
+      <a href="/art-from-our-kids" class="btn btn-paper">See more art</a>
+    </div>
+  </div>
+</section>

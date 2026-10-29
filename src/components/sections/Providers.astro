@@ -1,0 +1,65 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import { Animal, Butterfly, Daisy, Hills, Tree } from '../art/Art';
+import PhotoFrame from '../ui/PhotoFrame.astro';
+import { practice, providers } from '../../data/site';
+
+const bg: Record<string, string> = {
+  sun: '#ffe88f', coral: '#ffd6cc', sky: '#bfe8f8', meadow: '#cdefd7',
+};
+const shade: Record<string, string> = {
+  sun: '#e3c453', coral: '#f2a999', sky: '#8fcbe6', meadow: '#7fcf9f',
+};
+---
+<section id="providers" class="section-pad relative bg-meadow-soft !pb-56">
+  <PaperEdge variant="scallop" class="text-meadow-soft" />
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-meadowfade"></div>
+    <div class="bg-layer bg-doodle-meadow"></div>
+    <Butterfly className="bob absolute right-[10%] top-32 hidden w-14 md:block" />
+    <Butterfly className="bob absolute left-[6%] top-[46%] hidden w-10 md:block" color="#8f6be0" style={{ animationDelay: '-2s' }} />
+    <Hills className="absolute inset-x-0 bottom-0 h-44 w-full" colors={['#9fe3b8', '#6bd195', '#3bb06c']} />
+    <Tree className="absolute bottom-24 left-[7%] w-14" />
+    <Tree className="absolute bottom-28 left-[11%] hidden w-10 md:block" />
+    <Tree className="absolute bottom-24 right-[8%] w-16" />
+    <Daisy className="absolute bottom-5 left-[24%] w-9" />
+    <Daisy className="absolute bottom-3 left-[52%] w-10" />
+    <Daisy className="absolute bottom-6 right-[26%] w-8" />
+  </div>
+  <div class="container-x relative z-[2]">
+    <div class="max-w-2xl">
+      <h2 class="h-section">Choose your provider</h2>
+      <p class="lede mt-4">Everyone on our team is board certified. Pick who you would like to see when you book.</p>
+    </div>
+
+    <ul class="mt-14 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+      {providers.map((p, i) => (
+        <li class="flex">
+          <article class="sheet relative flex w-full flex-col px-6 pb-7 pt-32 text-center" style="--sheet:#fffdf7;--sheet-shade:#7fcf9f;">
+            <div class="absolute inset-x-6 -top-8 z-[2] mx-auto h-36 w-36">
+              <PhotoFrame slot={`provider${i}`} shape="round" class="h-full w-full">
+                <div class="grid h-full w-full place-items-end overflow-hidden rounded-full" style={`background:${bg[p.color]};box-shadow:0 5px 0 ${shade[p.color]}`}>
+                  <Animal name={p.animal} stetho={p.animal === 'owl'} className="w-[92%]" />
+                </div>
+              </PhotoFrame>
+            </div>
+            <h3 class="relative z-[1] text-[1.4rem]">{p.name}</h3>
+            <p class="relative z-[1] mt-1 font-bold text-ink-soft">{p.role}</p>
+            <p class="relative z-[1] mt-3 text-[1rem]">{p.text}</p>
+            <a href={practice.bookUrl} class="btn btn-meadow relative z-[1] mx-auto mt-6 !px-5 !py-3 !text-base">Book with {p.short}</a>
+          </article>
+        </li>
+      ))}
+    </ul>
+
+    <div class="sheet mt-16 grid gap-6 p-7 md:grid-cols-[1fr_auto] md:items-center md:p-9" style="--sheet:#e4dbfa;--sheet-shade:#bda9ef;">
+      <div class="relative z-[1]">
+        <h3 class="text-2xl md:text-3xl">Learn with us: the observership program</h3>
+        <p class="mt-2 max-w-[60ch]">
+          A 3-month program for international medical graduates, nurse practitioners and physician assistants, under Dr. Daniela's supervision.
+        </p>
+      </div>
+      <a href="/observership" class="btn btn-sun relative z-[1] justify-self-start">Learn more</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import { Cloud, Star } from '../art/Art';
+import { book } from '../../data/book';
+---
+<section id="book" class="section-pad relative bg-grape-soft">
+  <PaperEdge variant="zigzag" class="text-grape-soft" />
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-dots"></div>
+    <Cloud className="drift absolute left-[3%] top-28 hidden w-28 md:block" />
+    <Star className="bob absolute right-[5%] bottom-24 hidden w-10 md:block" color="#ffd23f" />
+  </div>
+  <div class="container-x relative z-[2] grid items-center gap-12 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-16">
+    <div class="relative mx-auto w-full max-w-[17rem] rotate-2 md:max-w-xs">
+      <span class="absolute -top-3 left-1/2 z-[2] h-6 w-24 -translate-x-1/2 -rotate-3 opacity-85" style="background:#43c37a" aria-hidden="true"></span>
+      <a href={book.amazon} target="_blank" rel="noopener" class="block rounded-2xl bg-paper p-2.5 shadow-[0_9px_0_rgba(42,34,80,0.2)] transition-transform hover:-translate-y-1 hover:rotate-0">
+        <img src={book.cover} alt={`Book cover: ${book.title}`} loading="lazy" class="block w-full rounded-xl" />
+      </a>
+    </div>
+    <div>
+      <p class="font-display text-lg font-bold text-ink-soft">A book by Dr. Daniela</p>
+      <h2 class="h-section mt-2">{book.title}</h2>
+      <p class="mt-3 font-display text-xl font-bold">{book.sub}</p>
+      <p class="lede mt-4 max-w-[52ch]">{book.text}</p>
+      <p class="mt-3 text-sm text-ink-soft">By {book.authors}</p>
+      <div class="mt-8 flex flex-wrap items-center gap-5">
+        <a href={book.amazon} target="_blank" rel="noopener" class="btn btn-sun">Buy on Amazon</a>
+        <img src={book.badge} alt="International Book Awards finalist" loading="lazy" class="h-20 w-20 object-contain" />
+      </div>
+    </div>
+  </div>
+</section>

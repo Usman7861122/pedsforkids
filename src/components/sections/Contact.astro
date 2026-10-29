@@ -1,0 +1,60 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import ContactForm from '../islands/ContactForm';
+import TodayHours from '../islands/TodayHours';
+import { Butterfly, Cloud, HotAirBalloon } from '../art/Art';
+import PhotoFrame from '../ui/PhotoFrame.astro';
+import { hours, practice } from '../../data/site';
+---
+<section id="contact" class="section-pad relative bg-cloud !pb-52 md:!pb-72">
+  <PaperEdge variant="cloud" class="text-cloud" />
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-skyfade"></div>
+    <div class="bg-layer bg-doodle-sky"></div>
+    <Cloud className="drift absolute -left-10 top-[30%] w-56" />
+    <Cloud className="drift-slow absolute right-[-3rem] top-24 w-64" />
+    <HotAirBalloon className="bob absolute right-[3%] top-[7%] hidden w-20 lg:block" />
+    <Butterfly className="bob absolute left-[46%] top-16 hidden w-12 md:block" />
+  </div>
+  <div class="container-x relative z-[2]">
+    <div class="max-w-2xl">
+      <h2 class="h-section">Say hello</h2>
+      <p class="lede mt-4">Questions, a new visit or a quick check on your plan? Send us a note or call. We will get back to you.</p>
+    </div>
+
+    <div class="mt-12 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+      <div class="grid content-start gap-8">
+        <PhotoFrame slot="clinic" shape="wobble" tape="#59bfea" class="aspect-[3/2]" />
+        <div class="sheet p-7" style="--sheet-shade:#bfd9e6;">
+          <div class="relative z-[1] grid gap-5 sm:grid-cols-2">
+            <div>
+              <h3 class="text-xl">Visit us</h3>
+              <address class="mt-2 not-italic">
+                {practice.address.map((l) => <span class="block">{l}</span>)}
+              </address>
+              <a href={practice.mapsUrl} class="mt-2 inline-block font-bold underline decoration-sky decoration-[3px] underline-offset-4" target="_blank" rel="noopener">Get directions</a>
+            </div>
+            <div>
+              <h3 class="text-xl">Call us</h3>
+              <a href={practice.phoneHref} class="mt-2 block text-lg font-bold">{practice.phone}</a>
+              <p class="text-sm text-ink-soft">Fax {practice.fax}</p>
+            </div>
+          </div>
+          <p class="relative z-[1] mt-5 border-t-2 border-dashed border-sky-soft pt-4 text-sm text-ink-soft">
+            For a medical emergency, call 911.
+          </p>
+        </div>
+
+        <div class="sheet p-7" style="--sheet-shade:#bfd9e6;">
+          <h3 class="relative z-[1] text-xl">Office hours</h3>
+          <TodayHours client:visible hours={hours} />
+        </div>
+      </div>
+
+      <div class="sheet p-7 md:p-9" style="--sheet:#ffe88f;--sheet-shade:#e3c453;">
+        <h3 class="relative z-[1] text-2xl">Send us a message</h3>
+        <ContactForm client:visible />
+      </div>
+    </div>
+  </div>
+</section>

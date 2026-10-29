@@ -1,0 +1,86 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import { Cloud, Glyph, Plane, Star, type GlyphName } from '../art/Art';
+import { photos } from '../../data/images';
+import { grownUpServices, services } from '../../data/site';
+
+const disc: Record<string, string> = {
+  sun: 'bg-sun', coral: 'bg-coral', sky: 'bg-sky', meadow: 'bg-meadow', grape: 'bg-grape',
+};
+const tint: Record<string, string> = {
+  sun: 'bg-sun', coral: 'bg-coral', sky: 'bg-sky', meadow: 'bg-meadow', grape: 'bg-grape-soft',
+};
+const tilt = ['-1.2deg', '0.8deg', '-0.6deg', '1.2deg'];
+---
+<section id="services" class="section-pad relative bg-sun-soft">
+  <PaperEdge variant="scallop" class="text-sun-soft" />
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-rays"></div>
+    <div class="bg-layer bg-doodle-coral"></div>
+    <Cloud className="drift absolute -left-12 top-[22%] w-60 opacity-90" />
+    <Cloud className="drift-slow absolute -right-16 top-[48%] w-72 opacity-90" />
+    <Cloud className="drift absolute left-[30%] bottom-6 hidden w-44 opacity-80 md:block" />
+    <Plane className="bob absolute right-[7%] top-28 hidden w-24 md:block" style={{ ['--r' as string]: '-8deg' }} />
+    <Star className="bob absolute left-[8%] top-40 hidden w-10 md:block" color="#ff7a66" />
+    <Star className="bob absolute right-[14%] bottom-24 hidden w-8 md:block" color="#8f6be0" style={{ animationDelay: '-2s' }} />
+  </div>
+  <div class="container-x relative z-[2]">
+    <div class="max-w-2xl">
+      <h2 class="h-section">Care for every little thing</h2>
+      <p class="lede mt-4">From first check-ups to teen questions, we cover the whole journey. Pick a service to learn more.</p>
+    </div>
+
+    <ul class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((s, i) => {
+        const photo = photos[`svc-${s.slug}`];
+        return (
+          <li>
+            <a
+              href={`/services/${s.slug}`}
+              class="group relative block aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-paper shadow-[0_7px_0_#d9b030] outline-offset-4 transition-transform duration-300 hover:-translate-y-1.5 hover:rotate-0 focus-visible:-translate-y-1.5 focus-visible:rotate-0"
+              style={`transform:rotate(${tilt[i % 4]})`}
+              aria-label={`${s.title}. ${s.text}`}
+            >
+              {photo?.src ? (
+                <img src={photo.src} alt="" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-110 group-focus-visible:scale-110" />
+              ) : (
+                <div class={`absolute inset-0 grid place-items-center ${disc[s.color]} transition-transform duration-700 group-hover:scale-110`}>
+                  <Glyph name={s.glyph as GlyphName} className="w-2/5 opacity-95" />
+                </div>
+              )}
+
+              {/* Title on the image */}
+              <div class="absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-t from-ink/80 via-ink/25 to-transparent transition-opacity duration-300 group-hover:opacity-0 group-focus-visible:opacity-0 [@media(hover:none)]:opacity-0" aria-hidden="true"></div>
+              <h3 class="absolute inset-x-5 bottom-5 text-[1.7rem] leading-tight text-paper transition-all duration-300 group-hover:translate-y-3 group-hover:opacity-0 group-focus-visible:opacity-0 [@media(hover:none)]:hidden" aria-hidden="true">{s.title}</h3>
+
+              {/* Description panel */}
+              <div class={`absolute inset-x-0 bottom-0 flex h-[68%] translate-y-full flex-col justify-end rounded-t-[1.75rem] ${tint[s.color]} p-6 transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0 [@media(hover:none)]:h-[62%] [@media(hover:none)]:translate-y-0`}>
+                <h3 class="text-[1.6rem] leading-tight">{s.title}</h3>
+                <p class="mt-2 text-[1rem] leading-snug">{s.text}</p>
+                <span class="mt-4 inline-flex items-center gap-2 font-display text-lg font-bold">
+                  Learn more
+                  <svg viewBox="0 0 24 24" class="size-5 transition-transform group-hover:translate-x-1" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                </span>
+              </div>
+
+              {/* Small icon badge */}
+              <span class={`absolute left-4 top-4 grid size-12 place-items-center rounded-2xl ${disc[s.color]} shadow-[0_3px_0_rgba(42,34,80,0.25)] transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110`}>
+                <Glyph name={s.glyph as GlyphName} className="size-7" />
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+
+    <div class="sheet mt-12 grid gap-6 p-7 md:grid-cols-[1fr_1.4fr] md:items-center md:p-9" style="--sheet:#e4dbfa;--sheet-shade:#bda9ef;">
+      <div class="relative z-[1]">
+        <h3 class="text-2xl md:text-3xl">Care for grown-ups too</h3>
+        <p class="mt-2 max-w-[40ch] text-ink-soft">Dr. Daniela also offers aesthetic and wellness treatments for adults.</p>
+      </div>
+      <ul class="relative z-[1] flex flex-wrap gap-2.5">
+        {grownUpServices.map((g) => <li class="tag" style="--tag-shade:#c9b8f2">{g}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>

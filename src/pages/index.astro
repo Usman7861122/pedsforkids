@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSlider from '../components/islands/HeroSlider';
+import About from '../components/sections/About.astro';
+import Services from '../components/sections/Services.astro';
+import Press from '../components/sections/Press.astro';
+import DoctorsDay from '../components/sections/DoctorsDay.astro';
+import Book from '../components/sections/Book.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Gallery from '../components/sections/Gallery.astro';
+import OurOffice from '../components/sections/OurOffice.astro';
+import Providers from '../components/sections/Providers.astro';
+import Insurance from '../components/sections/Insurance.astro';
+import Blog from '../components/sections/Blog.astro';
+import Contact from '../components/sections/Contact.astro';
+---
+<BaseLayout
+  title="Peds 4 Kids | Pediatrician in Rego Park, Queens"
+  description="Trusted pediatric and adolescent medicine in Rego Park, NY. Well-child exams, sick visits, vaccines, asthma and allergy care, and video visits."
+>
+  <HeroSlider client:load />
+  <About />
+  <Services />
+  <Press />
+  <DoctorsDay />
+  <Book />
+  <Testimonials />
+  <Gallery />
+  <OurOffice />
+  <Providers />
+  <Insurance />
+  <Blog />
+  <Contact />
+</BaseLayout>

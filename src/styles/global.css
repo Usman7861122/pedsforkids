@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/*
+  Design tokens: "Paper world"
+  Every surface is a sheet of cut paper. Shadows are hard, offset and tinted
+  (never soft grey), so layers feel stacked by hand.
+*/
+@theme {
+  --color-ink: #2a2250;
+  --color-ink-soft: #4a4375;
+  --color-paper: #fffdf7;
+  --color-cloud: #e9f7fd;
+
+  --color-sky: #59bfea;
+  --color-sky-soft: #bfe8f8;
+  --color-sky-deep: #2c8fc2;
+
+  --color-sun: #ffd23f;
+  --color-sun-soft: #ffe88f;
+  --color-sun-deep: #e0a800;
+
+  --color-coral: #ff7a66;
+  --color-coral-soft: #ffd6cc;
+  --color-coral-deep: #d9503c;
+
+  --color-meadow: #43c37a;
+  --color-meadow-soft: #cdefd7;
+  --color-meadow-deep: #25995a;
+
+  --color-grape: #8f6be0;
+  --color-grape-soft: #e4dbfa;
+  --color-grape-deep: #6b47bd;
+
+  --font-display: "Nunito", ui-rounded, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sheet: 1.75rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  :focus-visible {
+    outline: 3px solid var(--color-grape-deep);
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* A sheet of paper: flat color + hard offset shadow in a deeper tint */
+  .sheet {
+    position: relative;
+    background: var(--sheet, var(--color-paper));
+    border-radius: var(--radius-sheet);
+    box-shadow: 0 7px 0 var(--sheet-shade, #e3dcc6);
+  }
+  .sheet::after {
+    /* faint paper grain */
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1;
+    color: var(--color-ink);
+    background: var(--btn, var(--color-coral));
+    box-shadow: 0 5px 0 var(--btn-shade, var(--color-coral-deep));
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn:hover { transform: translateY(2px); box-shadow: 0 3px 0 var(--btn-shade, var(--color-coral-deep)); }
+  .btn:active { transform: translateY(5px); box-shadow: 0 0 0 var(--btn-shade, var(--color-coral-deep)); }
+  .btn-sun { --btn: var(--color-sun); --btn-shade: var(--color-sun-deep); }
+  .btn-paper { --btn: var(--color-paper); --btn-shade: #cfc7ad; }
+  .btn-meadow { --btn: var(--color-meadow); --btn-shade: var(--color-meadow-deep); }
+
+  .container-x {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) { .container-x { padding-inline: 2rem; } }
+
+  .section-pad { padding-block: clamp(4.5rem, 9vw, 7.5rem); }
+
+  .h-display { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+  .h-section { font-size: clamp(2rem, 4.2vw, 3.25rem); }
+  .lede { font-size: 1.2rem; max-width: 56ch; color: var(--color-ink-soft); }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.95rem;
+    border-radius: 999px;
+    background: var(--color-paper);
+    box-shadow: 0 3px 0 var(--tag-shade, #d9d1b8);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+}
+
+@keyframes drift {
+  from { transform: translateX(-12%); }
+  to { transform: translateX(12%); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--r, 0deg)); }
+}
+@keyframes progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.drift { animation: drift 18s ease-in-out infinite alternate; }
+.drift-slow { animation: drift 28s ease-in-out infinite alternate; }
+.bob { animation: bob 5s ease-in-out infinite; }
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--color-sun);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+
+
+/* ---------- Section backgrounds (patterns that fade in below the paper edge) ---------- */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 160px);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 160px);
+}
+.bg-rays { background: repeating-conic-gradient(from 0deg at 50% -8%, rgba(255, 196, 30, 0.3) 0 6deg, transparent 6deg 12deg); }
+.bg-dots { background-image: radial-gradient(circle, rgba(143, 107, 224, 0.3) 3.5px, transparent 4px); background-size: 30px 30px; }
+.bg-gingham {
+  background-image: linear-gradient(90deg, rgba(255, 122, 102, 0.2) 50%, transparent 50%), linear-gradient(rgba(255, 122, 102, 0.2) 50%, transparent 50%);
+  background-size: 64px 64px;
+}
+.bg-grid {
+  background-image: linear-gradient(rgba(89, 191, 234, 0.32) 2px, transparent 2px), linear-gradient(90deg, rgba(89, 191, 234, 0.32) 2px, transparent 2px);
+  background-size: 40px 40px;
+}
+.bg-lined {
+  background-image: linear-gradient(90deg, transparent 5.5rem, rgba(217, 80, 60, 0.35) 5.5rem calc(5.5rem + 2px), transparent calc(5.5rem + 2px)),
+    repeating-linear-gradient(to bottom, transparent 0 41px, rgba(44, 143, 194, 0.3) 41px 43px);
+}
+.bg-skyfade { background: linear-gradient(to bottom, rgba(89, 191, 234, 0.25), rgba(255, 255, 255, 0.55) 70%, rgba(255, 255, 255, 0.2)); }
+.bg-meadowfade { background: radial-gradient(60% 50% at 80% 10%, rgba(255, 232, 143, 0.7), transparent 70%), linear-gradient(to bottom, transparent 50%, rgba(67, 195, 122, 0.25)); }
+.bg-doodle-grape { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill='none' stroke='%238f6be0' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 44q10-16 20 0t20 0'/%3E%3Ccircle cx='124' cy='34' r='9'/%3E%3Cpath d='M138 120v18M129 129h18'/%3E%3Cpath d='M34 132l10-12 10 12 10-12'/%3E%3Cpath d='M96 84l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z'/%3E%3Cpath d='M150 70q8-10 16 0'/%3E%3C/g%3E%3C/svg%3E"); background-size: 180px 180px; opacity: 0.26; }
+.bg-doodle-coral { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill='none' stroke='%23ff7a66' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 44q10-16 20 0t20 0'/%3E%3Ccircle cx='124' cy='34' r='9'/%3E%3Cpath d='M138 120v18M129 129h18'/%3E%3Cpath d='M34 132l10-12 10 12 10-12'/%3E%3Cpath d='M96 84l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z'/%3E%3Cpath d='M150 70q8-10 16 0'/%3E%3C/g%3E%3C/svg%3E"); background-size: 180px 180px; opacity: 0.3; }
+.bg-doodle-meadow { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill='none' stroke='%2325995a' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 44q10-16 20 0t20 0'/%3E%3Ccircle cx='124' cy='34' r='9'/%3E%3Cpath d='M138 120v18M129 129h18'/%3E%3Cpath d='M34 132l10-12 10 12 10-12'/%3E%3Cpath d='M96 84l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z'/%3E%3Cpath d='M150 70q8-10 16 0'/%3E%3C/g%3E%3C/svg%3E"); background-size: 180px 180px; opacity: 0.22; }
+.bg-doodle-sky { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill='none' stroke='%232c8fc2' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 44q10-16 20 0t20 0'/%3E%3Ccircle cx='124' cy='34' r='9'/%3E%3Cpath d='M138 120v18M129 129h18'/%3E%3Cpath d='M34 132l10-12 10 12 10-12'/%3E%3Cpath d='M96 84l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z'/%3E%3Cpath d='M150 70q8-10 16 0'/%3E%3C/g%3E%3C/svg%3E"); background-size: 180px 180px; opacity: 0.22; }
+.bg-confetti { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Crect x='20' y='30' width='14' height='6' rx='3' fill='%23ff7a66' transform='rotate(30 27 33)'/%3E%3Ccircle cx='90' cy='20' r='5' fill='%2359bfea'/%3E%3Crect x='170' y='44' width='14' height='6' rx='3' fill='%2343c37a' transform='rotate(-25 177 47)'/%3E%3Ccircle cx='230' cy='90' r='5' fill='%23ffd23f'/%3E%3Crect x='60' y='110' width='14' height='6' rx='3' fill='%238f6be0' transform='rotate(60 67 113)'/%3E%3Ccircle cx='140' cy='130' r='5' fill='%23ff7a66'/%3E%3Crect x='200' y='170' width='14' height='6' rx='3' fill='%2359bfea' transform='rotate(-40 207 173)'/%3E%3Ccircle cx='40' cy='200' r='5' fill='%23ffd23f'/%3E%3Crect x='110' y='220' width='14' height='6' rx='3' fill='%2343c37a' transform='rotate(15 117 223)'/%3E%3Ccircle cx='240' cy='236' r='5' fill='%238f6be0'/%3E%3C/svg%3E"); background-size: 260px 260px; opacity: 0.8; }
+
+/* Photo shapes */
+.frame-arch { border-radius: 999px 999px 1.5rem 1.5rem; }
+.frame-blob { border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%; }
+.frame-wobble { border-radius: 2rem 4rem 2rem 4rem; }
+.photo { display: block; width: 100%; height: 100%; object-fit: cover; }

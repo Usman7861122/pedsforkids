@@ -1,0 +1,48 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import { Animal, Plane, Star } from '../art/Art';
+import { photos } from '../../data/images';
+import { posts } from '../../data/site';
+
+const top: Record<string, string> = { sky: '#bfe8f8', meadow: '#cdefd7', coral: '#ffd6cc' };
+const shade: Record<string, string> = { sky: '#8fcbe6', meadow: '#7fcf9f', coral: '#f2a999' };
+---
+<section id="blog" class="section-pad relative bg-sun-soft">
+  <PaperEdge variant="zigzag" class="text-sun-soft" />
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-lined"></div>
+    <Plane className="bob absolute right-[5%] top-24 hidden w-20 md:block" color="#43c37a" light="#7fdc9d" dark="#25995a" style={{ ['--r' as string]: '8deg' }} />
+    <Star className="bob absolute left-[3%] top-[45%] hidden w-9 md:block" color="#ff7a66" />
+  </div>
+  <div class="container-x relative z-[2]">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <h2 class="h-section">Answers for curious parents</h2>
+        <p class="lede mt-4">Short, clear reads on the health questions families ask us most.</p>
+      </div>
+      <a href="/blog" class="btn btn-paper">See all articles</a>
+    </div>
+
+    <ul class="mt-12 grid gap-8 md:grid-cols-3">
+      {posts.map((p, i) => (
+        <li class="flex">
+          <a href={`/blog/${p.slug}`} class="sheet group flex w-full flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1.5" style="--sheet-shade:#e3bd3a;">
+            {photos[`blog${i}`]?.src ? (
+              <img src={photos[`blog${i}`].src} alt={photos[`blog${i}`].alt} loading="lazy" class="relative z-[1] h-44 w-full object-cover" />
+            ) : (
+              <div class="relative z-[1] grid h-44 place-items-end overflow-hidden" style={`background:${top[p.color]}`}>
+                <Animal name={p.art} className="w-36 translate-y-4 transition-transform duration-200 group-hover:-translate-y-0" />
+              </div>
+            )}
+            <div class="relative z-[1] flex flex-1 flex-col p-6">
+              <p class="text-sm font-bold text-ink-soft">{p.date}</p>
+              <h3 class="mt-1 text-[1.5rem]">{p.title}</h3>
+              <p class="mt-2 text-ink-soft">{p.text}</p>
+              <span class="mt-auto pt-5 font-display text-lg font-bold underline decoration-coral decoration-[3px] underline-offset-4">Read article</span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

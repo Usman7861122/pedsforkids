@@ -1,0 +1,85 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import { Cloud, Star, Balloon } from '../art/Art';
+import { officePhotos } from '../../data/office';
+
+const { full = false } = Astro.props;
+const shown = full ? officePhotos : officePhotos.slice(0, 4);
+const tape = ['#ffd23f', '#59bfea', '#8f6be0', '#43c37a', '#ff7a66'];
+const rot = ['-1.5deg', '1deg', '-0.5deg', '1.5deg', '-1deg', '0.5deg'];
+---
+<section id="office" class={`section-pad relative bg-sky-soft ${full ? 'pt-36 md:pt-44' : ''}`}>
+  {!full && <PaperEdge variant="wave" class="text-sky-soft" />}
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-dots"></div>
+    <Cloud className="drift absolute left-[4%] top-28 hidden w-28 md:block" />
+    <Star className="bob absolute right-[6%] top-32 hidden w-9 md:block" color="#ffd23f" />
+    <Balloon className="bob absolute left-[2%] bottom-24 hidden w-12 md:block" color="#ff7a66" shade="#d9503c" />
+  </div>
+  <div class="container-x relative z-[2]">
+    <div class="max-w-2xl">
+      {full ? <h1 class="h-display">Our office</h1> : <h2 class="h-section">Our office</h2>}
+      <p class="lede mt-4">Come and see where we play, learn and take care of you. It is bright, clean and made for kids.</p>
+    </div>
+
+    {!full ? (
+      <div class="mt-10 grid items-center gap-10 md:grid-cols-[minmax(0,19rem)_1fr] md:gap-14">
+        <div class="relative mx-auto w-full max-w-[19rem] -rotate-1">
+          <span class="absolute -top-3 left-1/2 z-[2] h-6 w-24 -translate-x-1/2 rotate-2 opacity-85" style="background:#ffd23f" aria-hidden="true"></span>
+          <div class="rounded-[2rem] bg-paper p-2.5 shadow-[0_9px_0_rgba(42,34,80,0.2)]">
+            <video class="aspect-[9/16] w-full rounded-[1.5rem] bg-ink object-cover" controls playsinline preload="none" poster="/video/office-tour-poster.jpg" aria-label="Video tour of the Peds 4 Kids office">
+              <source src="/video/office-tour.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <p class="mt-5 text-center font-display text-lg font-bold">Take a quick tour</p>
+        </div>
+    <ul class={full ? "mt-12 columns-2 gap-4 md:columns-3 md:gap-6 lg:columns-4" : "grid grid-cols-2 gap-5 md:gap-7"}>
+        {shown.map((p, i) => (
+          <li class={full ? "mb-4 break-inside-avoid md:mb-6" : ""}>
+            <button type="button" data-office={p.src} data-alt={p.alt} class="relative block w-full cursor-zoom-in rounded-[1.25rem] bg-paper p-2 shadow-[0_7px_0_rgba(42,34,80,0.18)] transition-transform duration-200 hover:-translate-y-1 hover:rotate-0" style={`transform:rotate(${rot[i % rot.length]})`} aria-label={`Open photo ${i + 1} larger`}>
+              <span class="absolute -top-3 left-1/2 z-[2] h-5 w-16 -translate-x-1/2 -rotate-3 opacity-85" style={`background:${tape[i % tape.length]}`} aria-hidden="true"></span>
+              <img src={p.src} alt={p.alt} loading="lazy" class={`block w-full rounded-[0.9rem] ${full ? "" : "aspect-[4/3] object-cover"}`} />
+            </button>
+          </li>
+        ))}
+      </ul>
+      </div>
+    ) : (
+    <ul class={full ? "mt-12 columns-2 gap-4 md:columns-3 md:gap-6 lg:columns-4" : "grid grid-cols-2 gap-5 md:gap-7"}>
+      {shown.map((p, i) => (
+        <li class={full ? "mb-4 break-inside-avoid md:mb-6" : ""}>
+          <button type="button" data-office={p.src} data-alt={p.alt} class="relative block w-full cursor-zoom-in rounded-[1.25rem] bg-paper p-2 shadow-[0_7px_0_rgba(42,34,80,0.18)] transition-transform duration-200 hover:-translate-y-1 hover:rotate-0" style={`transform:rotate(${rot[i % rot.length]})`} aria-label={`Open photo ${i + 1} larger`}>
+            <span class="absolute -top-3 left-1/2 z-[2] h-5 w-16 -translate-x-1/2 -rotate-3 opacity-85" style={`background:${tape[i % tape.length]}`} aria-hidden="true"></span>
+            <img src={p.src} alt={p.alt} loading="lazy" class={`block w-full rounded-[0.9rem] ${full ? "" : "aspect-[4/3] object-cover"}`} />
+          </button>
+        </li>
+      ))}
+    </ul>
+    )}
+    {!full && (
+      <div class="mt-10">
+        <a href="/our-office" class="btn btn-paper">See all {officePhotos.length} photos</a>
+      </div>
+    )}
+  </div>
+
+  <dialog id="office-box" class="m-auto max-h-[92vh] max-w-[92vw] overflow-visible rounded-3xl bg-paper p-2 backdrop:bg-ink/70">
+    <img id="office-img" src="" alt="" class="block max-h-[85vh] max-w-full rounded-2xl" />
+    <button type="button" id="office-close" class="btn btn-sun absolute -right-3 -top-3 !px-4 !py-2" aria-label="Close photo">Close</button>
+  </dialog>
+</section>
+
+<script>
+  const box = document.getElementById('office-box') as HTMLDialogElement | null;
+  const img = document.getElementById('office-img') as HTMLImageElement | null;
+  document.querySelectorAll<HTMLButtonElement>('[data-office]').forEach((b) => {
+    b.addEventListener('click', () => {
+      if (!box || !img) return;
+      img.src = b.dataset.office || '';
+      img.alt = b.dataset.alt || '';
+      box.showModal();
+    });
+  });
+  document.getElementById('office-close')?.addEventListener('click', () => box?.close());
+  box?.addEventListener('click', (e) => { if (e.target === box) box.close(); });
+</script>

@@ -1,0 +1,37 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import { Balloon, Star } from '../art/Art';
+import { doctorsDay } from '../../data/events';
+
+const tape = ['#ffd23f', '#59bfea', '#8f6be0', '#43c37a', '#ff7a66'];
+const rot = ['-1.5deg', '1deg', '-1deg', '1.5deg', '-0.5deg'];
+---
+<section id="doctors-day" class="section-pad relative bg-sun-soft">
+  <PaperEdge variant="scallop" class="text-sun-soft" />
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-rays"></div>
+    <Balloon className="bob absolute right-[4%] top-28 hidden w-14 md:block" color="#59bfea" shade="#2c8fc2" />
+    <Star className="bob absolute left-[4%] top-40 hidden w-10 md:block" color="#ff7a66" />
+  </div>
+  <div class="container-x relative z-[2]">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="font-display text-lg font-bold text-ink-soft">{doctorsDay.kicker}</p>
+        <h2 class="h-section mt-2">{doctorsDay.title}</h2>
+        <p class="lede mt-4">{doctorsDay.text}</p>
+      </div>
+      <a href={doctorsDay.href} target="_blank" rel="noopener" class="btn btn-paper">Read the full press release</a>
+    </div>
+
+    <ul class="mt-12 columns-1 gap-6 sm:columns-2 lg:columns-3">
+      {doctorsDay.photos.map((p, i) => (
+        <li class="mb-6 break-inside-avoid">
+          <div class="relative rounded-[1.25rem] bg-paper p-2 shadow-[0_7px_0_rgba(42,34,80,0.18)] transition-transform duration-200 hover:-translate-y-1 hover:rotate-0" style={`transform:rotate(${rot[i % rot.length]})`}>
+            <span class="absolute -top-3 left-1/2 z-[2] h-5 w-16 -translate-x-1/2 -rotate-3 opacity-85" style={`background:${tape[i % tape.length]}`} aria-hidden="true"></span>
+            <img src={p.src} alt={p.alt} loading="lazy" class="block w-full rounded-[0.9rem]" />
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

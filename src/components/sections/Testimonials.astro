@@ -1,0 +1,57 @@
+---
+import PaperEdge from '../ui/PaperEdge.astro';
+import { Balloon, Cloud, Star } from '../art/Art';
+import PhotoFrame from '../ui/PhotoFrame.astro';
+import { reviews } from '../../data/site';
+
+const sheets: Record<string, string> = {
+  sun: '--sheet:#ffe88f;--sheet-shade:#e3c453;',
+  coral: '--sheet:#ffd6cc;--sheet-shade:#f2a999;',
+  grape: '--sheet:#e4dbfa;--sheet-shade:#bda9ef;',
+};
+const tilt = ['-1.2deg', '0.9deg', '-0.7deg'];
+---
+<section id="reviews" class="section-pad relative bg-sky-soft">
+  <PaperEdge variant="zigzag" class="text-sky-soft" />
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="bg-layer bg-skyfade"></div>
+    <div class="bg-layer bg-doodle-sky"></div>
+    <Cloud className="drift absolute -left-10 top-[12%] w-64" />
+    <Cloud className="drift-slow absolute right-[-4rem] top-[40%] w-72" />
+    <Cloud className="drift absolute left-[22%] bottom-4 w-52 opacity-90" />
+    <Balloon className="bob absolute right-[6%] top-24 hidden w-14 md:block" color="#ffd23f" shade="#e0a800" />
+    <Balloon className="bob absolute left-[5%] bottom-28 hidden w-12 md:block" color="#8f6be0" shade="#6b47bd" style={{ animationDelay: '-2s' }} />
+  </div>
+  <div class="container-x relative z-[2]">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <h2 class="h-section max-w-xl">Parents say it best</h2>
+      <p class="sheet flex items-center gap-3 px-5 py-3" style="--sheet-shade:#8fcbe6;">
+        <span class="relative z-[1] flex" aria-hidden="true">
+          {[0, 1, 2, 3, 4].map(() => <Star className="w-6" />)}
+        </span>
+        <span class="relative z-[1] font-bold">5 out of 5 from 4 reviews</span>
+      </p>
+    </div>
+
+    <ul class="mt-12 grid gap-8 lg:grid-cols-3">
+      {reviews.map((r, i) => (
+        <li class="flex">
+          <figure class="sheet relative flex w-full flex-col p-7" style={`${sheets[r.color]}transform:rotate(${tilt[i]})`}>
+            <span class="relative z-[1] font-display text-6xl leading-[0.6] text-coral-deep" aria-hidden="true">“</span>
+            <blockquote class="relative z-[1] mt-2 text-[1.125rem] leading-relaxed">{r.quote}</blockquote>
+            <figcaption class="relative z-[1] mt-auto pt-6">
+              <span class="block font-display text-xl font-bold">{r.name}</span>
+              <span class="text-sm text-ink-soft">{r.note}</span>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-12 flex flex-wrap items-center gap-6">
+      <a href="/testimonials" class="btn btn-paper">Read all reviews</a>
+      <PhotoFrame slot="family1" shape="blob" class="size-28 -rotate-3 md:size-36" />
+      <PhotoFrame slot="family2" shape="round" class="size-24 rotate-3 md:size-32" />
+    </div>
+  </div>
+</section>
