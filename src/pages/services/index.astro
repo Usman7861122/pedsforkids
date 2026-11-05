@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/ui/PageHero.astro';
+import PaperEdge from '../../components/ui/PaperEdge.astro';
+import ServiceCard from '../../components/ui/ServiceCard.astro';
+import Testimonials from '../../components/sections/Testimonials.astro';
+import Contact from '../../components/sections/Contact.astro';
+import { practice, services, grownUpCards } from '../../data/site';
+
+const tilt = ['-1.2deg', '0.8deg', '-0.6deg', '1.2deg'];
+---
+<BaseLayout title="Our services | Peds For Kids" description="Pediatric and adolescent care in Rego Park, Queens: well child exams, sick visits, vaccines, asthma, allergies, telemedicine, healthy weight, and grown-up wellness services.">
+  <PageHero crumb="Services" title="Our services" lede="Care for babies, kids and teens, all in one friendly place. We also offer a few wellness services for grown-ups." tone="sky">
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href={practice.bookUrl} class="btn">Book a visit</a>
+      <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+    </div>
+  </PageHero>
+
+  <section class="section-pad relative bg-paper">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="container-x relative z-[2]">
+      <h2 class="h-section">For babies, kids and teens</h2>
+      <ul class="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        {services.map((s, i) => (
+          <li>
+            <ServiceCard href={`/services/${s.slug}`} title={s.title} text={s.text} glyph={s.glyph} color={s.color} slot={`svc-${s.slug}`} tilt={tilt[i % 4]} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-pad relative bg-grape-soft">
+    <PaperEdge variant="cloud" class="text-grape-soft" />
+    <div class="container-x relative z-[2]">
+      <h2 class="h-section">For grown-ups</h2>
+      <p class="lede mt-4 max-w-2xl">Wellness and skin care for adults. These services are not for children.</p>
+      <ul class="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        {grownUpCards.map((s, i) => (
+          <li>
+            <ServiceCard href={`/services/${s.slug}`} title={s.title} text={s.text} glyph={s.glyph} color={s.color} slot={`adult-${s.slug}`} tilt={tilt[i % 4]} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Testimonials />
+  <Contact />
+</BaseLayout>

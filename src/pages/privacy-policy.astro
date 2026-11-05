@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import Contact from '../components/sections/Contact.astro';
+import { practice } from '../data/site';
+---
+<BaseLayout title="Privacy policy | Peds For Kids" description="How Peds For Kids collects, uses and protects information on this website.">
+  <PageHero crumb="Privacy policy" title="Privacy policy" lede="How Peds For Kids collects, uses and protects information on this website." tone="sky" />
+  <section class="section-pad relative bg-paper">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="container-x relative z-[2] max-w-3xl">
+      <!-- TODO: have the practice and a lawyer review this text before launch. -->
+      <div class="prose-page space-y-5 text-lg">
+        <h2 class="h-section !text-3xl">What we collect</h2>
+        <p>When you send us a message, we collect the details you give us, such as your name, phone number and message. Our website may also collect basic technical details, such as your browser type, device, and the pages you visit. We use these to run the site and keep it working well.</p>
+        <h2 class="h-section !text-3xl">How we use it</h2>
+        <p>We use your details to answer your questions, book visits and improve the site. We do not sell your personal information.</p>
+        <h2 class="h-section !text-3xl">Please do not share private health details</h2>
+        <p>Our contact form is not a safe place for private health information. For medical questions, please call us or use the secure Healow patient app. For an emergency, call 911.</p>
+        <h2 class="h-section !text-3xl">Links to other sites</h2>
+        <p>This site links to other sites, such as Healow and Amazon. We are not responsible for how those sites use your information. Please read their privacy statements.</p>
+        <h2 class="h-section !text-3xl">Questions</h2>
+        <p>Call us at <a href={practice.phoneHref} class="font-bold underline">{practice.phone}</a> if you have a question about this policy.</p>
+      </div>
+    </div>
+  </section>
+  <Contact />
+</BaseLayout>

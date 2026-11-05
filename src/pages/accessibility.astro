@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import Contact from '../components/sections/Contact.astro';
+import { practice } from '../data/site';
+---
+<BaseLayout title="Accessibility notice | Peds For Kids" description="We want everyone to be able to use our website.">
+  <PageHero crumb="Accessibility notice" title="Accessibility notice" lede="We want everyone to be able to use our website." tone="meadow" />
+  <section class="section-pad relative bg-paper">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="container-x relative z-[2] max-w-3xl">
+      <!-- TODO: have the practice and a lawyer review this text before launch. -->
+      <div class="prose-page space-y-5 text-lg">
+        <p>Peds For Kids wants this website to be easy to use for everyone, including people who use screen readers, keyboards or other tools. We work to follow common accessibility guidelines, such as clear text, strong color contrast and links and buttons that work with a keyboard.</p>
+        <p>If you have trouble using any part of this site, please tell us. Call <a href={practice.phoneHref} class="font-bold underline">{practice.phone}</a> and we will help you, or give you the information in another way.</p>
+      </div>
+    </div>
+  </section>
+  <Contact />
+</BaseLayout>

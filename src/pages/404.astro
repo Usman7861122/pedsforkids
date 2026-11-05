@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import { practice } from '../data/site';
+---
+<BaseLayout title="Page not found | Peds For Kids" description="This page could not be found.">
+  <PageHero crumb="Not found" title="Oops! We could not find that page." lede="The link may be old, or the page may have moved. Let us take you somewhere helpful." tone="sun">
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href="/" class="btn">Go to the home page</a>
+      <a href="/services" class="btn btn-paper">See our services</a>
+      <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+    </div>
+  </PageHero>
+  <div class="pb-24"></div>
+</BaseLayout>

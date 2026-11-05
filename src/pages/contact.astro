@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import Contact from '../components/sections/Contact.astro';
+import { practice } from '../data/site';
+---
+<BaseLayout title="Contact us | Peds For Kids" description="Contact Peds For Kids in Rego Park, Queens. Call 718-268-9100, get directions, see office hours or send us a message.">
+  <PageHero crumb="Contact" title="Contact us" lede="Call, send a message or stop by. We are at 63-95 Austin St. in Rego Park." tone="coral">
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href={practice.phoneHref} class="btn">Call {practice.phone}</a>
+      <a href={practice.mapsUrl} target="_blank" rel="noopener" class="btn btn-paper">Get directions</a>
+    </div>
+  </PageHero>
+  <Contact />
+</BaseLayout>

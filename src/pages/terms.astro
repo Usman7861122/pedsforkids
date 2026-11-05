@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import Contact from '../components/sections/Contact.astro';
+import { practice } from '../data/site';
+---
+<BaseLayout title="Terms and conditions | Peds For Kids" description="The rules for using the Peds For Kids website.">
+  <PageHero crumb="Terms and conditions" title="Terms and conditions" lede="The rules for using the Peds For Kids website." tone="sun" />
+  <section class="section-pad relative bg-paper">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="container-x relative z-[2] max-w-3xl">
+      <!-- TODO: have the practice and a lawyer review this text before launch. -->
+      <div class="prose-page space-y-5 text-lg">
+        <h2 class="h-section !text-3xl">Using this website</h2>
+        <p>By using this website you agree to these terms. We may change them from time to time, so please check back.</p>
+        <h2 class="h-section !text-3xl">Not medical advice</h2>
+        <p>The information on this site is for general learning. It does not replace a visit with your child’s provider. If you think your child has a medical emergency, call 911.</p>
+        <h2 class="h-section !text-3xl">Fair use</h2>
+        <p>Please use the site for lawful purposes only. Do not try to harm, overload or break into the site or take information you are not meant to have.</p>
+        <h2 class="h-section !text-3xl">Links to other sites</h2>
+        <p>We link to other websites for your convenience. We do not control them, and a link does not mean we endorse them.</p>
+        <h2 class="h-section !text-3xl">Content you send us</h2>
+        <p>If you send us a message, review or feedback, you agree it is accurate and that we may use it to answer you and to improve our services.</p>
+        <h2 class="h-section !text-3xl">Questions</h2>
+        <p>Call us at <a href={practice.phoneHref} class="font-bold underline">{practice.phone}</a>.</p>
+      </div>
+    </div>
+  </section>
+  <Contact />
+</BaseLayout>
