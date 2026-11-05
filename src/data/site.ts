@@ -77,9 +77,9 @@ export const nav = {
     label: 'Providers',
     items: [
       { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela', color: 'sun' },
-      { label: 'Lisa M. Guan, CPNP', text: 'Nurse practitioner', href: '/about#providers', color: 'coral' },
-      { label: 'Miriam Samekhova, CFNP', text: 'Nurse practitioner', href: '/about#providers', color: 'sky' },
-      { label: 'Michal Sarikov, FNP-BC', text: 'Nurse practitioner', href: '/about#providers', color: 'meadow' },
+      { label: 'Lisa M. Guan, CPNP', text: 'Nurse practitioner', href: '/providers/lisa-m-guan-cpnp', color: 'coral' },
+      { label: 'Miriam Samekhova, CFNP', text: 'Nurse practitioner', href: '/providers/miriam-samekhova-cfnp', color: 'sky' },
+      { label: 'Michal Sarikov, FNP-BC', text: 'Nurse practitioner', href: '/providers/michal-sarikov-msn-arnp-fnp-bc', color: 'meadow' },
     ],
   },
   services: {
