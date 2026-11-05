@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import Contact from '../components/sections/Contact.astro';
+import { Star, Cloud, Butterfly } from '../components/art/Art';
+import { book } from '../data/book';
+import { practice } from '../data/site';
+
+// Facts come from the live site's "Get the Book" page (written in our own words).
+const inside = [
+  { title: 'Real parent questions', text: '113 questions that new parents ask again and again, each with a clear answer.', sheet: '#bfe8f8', shade: '#8fcbe6' },
+  { title: 'Birth to school age', text: 'Covers the first five years, when a child builds the base for lifelong health.', sheet: '#cdefd7', shade: '#7fcf9f' },
+  { title: 'Calm, not scary', text: 'Learn what you can handle at home, so not every sniffle needs an emergency call.', sheet: '#ffe88f', shade: '#e3c453' },
+  { title: 'No silly questions', text: 'Friendly answers from a doctor who has cared for children for 23 years.', sheet: '#ffd6cc', shade: '#f2a999' },
+];
+
+const authors = [
+  { name: 'Dr. Daniela Atanassova-Lineva, M.D.', role: 'Pediatrician and the medical expert of the team', text: 'Has helped her patients stay happy and healthy for 23 years. She is the heart of Peds For Kids in Rego Park.', sheet: '#bfe8f8', shade: '#8fcbe6' },
+  { name: 'Dr. Shellie Hipsky, Ed.D.', role: 'Empowerment coach, author and former professor', text: 'A mom of two who has spoken at Harvard and Oxford. She turned the questions into easy lessons for parents.', sheet: '#e4dbfa', shade: '#bda9ef' },
+];
+---
+<BaseLayout title="The Prescription for a Happy and Healthy Child | Book by Dr. Daniela | Peds For Kids" description="Read The Prescription for a Happy and Healthy Child: 113 questions answered by Dr. Daniela Atanassova-Lineva, a top pediatrician in Rego Park, Queens.">
+  <PageHero crumb="Book by Dr. Daniela" title="A book by Dr. Daniela" lede="Answers to the questions new parents ask most, from the pediatrician who has the answers." tone="sun" />
+
+  <!-- The book -->
+  <section class="section-pad relative overflow-hidden bg-grape-soft">
+    <PaperEdge variant="scallop" class="text-grape-soft" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer bg-dots" style="opacity:0.35"></div>
+      <Star className="bob absolute right-[7%] top-16 hidden w-10 md:block" color="#ffd23f" />
+      <Butterfly className="bob absolute left-[4%] bottom-16 hidden w-12 md:block" color="#8f6be0" />
+    </div>
+    <div class="container-x relative z-[2] grid items-center gap-12 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-16">
+      <div class="relative mx-auto w-full max-w-[17rem] rotate-2 md:max-w-[20rem]">
+        <span class="absolute -top-3 left-1/2 z-[2] h-6 w-24 -translate-x-1/2 -rotate-3 opacity-85" style="background:#43c37a" aria-hidden="true"></span>
+        <a href={book.amazon} target="_blank" rel="noopener" class="block rounded-2xl bg-paper p-3 shadow-[0_9px_0_rgba(42,34,80,0.2)] transition-transform hover:-translate-y-1 hover:rotate-0">
+          <img src={book.cover} alt={`Book cover: ${book.title}`} class="block w-full rounded-xl" />
+        </a>
+        <img src={book.badge} alt="International Book Awards finalist" loading="lazy" class="absolute -bottom-6 -right-4 h-20 w-20 rotate-6 object-contain md:-right-8 md:h-24 md:w-24" />
+      </div>
+      <div>
+        <h2 class="h-section">{book.title}</h2>
+        <p class="mt-3 font-display text-xl font-bold md:text-2xl">113 questions answered by a top pediatrician</p>
+        <p class="lede mt-5 max-w-[56ch]">New parents have a lot of questions. This book gives clear, kind answers, so you feel calm and sure from the first day. Dr. Daniela and Dr. Shellie are both moms, and they wrote it for busy parents like you.</p>
+        <p class="mt-4 text-ink-soft">By {book.authors}</p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href={book.amazon} target="_blank" rel="noopener" class="btn btn-sun">Buy on Amazon</a>
+          <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is inside -->
+  <section class="section-pad relative overflow-hidden bg-paper">
+    <PaperEdge variant="cloud" class="text-paper" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <Cloud className="drift absolute -right-10 top-24 hidden w-44 md:block" />
+    </div>
+    <div class="container-x relative z-[2]">
+      <div class="max-w-2xl">
+        <h2 class="h-section">What is inside</h2>
+        <p class="lede mt-4">Simple answers you can use today, from a doctor you can trust.</p>
+      </div>
+      <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {inside.map((c) => (
+          <li class="flex">
+            <article class="sheet flex w-full flex-col p-7 transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet:${c.sheet};--sheet-shade:${c.shade};`}>
+              <h3 class="relative z-[1] text-2xl">{c.title}</h3>
+              <p class="relative z-[1] mt-2 text-ink-soft">{c.text}</p>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- The authors -->
+  <section class="section-pad relative bg-sky-soft">
+    <PaperEdge variant="scallop" class="text-sky-soft" />
+    <div class="container-x relative z-[2]">
+      <h2 class="h-section">Meet the authors</h2>
+      <ul class="mt-10 grid gap-6 md:grid-cols-2">
+        {authors.map((a) => (
+          <li class="flex">
+            <article class="sheet flex w-full flex-col p-8 transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet:${a.sheet};--sheet-shade:${a.shade};`}>
+              <h3 class="relative z-[1] text-2xl">{a.name}</h3>
+              <p class="relative z-[1] mt-1 font-bold text-ink-soft">{a.role}</p>
+              <p class="relative z-[1] mt-3">{a.text}</p>
+            </article>
+          </li>
+        ))}
+      </ul>
+
+      <figure class="sheet mt-10 p-8 md:p-10" style="--sheet:#fffdf7;--sheet-shade:#bfd9e6;">
+        <blockquote class="relative z-[1] max-w-[60ch] font-display text-xl font-bold md:text-2xl">
+          Another doctor calls the book a very useful guide for parents.
+        </blockquote>
+        <figcaption class="relative z-[1] mt-3 text-ink-soft">Dr. Robert Goldman, M.D., Ph.D.</figcaption>
+      </figure>
+
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <a href={book.amazon} target="_blank" rel="noopener" class="btn btn-sun">Get the book on Amazon</a>
+        <a href="/about#meet" class="btn btn-paper">Meet Dr. Daniela</a>
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</BaseLayout>
