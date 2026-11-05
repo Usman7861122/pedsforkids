@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import Contact from '../components/sections/Contact.astro';
+import { Star, Cloud } from '../components/art/Art';
+import { practice } from '../data/site';
+
+// Facts below come from the live site: 3 months, for international medical graduates,
+// nurse practitioners and physician assistants, shadowing the providers under
+// Dr. Daniela's direct supervision, evidence based practice.
+// TODO: confirm start dates, fees, paperwork and how many seats with the practice.
+
+const who = [
+  { title: 'International medical graduates', text: 'Doctors trained outside the USA who want to see how a busy US pediatric office works.', sheet: '#bfe8f8', shade: '#8fcbe6', icon: 'M12 3 2 8l10 5 10-5-10-5zM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5' },
+  { title: 'Nurse practitioners', text: 'NPs who want to learn child and teen care side by side with our providers.', sheet: '#cdefd7', shade: '#7fcf9f', icon: 'M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z' },
+  { title: 'Physician assistants', text: 'PAs who want real clinic time with children, from newborns to teens.', sheet: '#ffd6cc', shade: '#f2a999', icon: 'M9 4h6v5h5v6h-5v5H9v-5H4V9h5z' },
+];
+
+const learn = [
+  { title: 'Shadow our providers', text: 'Sit in on real visits and watch how each provider talks with children and parents.' },
+  { title: 'Learn well-child care', text: 'See check-ups, growth and development checks, and vaccine talks.' },
+  { title: 'See sick visits', text: 'Follow how we sort common childhood illness and decide the next step.' },
+  { title: 'Evidence based practice', text: 'We follow the latest clinical research so care is safe and works well.' },
+];
+
+const steps = [
+  { n: '1', title: 'Call or send a note', text: 'Tell us who you are, your training, and why you want to join.' },
+  { n: '2', title: 'We talk with you', text: 'We answer your questions and check what we need from you.' },
+  { n: '3', title: 'Join for 3 months', text: 'Learn in the office under the direct supervision of Dr. Daniela.' },
+];
+---
+<BaseLayout title="Observership program | Peds For Kids" description="A 3-month observership at Peds For Kids in Rego Park, Queens, for international medical graduates, nurse practitioners and physician assistants, under Dr. Daniela Atanassova-Lineva.">
+  <PageHero crumb="Observership program" title="Learn with us: the observership program" lede="A 3-month program for international medical graduates, nurse practitioners and physician assistants. Shadow our providers and learn how we care for kids, with Dr. Daniela guiding you." tone="sun">
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href="#apply" class="btn">Ask about the program</a>
+      <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
+    </div>
+  </PageHero>
+
+  <!-- Who it is for -->
+  <section class="section-pad relative overflow-hidden bg-paper">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="bg-layer bg-dots" style="opacity:0.35"></div>
+      <Star className="bob absolute right-[7%] top-20 hidden w-10 md:block" color="#ffd23f" />
+      <Cloud className="drift absolute -left-8 bottom-10 hidden w-40 md:block" />
+    </div>
+    <div class="container-x relative z-[2]">
+      <div class="max-w-2xl">
+        <h2 class="h-section">Who can join</h2>
+        <p class="lede mt-4">The program is for people who want to learn from our providers, in a friendly clinic that cares for children and teens.</p>
+      </div>
+      <ul class="mt-10 grid gap-6 md:grid-cols-3">
+        {who.map((w) => (
+          <li class="flex">
+            <article class="sheet group flex w-full flex-col p-7 transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet:${w.sheet};--sheet-shade:${w.shade};`}>
+              <span class="relative z-[1] grid size-14 place-items-center rounded-full bg-paper shadow-[0_4px_0_rgba(42,34,80,0.15)] transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="size-7" fill="none" stroke="#2a2250" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d={w.icon} /></svg>
+              </span>
+              <h3 class="relative z-[1] mt-5 text-2xl">{w.title}</h3>
+              <p class="relative z-[1] mt-2 text-ink-soft">{w.text}</p>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- With Dr. Daniela + what you learn -->
+  <section class="section-pad relative bg-sky-soft">
+    <PaperEdge variant="cloud" class="text-sky-soft" />
+    <div class="container-x relative z-[2] grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+      <div class="relative mx-auto w-full max-w-sm">
+        <span class="absolute -top-3 left-1/2 z-[2] h-6 w-20 -translate-x-1/2 -rotate-3 opacity-85" style="background:#ffd23f" aria-hidden="true"></span>
+        <div class="rotate-[-2deg] overflow-hidden rounded-[1.5rem] bg-paper p-2 shadow-[0_7px_0_rgba(42,34,80,0.18)]">
+          <img src="/images/dr-daniela.jpg" alt="Dr. Daniela Atanassova-Lineva" loading="lazy" class="aspect-[4/5] w-full rounded-[1.2rem] object-cover" style="object-position:center 18%" />
+        </div>
+        <p class="mt-5 text-center font-display text-lg font-bold">Under the direct supervision of Dr. Daniela Atanassova-Lineva</p>
+      </div>
+      <div>
+        <h2 class="h-section">What you will learn</h2>
+        <ul class="mt-8 grid gap-5 sm:grid-cols-2">
+          {learn.map((l) => (
+            <li class="sheet p-6 transition-transform duration-200 hover:-translate-y-1" style="--sheet:#fffdf7;--sheet-shade:#bfd9e6;">
+              <h3 class="relative z-[1] text-xl">{l.title}</h3>
+              <p class="relative z-[1] mt-2 text-ink-soft">{l.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section-pad relative overflow-hidden bg-paper">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="container-x relative z-[2]">
+      <div class="max-w-2xl">
+        <h2 class="h-section">How to join</h2>
+        <p class="lede mt-4">Three easy steps. Call us or send a note and we will guide you.</p>
+      </div>
+      <ol class="mt-10 grid gap-6 md:grid-cols-3">
+        {steps.map((s, i) => (
+          <li class="flex">
+            <div class="sheet flex w-full flex-col p-7 transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet:${['#ffe88f','#cdefd7','#e4dbfa'][i]};--sheet-shade:${['#e3c453','#7fcf9f','#bda9ef'][i]};`}>
+              <span class="relative z-[1] grid size-12 place-items-center rounded-full bg-paper font-display text-2xl font-extrabold shadow-[0_4px_0_rgba(42,34,80,0.15)]">{s.n}</span>
+              <h3 class="relative z-[1] mt-4 text-2xl">{s.title}</h3>
+              <p class="relative z-[1] mt-2 text-ink-soft">{s.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-10 max-w-[60ch] text-ink-soft">Questions about dates, paperwork or how many places are open? Ask us below or call {practice.phone}.</p>
+    </div>
+  </section>
+
+  <div id="apply"></div>
+  <Contact />
+</BaseLayout>
