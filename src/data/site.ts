@@ -76,7 +76,6 @@ export const nav = {
   providers: {
     label: 'Providers',
     items: [
-      { label: 'All providers', text: 'Meet the whole team', href: '/providers', color: 'grape' },
       { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela', color: 'sun' },
       { label: 'Lisa M. Guan, CPNP', text: 'Nurse practitioner', href: '/providers/lisa-m-guan-cpnp', color: 'coral' },
       { label: 'Miriam Samekhova, CFNP', text: 'Nurse practitioner', href: '/providers/miriam-samekhova-cfnp', color: 'sky' },

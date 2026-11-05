@@ -58,6 +58,12 @@ function MenuList({ menu }: { menu: MenuKey }) {
           </li>
         ))}
       </ul>
+      {menu === 'providers' && (
+        <a href="/providers" className="mt-2 flex items-center justify-between rounded-2xl bg-sun-soft px-4 py-3 font-display font-bold">
+          See all providers
+          <span aria-hidden="true">→</span>
+        </a>
+      )}
     </div>
   );
 }
