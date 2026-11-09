@@ -60,7 +60,10 @@ const shade: Record<string, string> = { sun: '#e3c453', coral: '#f2a999', sky: '
                     <a href={practice.bookUrl} class="font-bold underline decoration-coral decoration-[3px] underline-offset-4">Book with {p.short}</a>
                   </>
                 ) : (
-                  <a href={p.href} class="btn btn-meadow !px-5 !py-3 !text-base">Read more</a>
+                  <>
+                    <a href={p.href} class="btn btn-meadow !px-5 !py-3 !text-base">Read more</a>
+                    <span class="block h-7" aria-hidden="true"></span>
+                  </>
                 )}
               </div>
             </article>
