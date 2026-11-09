@@ -25,10 +25,10 @@ export const serviceAreas = ['Rego Park', 'Forest Hills', 'Elmhurst', 'Middle Vi
 export const hours: { day: string; time: string | null }[] = [
   { day: 'Sunday', time: null },
   { day: 'Monday', time: '11:00 am to 8:00 pm' },
-  { day: 'Tuesday', time: '11:00 am to 5:00 pm' },
+  { day: 'Tuesday', time: '12:00 pm to 5:00 pm' },
   { day: 'Wednesday', time: '11:00 am to 8:00 pm' },
   { day: 'Thursday', time: null },
-  { day: 'Friday', time: '11:00 am to 5:00 pm' },
+  { day: 'Friday', time: '12:00 pm to 5:00 pm' },
   { day: 'Saturday', time: '9:00 am to 2:00 pm' },
 ];
 
