@@ -14,13 +14,6 @@ export const photos: Record<string, Photo> = {
   'svc-telemedicine': { src: '/images/svc-telemedicine.jpg', alt: 'A mother and child on a video visit with their doctor' },
   'svc-weight-and-obesity': { src: '/images/svc-weight-and-obesity.jpg', alt: 'Kids enjoying fresh fruit and vegetables' },
   'svc-pediatric-and-adolescent-medicine': { src: '/images/svc-pediatric-and-adolescent-medicine.jpg', alt: 'A smiling teenager talking with a provider' },
-  // Grown-up services (About page). Add licensed photos to /public/images/ and set src.
-  'adult-botox': { src: '/images/adult-botox.jpg', alt: 'A woman receiving a gentle Botox injection' },
-  'adult-dermal-fillers': { src: '/images/adult-dermal-fillers.jpg', alt: 'A woman receiving a dermal filler treatment' },
-  'adult-microneedling': { src: '/images/adult-microneedling.jpg', alt: 'A provider giving a microneedling skin treatment' },
-  'adult-facial-rejuvenation': { src: '/images/adult-facial-rejuvenation.jpg', alt: 'A woman receiving a facial treatment with a mask' },
-  'adult-led-light-therapy': { src: '/images/adult-led-light-therapy.jpg', alt: 'A woman relaxing under a pink LED light therapy mask' },
-  'adult-prp-treatments': { src: '/images/adult-prp-treatments.jpg', alt: 'Scientists examining a blood sample for PRP treatment' },
   // Well child exams page
   'wce-hero': { src: '/images/wce-hero.jpg', alt: 'A smiling doctor checking a happy baby while mom holds him' },
   'wce-toddler': { src: '/images/wce-toddler.jpg', alt: 'A pediatrician listening to a little girl’s back on a sofa' },

@@ -1,7 +1,6 @@
 // Content for the service pages other than Well child exams (that one has its own page and data).
 // Kids services are rewritten in plain words from the live peds4kids.com pages.
-// Grown-up services are NOT on the old site. Their text is short and general.
-// TODO: ask the practice to review every page, and the grown-up pages most of all, before launch.
+// TODO: ask the practice to review every page before launch.
 
 export type Block =
   | { type: 'cards'; title: string; text?: string; items: { title: string; text: string }[] }
@@ -10,7 +9,6 @@ export type Block =
 
 export type ServiceTopic = {
   slug: string;
-  kind: 'kids' | 'grownup';
   title: string;
   h1: string;
   description: string;
@@ -24,7 +22,6 @@ export type ServiceTopic = {
 export const serviceTopics: ServiceTopic[] = [
   {
     slug: 'sick-visits',
-    kind: 'kids',
     title: 'Sick visits',
     h1: 'Sick visits in Rego Park, Queens',
     description: 'Same-day sick visits for children in Rego Park, Queens. Rapid strep and flu tests, and video visits through the Healow app, at Peds For Kids.',
@@ -67,7 +64,6 @@ export const serviceTopics: ServiceTopic[] = [
   },
   {
     slug: 'vaccines',
-    kind: 'kids',
     title: 'Vaccines',
     h1: 'Vaccines for children in Rego Park, Queens',
     description: 'Routine childhood vaccines on schedule at Peds For Kids in Rego Park, Queens, with clear answers to your questions.',
@@ -105,7 +101,6 @@ export const serviceTopics: ServiceTopic[] = [
   },
   {
     slug: 'asthma',
-    kind: 'kids',
     title: 'Asthma',
     h1: 'Asthma care for children in Rego Park, Queens',
     description: 'Asthma diagnosis and treatment for children in Rego Park, Queens. Breathing tests, allergy testing and a clear plan at Peds For Kids.',
@@ -147,7 +142,6 @@ export const serviceTopics: ServiceTopic[] = [
   },
   {
     slug: 'allergies',
-    kind: 'kids',
     title: 'Allergies',
     h1: 'Allergy testing and care in Rego Park, Queens',
     description: 'Allergy tests and treatment for children in Rego Park, Queens. Food, pet, dust, skin and insect sting allergies at Peds For Kids.',
@@ -190,7 +184,6 @@ export const serviceTopics: ServiceTopic[] = [
   },
   {
     slug: 'telemedicine',
-    kind: 'kids',
     title: 'Telemedicine',
     h1: 'Telemedicine for kids in Rego Park, Queens',
     description: 'Video visits and the Healow app for Peds For Kids families. Message your provider, refill medicine and see results from home.',
@@ -223,7 +216,6 @@ export const serviceTopics: ServiceTopic[] = [
   },
   {
     slug: 'weight-and-obesity',
-    kind: 'kids',
     title: 'Healthy weight',
     h1: 'Healthy weight care for kids in Rego Park, Queens',
     description: 'Kind, practical help with healthy eating and weight for children and teens in Rego Park, Queens. Nutrition counseling at Peds For Kids.',
@@ -266,7 +258,6 @@ export const serviceTopics: ServiceTopic[] = [
   },
   {
     slug: 'pediatric-and-adolescent-medicine',
-    kind: 'kids',
     title: 'Teen care',
     h1: 'Pediatric and adolescent medicine in Rego Park, Queens',
     description: 'Pediatric and adolescent medicine for children from infancy to age 21 in Rego Park, Queens, at Peds For Kids.',
@@ -300,158 +291,6 @@ export const serviceTopics: ServiceTopic[] = [
       { q: 'Until what age do you see patients?', a: 'We care for children and teens from infancy to age 21.' },
       { q: 'Do you help with sports health?', a: 'Yes. For teens who play sports, we talk about staying healthy and avoiding injuries.' },
       { q: 'Which shots are due by age 13?', a: 'Often chickenpox, MMR, hepatitis A and B, meningococcal, HPV and the Tdap booster. We will check your child’s record.' },
-    ],
-  },
-
-  // ---------- Grown-up services ----------
-  {
-    slug: 'botox',
-    kind: 'grownup',
-    title: 'Botox',
-    h1: 'Botox in Rego Park, Queens',
-    description: 'Botox treatments for adults in Rego Park, Queens at Peds For Kids. Book a consultation to talk about your goals.',
-    lede: 'Botox is a quick, gentle treatment that can soften fine lines and wrinkles. It is for adults. Call to book a consultation and talk about what you would like.',
-    tags: ['For adults', 'Quick treatment', 'Consultation first'],
-    photo: 'adult-botox',
-    blocks: [
-      {
-        type: 'cards',
-        title: 'What to expect',
-        items: [
-          { title: 'A talk first', text: 'We listen to your goals and tell you if the treatment is right for you.' },
-          { title: 'A quick visit', text: 'Treatment is usually short. Your provider explains each step.' },
-          { title: 'Aftercare tips', text: 'We tell you how to care for your skin after your visit.' },
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Is Botox for teens or children?', a: 'No. Our grown-up services are for adults.' },
-      { q: 'How do I start?', a: 'Call us or send a message to book a consultation.' },
-    ],
-  },
-  {
-    slug: 'dermal-fillers',
-    kind: 'grownup',
-    title: 'Dermal fillers',
-    h1: 'Dermal fillers in Rego Park, Queens',
-    description: 'Dermal filler treatments for adults in Rego Park, Queens at Peds For Kids. Book a consultation.',
-    lede: 'Dermal fillers can help restore volume for a fresh, natural look. They are for adults. Book a consultation and we will talk about your goals.',
-    tags: ['For adults', 'Natural look', 'Consultation first'],
-    photo: 'adult-dermal-fillers',
-    blocks: [
-      {
-        type: 'cards',
-        title: 'What to expect',
-        items: [
-          { title: 'A talk first', text: 'We listen to your goals and explain your options.' },
-          { title: 'A careful plan', text: 'Your provider plans the treatment with you, step by step.' },
-          { title: 'Aftercare tips', text: 'We share simple tips to care for your skin after treatment.' },
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Are fillers for children or teens?', a: 'No. Our grown-up services are for adults.' },
-      { q: 'How do I start?', a: 'Call us or send a message to book a consultation.' },
-    ],
-  },
-  {
-    slug: 'microneedling',
-    kind: 'grownup',
-    title: 'Microneedling',
-    h1: 'Microneedling in Rego Park, Queens',
-    description: 'Microneedling skin treatments for adults in Rego Park, Queens at Peds For Kids. Book a consultation.',
-    lede: 'Microneedling is a skin treatment that can help skin look smoother and more even. It is for adults. Book a consultation and we will talk about what is right for you.',
-    tags: ['For adults', 'Skin care', 'Consultation first'],
-    photo: 'adult-microneedling',
-    blocks: [
-      {
-        type: 'cards',
-        title: 'What to expect',
-        items: [
-          { title: 'A talk first', text: 'We listen to your goals and tell you if the treatment is a good fit.' },
-          { title: 'A clear plan', text: 'Your provider explains each step and what to expect before treatment.' },
-          { title: 'Aftercare tips', text: 'We explain how to care for your skin afterward.' },
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Is it painful?', a: 'Your provider will explain what you may feel and how to stay comfortable.' },
-      { q: 'How do I start?', a: 'Call us or send a message to book a consultation.' },
-    ],
-  },
-  {
-    slug: 'facial-rejuvenation',
-    kind: 'grownup',
-    title: 'Facial rejuvenation',
-    h1: 'Facial rejuvenation in Rego Park, Queens',
-    description: 'Facial rejuvenation treatments for adults in Rego Park, Queens at Peds For Kids. Book a consultation.',
-    lede: 'Facial rejuvenation treatments aim to bring back glow and tone. They are for adults. Book a consultation and we will plan care that fits you.',
-    tags: ['For adults', 'Glow and tone', 'Consultation first'],
-    photo: 'adult-facial-rejuvenation',
-    blocks: [
-      {
-        type: 'cards',
-        title: 'What to expect',
-        items: [
-          { title: 'A talk first', text: 'We learn about your skin and your goals.' },
-          { title: 'A plan for you', text: 'Your provider suggests care that suits your skin.' },
-          { title: 'Aftercare tips', text: 'We share simple skin care tips for after your visit.' },
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Is it for teens?', a: 'No. Our grown-up services are for adults.' },
-      { q: 'How do I start?', a: 'Call us or send a message to book a consultation.' },
-    ],
-  },
-  {
-    slug: 'led-light-therapy',
-    kind: 'grownup',
-    title: 'LED light therapy',
-    h1: 'LED light therapy in Rego Park, Queens',
-    description: 'LED light therapy skin care for adults in Rego Park, Queens at Peds For Kids. Book a consultation.',
-    lede: 'LED light therapy is a gentle, relaxing skin treatment that uses soft light. It is for adults. Book a consultation to see if it is right for you.',
-    tags: ['For adults', 'Gentle light', 'Relaxing'],
-    photo: 'adult-led-light-therapy',
-    blocks: [
-      {
-        type: 'cards',
-        title: 'What to expect',
-        items: [
-          { title: 'A talk first', text: 'We listen to your skin goals.' },
-          { title: 'Relax', text: 'You rest while the light does its work. Your provider explains each step.' },
-          { title: 'Aftercare tips', text: 'We share simple tips to care for your skin afterward.' },
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'Is it for children?', a: 'No. Our grown-up services are for adults.' },
-      { q: 'How do I start?', a: 'Call us or send a message to book a consultation.' },
-    ],
-  },
-  {
-    slug: 'prp-treatments',
-    kind: 'grownup',
-    title: 'PRP treatments',
-    h1: 'PRP treatments in Rego Park, Queens',
-    description: 'PRP skin treatments for adults in Rego Park, Queens at Peds For Kids. Book a consultation.',
-    lede: 'PRP treatments use a part of your own blood to support your skin’s natural healing. They are for adults. Book a consultation to learn more.',
-    tags: ['For adults', 'Uses your own blood', 'Consultation first'],
-    photo: 'adult-prp-treatments',
-    blocks: [
-      {
-        type: 'cards',
-        title: 'What to expect',
-        items: [
-          { title: 'A talk first', text: 'We explain how PRP works and if it fits your goals.' },
-          { title: 'A careful process', text: 'Your provider explains each step before treatment.' },
-          { title: 'Aftercare tips', text: 'We share simple tips to care for your skin afterward.' },
-        ],
-      },
-    ],
-    faqs: [
-      { q: 'What does PRP mean?', a: 'It stands for platelet-rich plasma, a part of your own blood.' },
-      { q: 'How do I start?', a: 'Call us or send a message to book a consultation.' },
     ],
   },
 ];

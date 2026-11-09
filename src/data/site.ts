@@ -43,25 +43,6 @@ export const services = [
   { slug: 'pediatric-and-adolescent-medicine', title: 'Teen care', text: 'A comfortable place for older kids to ask real questions.', glyph: 'star', color: 'sun' },
 ] as const;
 
-export const grownUpServices = [
-  'Botox',
-  'Dermal fillers',
-  'Microneedling',
-  'Facial rejuvenation',
-  'LED light therapy',
-  'PRP treatments',
-];
-
-// Adult aesthetic services shown as cards on the About page. Pages at /services/<slug> come later.
-export const grownUpCards = [
-  { slug: 'botox', title: 'Botox', text: 'Smooth fine lines with quick, gentle treatments.', glyph: 'star', color: 'grape' },
-  { slug: 'dermal-fillers', title: 'Dermal fillers', text: 'Restore volume and a fresh, natural look.', glyph: 'heart', color: 'coral' },
-  { slug: 'microneedling', title: 'Microneedling', text: 'Help skin look smoother and more even.', glyph: 'shield', color: 'sky' },
-  { slug: 'facial-rejuvenation', title: 'Facial rejuvenation', text: 'Treatments that bring back glow and tone.', glyph: 'flower', color: 'meadow' },
-  { slug: 'led-light-therapy', title: 'LED light therapy', text: 'Gentle light care for calmer, clearer skin.', glyph: 'star', color: 'sun' },
-  { slug: 'prp-treatments', title: 'PRP treatments', text: 'Use your own natural healing power for renewed skin.', glyph: 'thermo', color: 'coral' },
-] as const;
-
 export const nav = {
   about: {
     label: 'About us',

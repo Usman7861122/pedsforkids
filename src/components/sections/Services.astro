@@ -2,7 +2,7 @@
 import PaperEdge from '../ui/PaperEdge.astro';
 import { Cloud, Glyph, Plane, Star, type GlyphName } from '../art/Art';
 import { photos } from '../../data/images';
-import { grownUpServices, services } from '../../data/site';
+import { services } from '../../data/site';
 
 const disc: Record<string, string> = {
   sun: 'bg-sun', coral: 'bg-coral', sky: 'bg-sky', meadow: 'bg-meadow', grape: 'bg-grape',
@@ -72,15 +72,5 @@ const tilt = ['-1.2deg', '0.8deg', '-0.6deg', '1.2deg'];
         );
       })}
     </ul>
-
-    <div class="sheet mt-12 grid gap-6 p-7 md:grid-cols-[1fr_1.4fr] md:items-center md:p-9" style="--sheet:#e4dbfa;--sheet-shade:#bda9ef;">
-      <div class="relative z-[1]">
-        <h3 class="text-2xl md:text-3xl">Care for grown-ups too</h3>
-        <p class="mt-2 max-w-[40ch] text-ink-soft">Dr. Daniela also offers aesthetic and wellness treatments for adults.</p>
-      </div>
-      <ul class="relative z-[1] flex flex-wrap gap-2.5">
-        {grownUpServices.map((g) => <li class="tag" style="--tag-shade:#c9b8f2">{g}</li>)}
-      </ul>
-    </div>
   </div>
 </section>

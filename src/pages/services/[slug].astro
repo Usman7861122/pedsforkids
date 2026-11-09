@@ -5,15 +5,15 @@ import PhotoFrame from '../../components/ui/PhotoFrame.astro';
 import ServiceCard from '../../components/ui/ServiceCard.astro';
 import Contact from '../../components/sections/Contact.astro';
 import { Butterfly, Cloud, Daisy, Star, Sun } from '../../components/art/Art';
-import { practice, services, grownUpCards, serviceAreas } from '../../data/site';
+import { practice, services, serviceAreas } from '../../data/site';
 import { serviceTopics } from '../../data/serviceTopics';
 
 export function getStaticPaths() {
   return serviceTopics.map((t) => ({ params: { slug: t.slug }, props: { t } }));
 }
 const { t } = Astro.props;
-const related = (t.kind === 'kids' ? services : grownUpCards).filter((s) => s.slug !== t.slug);
-const photoSlot = (s: { slug: string }) => (t.kind === 'kids' ? `svc-${s.slug}` : `adult-${s.slug}`);
+const related = services.filter((s) => s.slug !== t.slug);
+const photoSlot = (s: { slug: string }) => `svc-${s.slug}`;
 const sectionBg = ['bg-paper', 'bg-sun-soft', 'bg-meadow-soft', 'bg-grape-soft', 'bg-sky-soft'];
 const edgeText = ['text-paper', 'text-sun-soft', 'text-meadow-soft', 'text-grape-soft', 'text-sky-soft'];
 const tones: Record<string, { sheet: string; shade: string }> = {
@@ -40,7 +40,7 @@ const faqLd = {
   <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 
   <!-- Intro -->
-  <section class={`relative overflow-hidden pb-24 pt-36 md:pb-32 md:pt-44 ${t.kind === 'kids' ? 'bg-sky-soft' : 'bg-grape-soft'}`}>
+  <section class="relative overflow-hidden bg-sky-soft pb-24 pt-36 md:pb-32 md:pt-44">
     <div class="absolute inset-0" aria-hidden="true">
       <div class="bg-layer bg-skyfade"></div>
       <div class="bg-layer bg-doodle-sky"></div>
@@ -61,7 +61,7 @@ const faqLd = {
           ))}
         </ul>
         <div class="mt-8 flex flex-wrap gap-4">
-          <a href={practice.bookUrl} class="btn">{t.kind === 'kids' ? 'Book a visit' : 'Book a consultation'}</a>
+          <a href={practice.bookUrl} class="btn">Book a visit</a>
           <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
         </div>
       </div>
@@ -154,7 +154,7 @@ const faqLd = {
   <section class="section-pad relative bg-sun-soft">
     <PaperEdge variant="scallop" class="text-sun-soft" />
     <div class="container-x relative z-[2]">
-      <h2 class="h-section">{t.kind === 'kids' ? 'More ways we can help' : 'More grown-up services'}</h2>
+      <h2 class="h-section">More ways we can help</h2>
       <ul class="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         {related.slice(0, 4).map((s, i) => (
           <li>

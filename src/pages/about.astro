@@ -8,7 +8,7 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import Contact from '../components/sections/Contact.astro';
 import { Butterfly, Cloud, Daisy, Sun, Star, Glyph } from '../components/art/Art';
 import ServiceCard from '../components/ui/ServiceCard.astro';
-import { practice, grownUpCards } from '../data/site';
+import { practice } from '../data/site';
 import { aboutIntro, drBio, credentials, affiliations, inOffice } from '../data/about';
 
 const tone: Record<string, { bg: string; shade: string }> = {
@@ -120,41 +120,9 @@ const tone: Record<string, { bg: string; shade: string }> = {
         </div>
         <div class="relative z-[1]">
           <p class="text-lg text-ink-soft">Video visits are also open through the Healow app, for families across the US.</p>
-          <a href="/#services" class="btn btn-sun mt-6">See all services</a>
+          <a href="/services" class="btn btn-sun mt-6">See all services</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Care for grown-ups -->
-  <section class="section-pad relative bg-grape-soft">
-    <PaperEdge variant="zigzag" class="text-grape-soft" />
-    <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-      <div class="bg-layer bg-dots"></div>
-      <Cloud className="drift absolute -left-10 top-24 hidden w-48 opacity-90 md:block" />
-      <Star className="bob absolute right-[7%] top-20 hidden w-10 md:block" color="#ffd23f" />
-    </div>
-    <div class="container-x relative z-[2]">
-      <div class="max-w-2xl">
-        <h2 class="h-section">Care for grown-ups too</h2>
-        <p class="lede mt-4">Dr. Daniela also offers aesthetic and wellness treatments for parents and adults. Pick a service to learn more.</p>
-      </div>
-      <ul class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
-        {grownUpCards.map((c, i) => (
-          <li>
-            <ServiceCard
-              href={`/services/${c.slug}`}
-              title={c.title}
-              text={c.text}
-              glyph={c.glyph}
-              color={c.color}
-              slot={`adult-${c.slug}`}
-              tilt={['-1.2deg', '0.8deg', '-0.6deg', '1.2deg'][i % 4]}
-              shade="#bda9ef"
-            />
-          </li>
-        ))}
-      </ul>
     </div>
   </section>
 
