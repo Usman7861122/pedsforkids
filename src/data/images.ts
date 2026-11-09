@@ -21,7 +21,6 @@ export const photos: Record<string, Photo> = {
   'adult-facial-rejuvenation': { src: '/images/adult-facial-rejuvenation.jpg', alt: 'A woman receiving a facial treatment with a mask' },
   'adult-led-light-therapy': { src: '/images/adult-led-light-therapy.jpg', alt: 'A woman relaxing under a pink LED light therapy mask' },
   'adult-prp-treatments': { src: '/images/adult-prp-treatments.jpg', alt: 'Scientists examining a blood sample for PRP treatment' },
-  'adult-iv-vitamin-infusions': { src: '/images/adult-iv-vitamin-infusions.jpg', alt: 'An IV drip stand in a treatment room' },
   // Well child exams page
   'wce-hero': { src: '/images/wce-hero.jpg', alt: 'A smiling doctor checking a happy baby while mom holds him' },
   'wce-toddler': { src: '/images/wce-toddler.jpg', alt: 'A pediatrician listening to a little girl’s back on a sofa' },
@@ -48,8 +47,7 @@ export const photos: Record<string, Photo> = {
   // Providers (headshots)
   provider0: { src: '/images/dr-daniela.jpg', alt: 'Dr. Daniela Atanassova-Lineva' },
   provider1: { src: 'https://sa1s3optim.patientpop.com/assets/production/practices/393f89bc5848d93e98bd0771889762273578c143/images/1949840.png', alt: 'Lisa M. Guan, CPNP' },
-  provider2: { src: 'https://sa1s3optim.patientpop.com/assets/production/practices/393f89bc5848d93e98bd0771889762273578c143/images/2692893.png', alt: 'Miriam Samekhova, CFNP' },
-  provider3: { src: 'https://sa1s3optim.patientpop.com/assets/production/practices/393f89bc5848d93e98bd0771889762273578c143/images/2824031.jpg', alt: 'Michal Sarikov, FNP-BC' },
+  provider2: { src: 'https://sa1s3optim.patientpop.com/assets/production/practices/393f89bc5848d93e98bd0771889762273578c143/images/2824031.jpg', alt: 'Michal Sarikov, FNP-BC' },
   // Blog
   blog0: { src: '/images/svc-pediatric-and-adolescent-medicine.jpg', alt: 'A parent talking with a child' },
   blog1: { src: '/images/svc-well-child-exams.jpg', alt: 'A baby being gently checked' },

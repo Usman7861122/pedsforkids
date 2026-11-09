@@ -1,6 +1,6 @@
 // Content for the service pages other than Well child exams (that one has its own page and data).
 // Kids services are rewritten in plain words from the live peds4kids.com pages.
-// Grown-up services (except IV infusions) are NOT on the old site. Their text is short and general.
+// Grown-up services are NOT on the old site. Their text is short and general.
 // TODO: ask the practice to review every page, and the grown-up pages most of all, before launch.
 
 export type Block =
@@ -305,46 +305,6 @@ export const serviceTopics: ServiceTopic[] = [
 
   // ---------- Grown-up services ----------
   {
-    slug: 'iv-vitamin-infusions',
-    kind: 'grownup',
-    title: 'IV vitamin infusions',
-    h1: 'IV vitamin infusions in Rego Park, Queens',
-    description: 'IV vitamin infusions in Rego Park, Queens. Vitamins, minerals and hydration for energy, immunity and glowing skin at Peds For Kids.',
-    lede: 'Feeling tired? Vitamins, minerals and fluids go straight into the bloodstream through an IV, to help you feel recharged. Treatments are for adults and are planned after a medical check.',
-    tags: ['For adults', '45 to 60 minutes', 'Custom blends'],
-    photo: 'adult-iv-vitamin-infusions',
-    blocks: [
-      {
-        type: 'cards',
-        title: 'How it works',
-        text: 'Sleep loss, stress, poor food and tiredness can drain your body. An IV bypasses the stomach, so vitamins and fluids are absorbed quickly. Results can vary.',
-        items: [
-          { title: 'Blood pressure check', text: 'A nurse or Dr. Daniela checks that your blood pressure is normal.' },
-          { title: 'IV in your arm', text: 'You may feel a small pinch when the IV goes in.' },
-          { title: 'Relax', text: 'The vitamins drip in slowly while you rest. It takes about 45 to 60 minutes.' },
-        ],
-      },
-      {
-        type: 'prices',
-        title: 'IV packages',
-        text: 'Each package comes in 250 ml of normal saline.',
-        items: [
-          { name: 'Stamina and endurance', price: '$229', text: 'For workout recovery and muscle repair.', mix: 'Glutathione, selenium, zinc, magnesium, vitamin C, B complex' },
-          { name: 'Immunity boost', price: '$249', text: 'For colds, flu, sick days and jet lag.', mix: 'High-dose vitamin C (5000 mg), zinc, B complex, magnesium' },
-          { name: 'Skin glow and antioxidant boost', price: '$249', text: 'Supports metabolism, the liver and even skin tone.', mix: 'Glutathione, selenium, magnesium, vitamin C, biotin' },
-          { name: 'Myers', price: '$199', text: 'The classic Myers blend.', mix: 'B complex, vitamin C, magnesium, potassium' },
-          { name: 'Vitamin C', price: '$149', text: 'Supports immunity and healing, and helps fight colds.', mix: 'Vitamin C' },
-        ],
-        note: 'Any other vitamin, mineral or amino acid is $20 more. Dr. Daniela can design a custom blend after a medical check. Please read and sign the consent form before treatment.',
-      },
-    ],
-    faqs: [
-      { q: 'Are IV infusions for children?', a: 'No. This service is for adults.' },
-      { q: 'How long does a treatment take?', a: 'Usually 45 to 60 minutes.' },
-      { q: 'Is there a form to sign?', a: 'Yes. You can find the consent form on our Patient forms page.' },
-    ],
-  },
-  {
     slug: 'botox',
     kind: 'grownup',
     title: 'Botox',
@@ -401,7 +361,7 @@ export const serviceTopics: ServiceTopic[] = [
     h1: 'Microneedling in Rego Park, Queens',
     description: 'Microneedling skin treatments for adults in Rego Park, Queens at Peds For Kids. Book a consultation.',
     lede: 'Microneedling is a skin treatment that can help skin look smoother and more even. It is for adults. Book a consultation and we will talk about what is right for you.',
-    tags: ['For adults', 'Skin care', 'Consent form'],
+    tags: ['For adults', 'Skin care', 'Consultation first'],
     photo: 'adult-microneedling',
     blocks: [
       {
@@ -409,13 +369,13 @@ export const serviceTopics: ServiceTopic[] = [
         title: 'What to expect',
         items: [
           { title: 'A talk first', text: 'We listen to your goals and tell you if the treatment is a good fit.' },
-          { title: 'Read and sign', text: 'You will read and sign a consent form before treatment. You can find it on our Patient forms page.' },
+          { title: 'A clear plan', text: 'Your provider explains each step and what to expect before treatment.' },
           { title: 'Aftercare tips', text: 'We explain how to care for your skin afterward.' },
         ],
       },
     ],
     faqs: [
-      { q: 'Where is the consent form?', a: 'On our Patient forms page. You can fill it in at home.' },
+      { q: 'Is it painful?', a: 'Your provider will explain what you may feel and how to stay comfortable.' },
       { q: 'How do I start?', a: 'Call us or send a message to book a consultation.' },
     ],
   },

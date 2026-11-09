@@ -60,7 +60,7 @@ const legal = [
         {practice.address.map((l) => <span class="block">{l}</span>)}
         <a href={practice.phoneHref} class="mt-2 block font-bold text-sun">{practice.phone}</a>
       </address>
-      <a href="#contact" class="btn btn-sun mt-5 !px-5 !py-3 !text-base">Book a visit</a>
+      <a href={practice.bookUrl} class="btn btn-sun mt-5 !px-5 !py-3 !text-base">Book a visit</a>
     </div>
   </div>
 

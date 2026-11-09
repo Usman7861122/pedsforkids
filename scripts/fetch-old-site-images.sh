@@ -6,7 +6,6 @@ cd "$(dirname "$0")/../public/images"; mkdir -p art
 B=https://sa1s3optim.patientpop.com/assets
 P=$B/production/practices/393f89bc5848d93e98bd0771889762273578c143/images
 curl -fLo provider-lisa.png $P/1949840.png
-curl -fLo provider-miriam.png $P/2692893.png
 curl -fLo provider-michal.jpg $P/2824031.jpg
 for i in 1949846 1949847 1949848 1949849 1949850 1949851; do curl -fLo art/art-$i.jpeg $B/images/provider/photos/$i.jpeg; done
 

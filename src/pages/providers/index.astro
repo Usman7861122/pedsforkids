@@ -39,7 +39,7 @@ const shade: Record<string, string> = { sun: '#e3c453', coral: '#f2a999', sky: '
       <Tree className="absolute bottom-0 right-[4%] hidden w-14 lg:block" />
     </div>
     <div class="container-x relative z-[2]">
-      <ul class="grid gap-x-6 gap-y-16 pt-8 sm:grid-cols-2 lg:grid-cols-4">
+      <ul class="grid gap-x-6 gap-y-16 pt-8 sm:grid-cols-2 lg:grid-cols-3">
         {people.map((p) => (
           <li class="flex">
             <article class="sheet group relative flex w-full flex-col px-6 pb-7 pt-32 text-center transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet:#fffdf7;--sheet-shade:${shade[p.color]};`}>

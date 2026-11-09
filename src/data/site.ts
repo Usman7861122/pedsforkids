@@ -10,7 +10,7 @@ export const practice = {
   fax: '877-926-5112',
   address: ['63-95 Austin St.', 'Rego Park, NY 11374'],
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=63-95+Austin+St+Rego+Park+NY+11374',
-  bookUrl: '/book', // TODO: point to Zocdoc / Healow booking link
+  bookUrl: 'https://healow.com/apps/provider/daniela-atanassovalineva-840',
   social: [
     { name: 'Facebook', href: 'https://facebook.com/peds4kids' },
     { name: 'Instagram', href: 'https://instagram.com/peds4kids' },
@@ -50,7 +50,6 @@ export const grownUpServices = [
   'Facial rejuvenation',
   'LED light therapy',
   'PRP treatments',
-  'IV vitamin infusions',
 ];
 
 // Adult aesthetic services shown as cards on the About page. Pages at /services/<slug> come later.
@@ -61,7 +60,6 @@ export const grownUpCards = [
   { slug: 'facial-rejuvenation', title: 'Facial rejuvenation', text: 'Treatments that bring back glow and tone.', glyph: 'flower', color: 'meadow' },
   { slug: 'led-light-therapy', title: 'LED light therapy', text: 'Gentle light care for calmer, clearer skin.', glyph: 'star', color: 'sun' },
   { slug: 'prp-treatments', title: 'PRP treatments', text: 'Use your own natural healing power for renewed skin.', glyph: 'thermo', color: 'coral' },
-  { slug: 'iv-vitamin-infusions', title: 'IV vitamin infusions', text: 'Vitamins and fluids to help you feel your best.', glyph: 'apple', color: 'meadow' },
 ] as const;
 
 export const nav = {
@@ -78,7 +76,6 @@ export const nav = {
     items: [
       { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela', color: 'sun' },
       { label: 'Lisa M. Guan, CPNP', text: 'Nurse practitioner', href: '/providers/lisa-m-guan-cpnp', color: 'coral' },
-      { label: 'Miriam Samekhova, CFNP', text: 'Nurse practitioner', href: '/providers/miriam-samekhova-cfnp', color: 'sky' },
       { label: 'Michal Sarikov, FNP-BC', text: 'Nurse practitioner', href: '/providers/michal-sarikov-msn-arnp-fnp-bc', color: 'meadow' },
     ],
   },
@@ -143,7 +140,6 @@ export const reviews = [
 export const providers = [
   { name: 'Dr. Daniela Atanassova-Lineva', short: 'Dr. Daniela', role: 'Pediatrician', text: 'Board certified in pediatric and adolescent medicine. Speaks five languages.', animal: 'owl', color: 'sun' },
   { name: 'Lisa M. Guan, CPNP', short: 'Lisa', role: 'Nurse practitioner', text: 'Board-certified nurse practitioner for babies, kids and teens.', animal: 'bunny', color: 'coral' },
-  { name: 'Miriam Samekhova, CFNP', short: 'Miriam', role: 'Nurse practitioner', text: 'Board-certified family nurse practitioner for the whole family.', animal: 'bear', color: 'sky' },
   { name: 'Michal Sarikov, MSN, ARNP, FNP-BC', short: 'Michal', role: 'Nurse practitioner', text: 'Board-certified family nurse practitioner, here to help.', animal: 'fox', color: 'meadow' },
 ] as const;
 
@@ -204,4 +200,16 @@ export const insuranceLogos = [
   { name: 'Empire Plan', logo: '/images/insurance/1790359.png' },
   { name: 'HealthFirst', logo: '/images/insurance/1790728.png' },
   { name: 'Oxford (UnitedHealthcare)', logo: '/images/insurance/1789309.png' },
+];
+
+// Every plan the practice accepts, in the practice's own order. Plans without a logo in
+// insuranceLogos show a name tile instead. TODO: add the 13 missing logos to public/images/insurance/.
+export const insuranceList = [
+  'Regence Blue Cross Blue Shield', '1199SEIU', 'Aetna', 'Anthem Blue Cross', 'Anthem Blue Cross Blue Shield',
+  'Arkansas Blue Cross Blue Shield', 'Blue Cross', 'Blue Cross Blue Shield', 'Capital Blue Cross',
+  'CareFirst Blue Cross Blue Shield', 'Caterpillar', 'CBA Blue', 'Cigna', 'Emblem Health GHI PPO HIP',
+  'Empire Blue Cross Blue Shield', 'Empire Plan', 'Fidelis Care', 'Florida Blue: Blue Cross Blue Shield of Florida',
+  'GeoBlue', 'Health Plus', 'HealthFirst', 'HighMark Blue Cross Blue Shield', 'HighMark Blue Shield',
+  'MetroPlus Health Plan', 'Oxford (UnitedHealthcare)', 'Premera Blue Cross', 'United Health Care',
+  'United Health One', 'Wellmark Blue Cross Blue Shield',
 ];
