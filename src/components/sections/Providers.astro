@@ -48,8 +48,14 @@ const shade: Record<string, string> = {
             <h3 class="relative z-[1] text-[1.4rem]">{p.name}</h3>
             <p class="relative z-[1] mt-1 font-bold text-ink-soft">{p.role}</p>
             <p class="relative z-[1] mt-3 text-[1rem]">{p.text}</p>
-            <a href={profileHref(i)} class="relative z-[1] mb-6 mt-3 inline-block font-bold underline decoration-meadow decoration-[3px] underline-offset-4 hover:decoration-coral">Read about {p.short}</a>
-            <a href={practice.bookUrl} class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Book with {p.short}</a>
+            {i === 0 ? (
+              <>
+                <a href={profileHref(i)} class="relative z-[1] mb-6 mt-3 inline-block font-bold underline decoration-meadow decoration-[3px] underline-offset-4 hover:decoration-coral">Read about {p.short}</a>
+                <a href={practice.bookUrl} class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Book with {p.short}</a>
+              </>
+            ) : (
+              <a href={profileHref(i)} class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Read more</a>
+            )}
           </article>
         </li>
       ))}
