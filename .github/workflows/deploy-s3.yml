@@ -32,6 +32,22 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      - name: Debug OIDC (safe info only)
+        env:
+          ROLE: ${{ secrets.AWS_ROLE_ARN }}
+          REGION: ${{ vars.AWS_REGION }}
+        run: |
+          echo "Role secret length: ${#ROLE} (expected 56)"
+          echo "Role starts with arn:aws:iam::408421298613:role/ ? $([[ "$ROLE" == arn:aws:iam::408421298613:role/pedsforkids-github-deploy ]] && echo EXACT_MATCH || echo NO_MATCH)"
+          echo "Region value: [$REGION]"
+          TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | python3 -c "import sys,json;print(json.load(sys.stdin)['value'])")
+          echo "$TOKEN" | cut -d. -f2 | python3 -c "
+          import sys,base64,json
+          b=sys.stdin.read().strip(); b+='='*(-len(b)%4)
+          c=json.loads(base64.urlsafe_b64decode(b))
+          for k in ('iss','aud','sub','repository','ref'): print(k,'=',c.get(k))
+          "
+
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
