@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import PaperEdge from '../components/ui/PaperEdge.astro';
+import Contact from '../components/sections/Contact.astro';
+import { Star, Cloud } from '../components/art/Art';
+import { press, practice } from '../data/site';
+
+// Facts come from the site's own press section. TODO: ask Dr. Daniela to confirm the award wording and dates.
+const awards = [
+  {
+    id: 'top-pediatrician-of-the-year',
+    kicker: press.main.kicker,
+    title: 'Top Pediatrician of the Year 2022',
+    text: press.main.text,
+    sheet: '#ffe88f', shade: '#e3c453',
+    links: [] as { name: string; href: string }[],
+  },
+  {
+    id: 'top-pediatrician-of-the-decade',
+    kicker: 'IAOTP, December 2023',
+    title: 'Top Pediatrician of the Decade',
+    text: 'The International Association of Top Professionals (IAOTP) also named Dr. Daniela Top Pediatrician of the Decade. The news was shared by TV station websites across the country.',
+    sheet: '#bfe8f8', shade: '#8fcbe6',
+    links: press.seenOn.filter((s) => /decade/.test(s.href)),
+  },
+  {
+    id: 'empowered-woman-of-the-year',
+    kicker: 'IAOTP, December 2023',
+    title: 'Empowered Woman of the Year',
+    text: 'IAOTP selected Dr. Daniela as Empowered Woman of the Year. The news was shared by TV station websites across the country.',
+    sheet: '#e4dbfa', shade: '#bda9ef',
+    links: press.seenOn.filter((s) => /empowered/.test(s.href)),
+  },
+];
+---
+<BaseLayout title="Awards and press | Peds For Kids" description="Awards and news about Dr. Daniela Atanassova-Lineva of Peds For Kids in Rego Park, Queens, including Top Pediatrician of the Year and Top Pediatrician of the Decade.">
+  <PageHero crumb="Awards and press" title="Awards and press" lede="Recognition for Dr. Daniela and the care she gives to children and teens in Rego Park." tone="sun" />
+
+  <section class="section-pad relative overflow-hidden bg-paper">
+    <PaperEdge variant="scallop" class="text-paper" />
+    <div class="absolute inset-0" aria-hidden="true">
+      <Star className="bob absolute right-[7%] top-20 hidden w-10 md:block" color="#ffd23f" />
+      <Cloud className="drift absolute -left-8 bottom-10 hidden w-40 md:block" />
+    </div>
+    <div class="container-x relative z-[2]">
+      <ul class="grid gap-6 md:grid-cols-3">
+        {awards.map((a) => (
+          <li class="flex" id={a.id}>
+            <article class="sheet flex w-full flex-col p-7" style={`--sheet:${a.sheet};--sheet-shade:${a.shade};`}>
+              <p class="relative z-[1] font-bold text-ink-soft">{a.kicker}</p>
+              <h2 class="relative z-[1] mt-2 text-2xl">{a.title}</h2>
+              <p class="relative z-[1] mt-3">{a.text}</p>
+              {a.links.length > 0 && (
+                <ul class="relative z-[1] mt-5 flex flex-col gap-2">
+                  {a.links.map((l) => (
+                    <li><a href={l.href} target="_blank" rel="noopener" class="font-bold underline underline-offset-4">Read it on {l.name}</a></li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <a href="/dr-daniela" class="btn btn-sun">Meet Dr. Daniela</a>
+        <a href={practice.bookUrl} class="btn btn-paper">Book a visit</a>
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</BaseLayout>

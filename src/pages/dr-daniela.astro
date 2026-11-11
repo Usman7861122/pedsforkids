@@ -10,6 +10,7 @@ import { Butterfly, Cloud, Daisy, Glyph, Star, Sun } from '../components/art/Art
 import { practice, press } from '../data/site';
 import { affiliations } from '../data/about';
 import { doctor, path, focus, honors, stats } from '../data/doctor';
+import { abs, clinicId } from '../data/seo';
 
 const tone: Record<string, { bg: string; shade: string }> = {
   sky: { bg: '#bfe8f8', shade: '#8fcbe6' },
@@ -18,8 +19,23 @@ const tone: Record<string, { bg: string; shade: string }> = {
   meadow: { bg: '#cdefd7', shade: '#7fcf9f' },
   grape: { bg: '#e4dbfa', shade: '#bda9ef' },
 };
+const description = 'Meet Dr. Daniela Atanassova-Lineva, a board certified pediatrician in Rego Park, Queens. Training, experience and the care she gives families.';
+const physician = {
+  '@type': 'Physician',
+  '@id': abs('/dr-daniela/#physician'),
+  name: doctor.name,
+  url: abs('/dr-daniela/'),
+  image: abs('/images/dr-daniela.jpg'),
+  jobTitle: 'Pediatrician',
+  description,
+  medicalSpecialty: 'Pediatric',
+  telephone: '+1-718-268-9100',
+  worksFor: { '@id': clinicId },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Varna Medical University' },
+  award: honors.filter((h) => !h.startsWith('Co-author')),
+};
 ---
-<BaseLayout title={`${doctor.name} | Peds For Kids`} description="Meet Dr. Daniela Atanassova-Lineva, a board certified pediatrician in Rego Park, Queens. Training, experience and the care she gives families.">
+<BaseLayout title={`${doctor.name} | Peds For Kids`} description={description} schema={[physician]}>
   <!-- Intro -->
   <section class="relative overflow-hidden bg-sky-soft pb-24 pt-36 md:pb-32 md:pt-44">
     <div class="absolute inset-0" aria-hidden="true">

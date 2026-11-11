@@ -3,45 +3,85 @@ import '../styles/global.css';
 import SiteHeader from '../components/islands/SiteHeader';
 import Footer from '../components/sections/Footer.astro';
 import { practice } from '../data/site';
+import { SITE, DEFAULT_OG, abs, clinic, website, breadcrumbs, toJson } from '../data/seo';
 
 interface Props {
   title: string;
   description?: string;
+  /** Share image, a path like /images/x.jpg. Defaults to the Peds For Kids card. */
+  image?: string;
+  imageAlt?: string;
+  /** 'article' for blog posts. */
+  type?: 'website' | 'article';
+  /** Keep the page out of Google (drafts, error page). */
+  noindex?: boolean;
+  /** Breadcrumb trail after "Home". Top-level pages get one automatically. */
+  crumbs?: { name: string; path: string }[];
+  /** Extra schema.org objects for this page (Physician, BlogPosting, ...). */
+  schema?: Record<string, unknown>[];
+  /** Article dates (ISO), for blog posts. */
+  published?: string;
 }
-const { title, description = '' } = Astro.props;
+const { title, description = '', image, imageAlt, type = 'website', noindex = false, crumbs, schema = [], published } = Astro.props;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Pediatric',
-  name: practice.name,
-  description,
-  telephone: practice.phone,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: '63-95 Austin St.',
-    addressLocality: 'Rego Park',
-    addressRegion: 'NY',
-    postalCode: '11374',
-    addressCountry: 'US',
-  },
-};
+const path = Astro.url.pathname;
+const canonical = new URL(path, SITE).toString();
+const ogImage = abs(image ?? DEFAULT_OG.src);
+const ogAlt = imageAlt ?? (image ? title : DEFAULT_OG.alt);
+const isHome = path === '/';
+
+// Breadcrumbs: pass `crumbs`, or get Home > page name for simple top-level pages.
+const autoName = title.split(' | ')[0];
+const trail =
+  crumbs ?? (!isHome && !noindex && path.split('/').filter(Boolean).length === 1 ? [{ name: autoName, path }] : []);
+const graph: Record<string, unknown>[] = [website, clinic, ...schema];
+if (trail.length) graph.push(breadcrumbs([{ name: 'Home', path: '/' }, ...trail]));
+const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="theme-color" content="#9bdcf5" />
-    <link rel="icon" href="/favicon.svg" />
+    <meta name="author" content={practice.name} />
+
+    <!-- Social sharing -->
+    <meta property="og:site_name" content={practice.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={ogAlt} />
+    {!image && <meta property="og:image:width" content={String(DEFAULT_OG.width)} />}
+    {!image && <meta property="og:image:height" content={String(DEFAULT_OG.height)} />}
+    {published && <meta property="article:published_time" content={published} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogAlt} />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;700;800&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <title>{title}</title>
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" set:html={toJson(jsonLd)} />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>

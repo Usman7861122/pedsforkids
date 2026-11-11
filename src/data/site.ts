@@ -82,11 +82,11 @@ export const press = {
     kicker: 'New York, NY, February 19, 2022',
     title: 'Dr. Daniela Atanassova-Lineva named Top Pediatrician of the Year',
     text: 'The International Association of Top Professionals (IAOTP) chose Dr. Daniela as Top Pediatrician of the Year for 2022. The group praised her leadership, dedication and ethical practice in pediatric and adolescent medicine. Only a few members in each field receive this honor.',
-    href: '/press/top-pediatrician-of-the-year',
+    href: '/press/#top-pediatrician-of-the-year',
   },
   more: [
-    { title: 'Top Pediatrician of the Decade', source: 'IAOTP', href: '/press/top-pediatrician-of-the-decade' },
-    { title: 'Empowered Woman of the Year', source: 'IAOTP, December 2023', href: '/press/empowered-woman-of-the-year' },
+    { title: 'Top Pediatrician of the Decade', source: 'IAOTP', href: '/press/#top-pediatrician-of-the-decade' },
+    { title: 'Empowered Woman of the Year', source: 'IAOTP, December 2023', href: '/press/#empowered-woman-of-the-year' },
   ],
   seenOn: [
     { name: 'KUTV 2', logo: '/images/press/kutv.png', href: 'https://markets.financialcontent.com/fourptsmedia.kutv/article/getnews-2023-12-14-dr-daniela-atanassova-lineva-selected-as-top-pediatrician-of-the-decade-by-iaotp/' },

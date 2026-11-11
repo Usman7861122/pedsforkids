@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { photos } from '../../data/images';
+import { abs, websiteId } from '../../data/seo';
 import PaperEdge from '../../components/ui/PaperEdge.astro';
 import PhotoFrame from '../../components/ui/PhotoFrame.astro';
 import ServiceCard from '../../components/ui/ServiceCard.astro';
@@ -35,8 +37,18 @@ const faqLd = {
   '@type': 'FAQPage',
   mainEntity: t.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
+const url = `/services/${t.slug}/`;
+const shot = photos[t.photo];
+const webpage = { '@type': 'MedicalWebPage', '@id': abs(`${url}#webpage`), url: abs(url), name: `${t.title} in Rego Park, Queens`, description: t.description, isPartOf: { '@id': websiteId }, inLanguage: 'en-US' };
 ---
-<BaseLayout title={`${t.title} in Rego Park, Queens | Peds For Kids`} description={t.description}>
+<BaseLayout
+  title={`${t.title} in Rego Park, Queens | Peds For Kids`}
+  description={t.description}
+  image={shot?.src?.startsWith('/') ? shot.src : undefined}
+  imageAlt={shot?.alt}
+  schema={[webpage]}
+  crumbs={[{ name: 'Services', path: '/services/' }, { name: t.title, path: url }]}
+>
   <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 
   <!-- Intro -->

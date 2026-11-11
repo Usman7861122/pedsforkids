@@ -6,6 +6,7 @@ import Contact from '../../components/sections/Contact.astro';
 import { allPosts, postBodies, featuredPosts } from '../../data/blog';
 import { blogPdfs, blogImages } from '../../data/blogFiles';
 import { practice } from '../../data/site';
+import { abs, clinicId } from '../../data/seo';
 
 export function getStaticPaths() {
   return featuredPosts.map((f) => ({ params: { slug: f.slug }, props: { post: allPosts.find((p) => p.slug === f.slug)! } }));
@@ -21,8 +22,22 @@ const others = pub.filter((p) => p.slug !== post.slug);
 const from = Math.min(Math.max(0, idx - 1), others.length - 3);
 const more = others.slice(from, from + 3);
 const oldUrl = `https://www.peds4kids.com/blog/${post.slug}`;
+const url = `/blog/${post.slug}/`;
+const description = post.excerpt && post.excerpt.length >= 70 ? post.excerpt : `${post.title}: a plain-language health guide for parents from the pediatric team at Peds For Kids in Rego Park, Queens.`;
+const article = {
+  '@type': 'BlogPosting',
+  '@id': abs(`${url}#article`),
+  headline: post.title,
+  description,
+  datePublished: post.iso,
+  dateModified: post.iso,
+  inLanguage: 'en-US',
+  mainEntityOfPage: abs(url),
+  author: { '@type': 'Person', name: post.author || 'Dr. Daniela Atanassova-Lineva' },
+  publisher: { '@id': clinicId },
+};
 ---
-<BaseLayout title={`${post.title} | Peds For Kids`} description={post.excerpt || `${post.title}. A health article from Peds For Kids in Rego Park, Queens.`}>
+<BaseLayout title={`${post.title} | Peds For Kids`} description={description} type="article" published={post.iso} schema={[article]} crumbs={[{ name: 'Health blog', path: '/blog/' }, { name: post.title, path: url }]}>
   <PageHero crumb="Health blog" title={post.title} tone="sun">
     <p class="mt-4 font-bold text-ink-soft">{post.date}{post.author && ` · By ${post.author}`}</p>
   </PageHero>

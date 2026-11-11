@@ -1,0 +1,12 @@
+{
+  "name": "Peds For Kids",
+  "short_name": "Peds For Kids",
+  "description": "Pediatric and adolescent medicine in Rego Park, Queens",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fffdf7",
+  "theme_color": "#9bdcf5",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

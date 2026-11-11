@@ -6,6 +6,8 @@ import Contact from '../../components/sections/Contact.astro';
 import { Animal, Butterfly, Cloud, Daisy, Star, Sun } from '../../components/art/Art';
 import { practice } from '../../data/site';
 import { team } from '../../data/team';
+import { photos } from '../../data/images';
+import { abs, clinicId } from '../../data/seo';
 
 export function getStaticPaths() {
   return team.map((p) => ({ params: { slug: p.slug }, props: { p } }));
@@ -14,8 +16,22 @@ const { p } = Astro.props;
 const others = team.filter((o) => o.slug !== p.slug);
 const bg: Record<string, string> = { sun: '#ffe88f', coral: '#ffd6cc', sky: '#bfe8f8', meadow: '#cdefd7', grape: '#e4dbfa' };
 const shade: Record<string, string> = { sun: '#e3c453', coral: '#f2a999', sky: '#8fcbe6', meadow: '#7fcf9f', grape: '#bda9ef' };
+const url = `/providers/${p.slug}/`;
+const description = `Meet ${p.name}, ${p.role.toLowerCase()} at Peds For Kids in Rego Park, Queens.`;
+const photo = photos[p.photoSlot]?.src;
+const person = {
+  '@type': 'Person',
+  '@id': abs(`${url}#person`),
+  name: p.name,
+  url: abs(url),
+  jobTitle: p.role,
+  description: p.lede,
+  worksFor: { '@id': clinicId },
+  ...(photo ? { image: abs(photo) } : {}),
+  ...(p.details.find((d) => d.title === 'Languages') ? { knowsLanguage: p.details.find((d) => d.title === 'Languages')!.items } : {}),
+};
 ---
-<BaseLayout title={`${p.name} | Peds For Kids`} description={`Meet ${p.name}, ${p.role.toLowerCase()} at Peds For Kids in Rego Park, Queens.`}>
+<BaseLayout title={`${p.name} | Peds For Kids`} description={description} schema={[person]} crumbs={[{ name: 'Providers', path: '/providers/' }, { name: p.name, path: url }]}>
   <!-- Intro -->
   <section class="relative overflow-hidden bg-sky-soft pb-24 pt-36 md:pb-32 md:pt-44">
     <div class="absolute inset-0" aria-hidden="true">
