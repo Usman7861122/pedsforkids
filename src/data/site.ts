@@ -18,7 +18,7 @@ export const practice = {
   ],
 };
 
-// Nearby neighborhoods shown under the contact form. TODO: ask the practice to review this list.
+// Nearby neighborhoods shown in the contact section. TODO: ask the practice to review this list.
 export const serviceAreas = ['Rego Park', 'Forest Hills', 'Elmhurst', 'Middle Village', 'Kew Gardens', 'Corona', 'Jackson Heights', 'Flushing'];
 
 // 0 = Sunday ... 6 = Saturday
