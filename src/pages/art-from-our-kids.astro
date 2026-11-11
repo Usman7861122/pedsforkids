@@ -1,4 +1,5 @@
 ---
+import Pic from '../components/ui/Pic.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/ui/PageHero.astro';
 import PaperEdge from '../components/ui/PaperEdge.astro';
@@ -32,7 +33,7 @@ const base = 'https://sa1s3optim.patientpop.com/assets/images/provider/photos/';
 const tape = ['#ffd23f', '#59bfea', '#8f6be0', '#43c37a', '#ff7a66'];
 const rot = ['-1deg', '0.8deg', '-0.6deg', '1deg'];
 ---
-<BaseLayout title="Art from our kids | Peds For Kids" description="Drawings and paintings made by our little patients at Peds For Kids in Rego Park, Queens.">
+<BaseLayout title="Art from our kids | Peds For Kids" description="See drawings and paintings made by our little patients at Peds For Kids in Rego Park, Queens. Our walls are full of art. Call 718-268-9100 to book a visit.">
   <PageHero crumb="Art from our kids" title="Art from our kids" lede="Our little artists make our walls bright. Bring a drawing to your next visit and we will hang it up." tone="coral" />
 
   <section class="section-pad relative bg-paper">
@@ -43,7 +44,7 @@ const rot = ['-1deg', '0.8deg', '-0.6deg', '1deg'];
           <li>
             <a href={base + f} target="_blank" rel="noopener" class="sheet group relative block p-2.5 transition-transform duration-200 hover:-translate-y-1.5 hover:!rotate-0" style={`--sheet-shade:#f0a595;transform:rotate(${rot[i % rot.length]})`} aria-label={`Open drawing ${i + 1} from our kids`}>
               <span class="absolute -top-3 left-1/2 z-[2] h-6 w-16 -translate-x-1/2 -rotate-3 opacity-85" style={`background:${tape[i % tape.length]}`} aria-hidden="true"></span>
-              <img src={base + f} alt={`Drawing ${i + 1} made by a child who visits Peds For Kids`} loading="lazy" class="relative z-[1] aspect-[4/5] w-full rounded-lg bg-white object-contain" />
+              <Pic sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" src={base + f} alt={`Drawing ${i + 1} made by a child who visits Peds For Kids`} loading="lazy" class="relative z-[1] aspect-[4/5] w-full rounded-lg bg-white object-contain" />
             </a>
           </li>
         ))}

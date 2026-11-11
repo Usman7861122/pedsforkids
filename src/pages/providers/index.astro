@@ -17,12 +17,12 @@ const people = providers.map((p, i) => ({
   animal: p.animal,
   color: p.color,
   slot: `provider${i}`,
-  href: i === 0 ? '/dr-daniela' : `/providers/${team[i - 1].slug}`,
+  href: i === 0 ? '/dr-daniela' : `/providers/${team[i - 1].slug}/`,
 }));
 const bg: Record<string, string> = { sun: '#ffe88f', coral: '#ffd6cc', sky: '#bfe8f8', meadow: '#cdefd7' };
 const shade: Record<string, string> = { sun: '#e3c453', coral: '#f2a999', sky: '#8fcbe6', meadow: '#7fcf9f' };
 ---
-<BaseLayout title="Our providers | Peds For Kids" description="Meet the providers at Peds For Kids in Rego Park, Queens: Dr. Daniela Atanassova-Lineva and our board-certified nurse practitioners.">
+<BaseLayout title="Our Pediatricians in Rego Park, Queens | Peds For Kids" description="Meet the providers at Peds For Kids in Rego Park, Queens: Dr. Daniela Atanassova-Lineva and our board-certified nurse practitioners.">
   <PageHero crumb="Providers" title="Meet our providers" lede="Everyone on our team is board certified and loves working with kids. Pick who you would like to see when you book." tone="meadow">
     <div class="mt-8 flex flex-wrap gap-4">
       <a href={practice.bookUrl} class="btn">Book a visit</a>
@@ -61,7 +61,7 @@ const shade: Record<string, string> = { sun: '#e3c453', coral: '#f2a999', sky: '
                   </>
                 ) : (
                   <>
-                    <a href={p.href} class="btn btn-meadow !px-5 !py-3 !text-base">Read more</a>
+                    <a href={p.href} class="btn btn-meadow !px-5 !py-3 !text-base">Read more<span class="sr-only"> about {p.short ?? p.name}</span></a>
                     <span class="block h-7" aria-hidden="true"></span>
                   </>
                 )}

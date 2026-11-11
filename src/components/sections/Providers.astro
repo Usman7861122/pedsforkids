@@ -4,7 +4,7 @@ import { Animal, Butterfly, Daisy, Hills, Tree } from '../art/Art';
 import PhotoFrame from '../ui/PhotoFrame.astro';
 import { practice, providers } from '../../data/site';
 import { team } from '../../data/team';
-const profileHref = (i: number) => (i === 0 ? '/dr-daniela' : `/providers/${team[i - 1].slug}`);
+const profileHref = (i: number) => (i === 0 ? '/dr-daniela' : `/providers/${team[i - 1].slug}/`);
 
 const bg: Record<string, string> = {
   sun: '#ffe88f', coral: '#ffd6cc', sky: '#bfe8f8', meadow: '#cdefd7',
@@ -54,7 +54,7 @@ const shade: Record<string, string> = {
                 <a href={practice.bookUrl} class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Book with {p.short}</a>
               </>
             ) : (
-              <a href={profileHref(i)} class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Read more</a>
+              <a href={profileHref(i)} class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Read more<span class="sr-only"> about {p.short}</span></a>
             )}
           </article>
         </li>
@@ -68,7 +68,7 @@ const shade: Record<string, string> = {
           A 3-month program for international medical graduates, nurse practitioners and physician assistants, under Dr. Daniela's supervision.
         </p>
       </div>
-      <a href="/observership" class="btn btn-sun relative z-[1] justify-self-start">Learn more</a>
+      <a href="/observership/" class="btn btn-sun relative z-[1] justify-self-start">Learn more<span class="sr-only"> about our observership program</span></a>
     </div>
   </div>
 </section>

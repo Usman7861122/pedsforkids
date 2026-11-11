@@ -1,0 +1,13 @@
+# Peds For Kids
+
+> Peds For Kids is a pediatric and adolescent medicine practice at 63-95 Austin St, Rego Park, Queens, NY 11374. Phone: 718-268-9100. Led by Dr. Daniela.
+
+## Main pages
+- [About us](https://www.peds4kids.com/about/): who we are and how we care for kids
+- [Services](https://www.peds4kids.com/services/): well child exams, sick visits, vaccines, asthma, allergies and more
+- [Providers](https://www.peds4kids.com/providers/): our pediatricians and nurse practitioners
+- [Our office](https://www.peds4kids.com/our-office/): address, hours and what to expect
+- [Contact](https://www.peds4kids.com/contact/): call, directions and booking
+- [Patient forms](https://www.peds4kids.com/patient-forms/): new patient forms
+- [Health blog](https://www.peds4kids.com/blog/): children's health articles
+- [Reviews](https://www.peds4kids.com/testimonials/): what parents say

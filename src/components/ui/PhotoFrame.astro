@@ -1,4 +1,5 @@
 ---
+import Pic from './Pic.astro';
 // Shows a real photo in a paper frame when one is set in data/images.ts,
 // otherwise renders the slot content (an illustration).
 import { photos } from '../../data/images';
@@ -10,8 +11,9 @@ interface Props {
   class?: string;
   style?: string;
   pos?: string; // CSS object-position for the photo
+  eager?: boolean; // true for the big photo at the top of a page (the first thing people see)
 }
-const { slot, shape = 'sheet', tape, class: cls = '', style = '', pos = 'center 18%' } = Astro.props;
+const { slot, shape = 'sheet', tape, class: cls = '', style = '', pos = 'center 18%', eager = false } = Astro.props;
 const photo = photos[slot];
 const shapeClass = { arch: 'frame-arch', blob: 'frame-blob', wobble: 'frame-wobble', round: 'rounded-full', sheet: 'rounded-[1.5rem]' }[shape];
 ---
@@ -19,7 +21,7 @@ const shapeClass = { arch: 'frame-arch', blob: 'frame-blob', wobble: 'frame-wobb
   <div class={`relative ${cls}`} style={style}>
     {tape && <span class="absolute -top-3 left-1/2 z-[2] h-6 w-20 -translate-x-1/2 -rotate-3 opacity-85" style={`background:${tape}`} aria-hidden="true"></span>}
     <div class={`h-full overflow-hidden bg-paper p-2 shadow-[0_7px_0_rgba(42,34,80,0.18)] ${shapeClass}`}>
-      <img src={photo.src} alt={photo.alt} loading="lazy" class={`photo ${shapeClass}`} style={`object-position:${pos}`} />
+      <Pic sizes="(min-width: 1024px) 40vw, 92vw" src={photo.src} alt={photo.alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} class={`photo ${shapeClass}`} style={`object-position:${pos}`} />
     </div>
   </div>
 ) : (

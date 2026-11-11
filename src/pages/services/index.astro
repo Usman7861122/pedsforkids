@@ -9,7 +9,7 @@ import { practice, services } from '../../data/site';
 
 const tilt = ['-1.2deg', '0.8deg', '-0.6deg', '1.2deg'];
 ---
-<BaseLayout title="Our services | Peds For Kids" description="Pediatric and adolescent care in Rego Park, Queens: well child exams, sick visits, vaccines, asthma, allergies, telemedicine and healthy weight.">
+<BaseLayout title="Pediatric Services in Rego Park, Queens | Peds For Kids" description="Pediatric and adolescent care in Rego Park, Queens: well child exams, sick visits, vaccines, asthma, allergies, telemedicine and healthy weight.">
   <PageHero crumb="Services" title="Our services" lede="Care for babies, kids and teens, all in one friendly place." tone="sky">
     <div class="mt-8 flex flex-wrap gap-4">
       <a href={practice.bookUrl} class="btn">Book a visit</a>
@@ -24,7 +24,7 @@ const tilt = ['-1.2deg', '0.8deg', '-0.6deg', '1.2deg'];
       <ul class="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         {services.map((s, i) => (
           <li>
-            <ServiceCard href={`/services/${s.slug}`} title={s.title} text={s.text} glyph={s.glyph} color={s.color} slot={`svc-${s.slug}`} tilt={tilt[i % 4]} />
+            <ServiceCard href={`/services/${s.slug}/`} title={s.title} text={s.text} glyph={s.glyph} color={s.color} slot={`svc-${s.slug}`} tilt={tilt[i % 4]} />
           </li>
         ))}
       </ul>

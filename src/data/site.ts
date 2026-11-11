@@ -47,32 +47,32 @@ export const nav = {
   about: {
     label: 'About us',
     items: [
-      { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela', color: 'sun' },
-      { label: 'Observership program', text: 'For international medical graduates', href: '/observership', color: 'grape' },
-      { label: "Dr. Daniela's book", text: 'Prescription for a Happy and Healthy Child', href: '/book-by-dr-daniela', color: 'coral' },
+      { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela/', color: 'sun' },
+      { label: 'Observership program', text: 'For international medical graduates', href: '/observership/', color: 'grape' },
+      { label: "Dr. Daniela's book", text: 'Prescription for a Happy and Healthy Child', href: '/book-by-dr-daniela/', color: 'coral' },
     ],
   },
   providers: {
     label: 'Providers',
     items: [
-      { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela', color: 'sun' },
-      { label: 'Lisa M. Guan, CPNP', text: 'Nurse practitioner', href: '/providers/lisa-m-guan-cpnp', color: 'coral' },
-      { label: 'Michal Sarikov, FNP-BC', text: 'Nurse practitioner', href: '/providers/michal-sarikov-msn-arnp-fnp-bc', color: 'meadow' },
+      { label: 'Meet Dr. Daniela', text: 'Our pediatrician and founder', href: '/dr-daniela/', color: 'sun' },
+      { label: 'Lisa M. Guan, CPNP', text: 'Nurse practitioner', href: '/providers/lisa-m-guan-cpnp/', color: 'coral' },
+      { label: 'Michal Sarikov, FNP-BC', text: 'Nurse practitioner', href: '/providers/michal-sarikov-msn-arnp-fnp-bc/', color: 'meadow' },
     ],
   },
   services: {
     label: 'Services',
     items: [
-      ...services.map((s) => ({ label: s.title, text: '', href: `/services/${s.slug}`, color: s.color })),
+      ...services.map((s) => ({ label: s.title, text: '', href: `/services/${s.slug}/`, color: s.color })),
     ],
   },
   families: {
     label: 'Families',
     items: [
-      { label: 'Patient forms', text: 'Fill in before you visit', href: '/patient-forms', color: 'sky' },
-      { label: 'Reviews', text: 'What parents say', href: '/testimonials', color: 'sun' },
-      { label: 'Art from our kids', text: 'Our little artists', href: '/art-from-our-kids', color: 'coral' },
-      { label: 'Health blog', text: 'Answers to common questions', href: '/blog', color: 'meadow' },
+      { label: 'Patient forms', text: 'Fill in before you visit', href: '/patient-forms/', color: 'sky' },
+      { label: 'Reviews', text: 'What parents say', href: '/testimonials/', color: 'sun' },
+      { label: 'Art from our kids', text: 'Our little artists', href: '/art-from-our-kids/', color: 'coral' },
+      { label: 'Health blog', text: 'Answers to common questions', href: '/blog/', color: 'meadow' },
     ],
   },
 };

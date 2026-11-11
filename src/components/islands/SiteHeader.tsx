@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { nav, practice } from '../../data/site';
 import AnimatedLogo from './AnimatedLogo';
@@ -36,7 +36,7 @@ function MenuList({ menu }: { menu: MenuKey }) {
             </li>
           ))}
         </ul>
-        <a href="/services" className="mt-2 flex items-center justify-between rounded-2xl bg-sun-soft px-4 py-3 font-display font-bold">
+        <a href="/services/" className="mt-2 flex items-center justify-between rounded-2xl bg-sun-soft px-4 py-3 font-display font-bold">
           See all services
           <span aria-hidden="true">→</span>
         </a>
@@ -59,7 +59,7 @@ function MenuList({ menu }: { menu: MenuKey }) {
         ))}
       </ul>
       {menu === 'providers' && (
-        <a href="/providers" className="mt-2 flex items-center justify-between rounded-2xl bg-sun-soft px-4 py-3 font-display font-bold">
+        <a href="/providers/" className="mt-2 flex items-center justify-between rounded-2xl bg-sun-soft px-4 py-3 font-display font-bold">
           See all providers
           <span aria-hidden="true">→</span>
         </a>
@@ -82,7 +82,7 @@ const PhoneIcon = () => (
   </svg>
 );
 
-export default function SiteHeader() {
+function SiteHeaderInner() {
   const reduce = useReducedMotion();
   const [open, setOpen] = useState<MenuKey | null>(null);
   const [drawer, setDrawer] = useState(false);
@@ -195,7 +195,7 @@ export default function SiteHeader() {
                   </li>
                 ))}
                 <li>
-                  <a href="#contact" className="block rounded-full px-4 py-2 transition-colors hover:bg-cloud">Contact</a>
+                  <a href="/contact/" className="block rounded-full px-4 py-2 transition-colors hover:bg-cloud">Contact</a>
                 </li>
               </ul>
             </nav>
@@ -228,7 +228,7 @@ export default function SiteHeader() {
           <div className="pointer-events-none absolute left-0 top-full hidden w-full pt-3 xl:block">
             <AnimatePresence>
               {open && (
-                <motion.div
+                <m.div
                   key="panel"
                   id={`menu-${open}`}
                   className="sheet pointer-events-auto relative overflow-hidden"
@@ -240,7 +240,7 @@ export default function SiteHeader() {
                   onMouseEnter={cancelClose}
                 >
                   <AnimatePresence mode="popLayout" initial={false}>
-                    <motion.div
+                    <m.div
                       key={open}
                       ref={contentRef}
                       initial={{ opacity: 0, x: reduce ? 0 : dir.current * 28 }}
@@ -254,9 +254,9 @@ export default function SiteHeader() {
                       {open === 'about' && (
                         <Bear stetho className="pointer-events-none absolute -bottom-3 right-2 w-16 rotate-6 opacity-95" />
                       )}
-                    </motion.div>
+                    </m.div>
                   </AnimatePresence>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
@@ -266,7 +266,7 @@ export default function SiteHeader() {
       {/* Mobile drawer */}
       <AnimatePresence>
         {drawer && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-50 overflow-y-auto bg-cloud"
             role="dialog"
             aria-modal="true"
@@ -315,7 +315,7 @@ export default function SiteHeader() {
                     )}
                   </li>
                 ))}
-                <li><a href="#contact" className="sheet block px-5 py-4" onClick={() => setDrawer(false)}>Contact</a></li>
+                <li><a href="/contact/" className="sheet block px-5 py-4" onClick={() => setDrawer(false)}>Contact</a></li>
               </ul>
 
               <div className="mt-6 grid gap-3">
@@ -323,9 +323,18 @@ export default function SiteHeader() {
                 <a href={practice.phoneHref} className="btn btn-paper">Call {practice.phone}</a>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>
+  );
+}
+
+// "domAnimation" is the small animation kit (enter, exit, hover). It loads much less code than the full one.
+export default function SiteHeader() {
+  return (
+    <LazyMotion features={domAnimation} strict>
+      <SiteHeaderInner />
+    </LazyMotion>
   );
 }

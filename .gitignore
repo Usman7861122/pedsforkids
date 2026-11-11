@@ -3,3 +3,7 @@ dist
 .astro
 .env
 .DS_Store
+
+# generated before each build
+public/images/_opt/
+src/data/imageManifest.json

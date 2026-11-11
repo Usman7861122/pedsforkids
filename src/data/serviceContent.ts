@@ -26,7 +26,7 @@ export const servicePages: ServicePage[] = [
     title: 'Well child exams',
     h1: 'Well child exams in Rego Park, Queens',
     description:
-      'Regular well child check-ups for babies, kids and teens in Rego Park, Queens. Growth checks, vaccines, screenings and answers to your questions at Peds For Kids.',
+      'Well child check-ups for babies, kids and teens in Rego Park, Queens. Growth checks, vaccines, screenings and answers to your questions at Peds For Kids.',
     lede: 'A well child visit is a check-up when your child is healthy. We watch how your child grows, catch small problems early, keep shots up to date and answer your questions. We see children and teens up to age 21.',
     tags: ['Newborn to age 21', 'Shots on schedule', 'Same-day sick visits'],
     photos: { hero: 'wce-hero', a: 'wce-toddler', b: 'wce-baby', c: 'wce-teen', d: 'wce-vaccine' },

@@ -1,5 +1,5 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { useEffect, useState, type ReactNode } from 'react';
+import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from 'framer-motion';
+import { Fragment, useEffect, useState, type ReactNode } from 'react';
 import { practice } from '../../data/site';
 import { Balloon, Bear, Bubbles, Bunny, Cloud, Daisy, Fish, Fox, Hills, Plane, Star, Sun, Tree, Whale } from '../art/Art';
 
@@ -24,28 +24,40 @@ function SkyScene() {
       <Cloud className="drift-slow absolute right-[30%] top-[8%] w-[clamp(80px,10vw,160px)] opacity-90" />
       <Cloud className="drift absolute right-[2%] top-[52%] hidden md:block w-[clamp(80px,10vw,150px)] opacity-90" />
       {/* Our two dragons, the clinic mascots */}
-      <motion.img
-        src="/images/dragon-big.png"
-        alt=""
-        width={800}
-        height={514}
-        className="bob absolute right-[-4%] top-[60%] w-[56vw] max-w-none md:right-[5%] md:top-[26%] md:w-[clamp(300px,36vw,600px)]"
-        style={{ ['--r' as string]: '-3deg' }}
-        initial={{ x: 140, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
-      />
-      <motion.img
-        src="/images/dragon-small.png"
-        alt=""
-        width={597}
-        height={516}
-        className="bob absolute right-[40%] top-[56%] hidden w-[clamp(110px,15vw,230px)] md:block"
-        style={{ ['--r' as string]: '4deg', animationDelay: '-2s' }}
-        initial={{ x: 200, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: 'easeOut', delay: 0.5 }}
-      />
+      <picture>
+        <source type="image/avif" srcSet="/images/_opt/dragon-big-240.avif 240w, /images/_opt/dragon-big-480.avif 480w, /images/_opt/dragon-big-800.avif 800w" sizes="(min-width: 768px) 36vw, 56vw" />
+        <source type="image/webp" srcSet="/images/_opt/dragon-big-240.webp 240w, /images/_opt/dragon-big-480.webp 480w, /images/_opt/dragon-big-800.webp 800w" sizes="(min-width: 768px) 36vw, 56vw" />
+        <m.img
+          src="/images/dragon-big.png"
+          alt=""
+          width={800}
+          height={514}
+          fetchPriority="high"
+          decoding="async"
+          className="bob absolute right-[-4%] top-[60%] w-[56vw] max-w-none md:right-[5%] md:top-[26%] md:w-[clamp(300px,36vw,600px)]"
+          style={{ ['--r' as string]: '-3deg' }}
+          initial={{ x: 140, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+        />
+      </picture>
+      <picture>
+        <source type="image/avif" srcSet="/images/_opt/dragon-small-240.avif 240w, /images/_opt/dragon-small-480.avif 480w" sizes="15vw" />
+        <source type="image/webp" srcSet="/images/_opt/dragon-small-240.webp 240w, /images/_opt/dragon-small-480.webp 480w" sizes="15vw" />
+        <m.img
+          src="/images/dragon-small.png"
+          alt=""
+          width={597}
+          height={516}
+          loading="lazy"
+          decoding="async"
+          className="bob absolute right-[40%] top-[56%] hidden w-[clamp(110px,15vw,230px)] md:block"
+          style={{ ['--r' as string]: '4deg', animationDelay: '-2s' }}
+          initial={{ x: 200, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: 'easeOut', delay: 0.5 }}
+        />
+      </picture>
       <Hills className="absolute inset-x-0 bottom-0 h-[30vh] w-full" />
       <Tree className="absolute bottom-[14vh] right-[10%] hidden w-[clamp(36px,5vw,70px)] md:block" />
       <Tree className="absolute bottom-[15vh] right-[16%] hidden w-[clamp(28px,4vw,56px)] md:block" />
@@ -121,27 +133,31 @@ const slides: Slide[] = [
 
 function SplitWords({ text, reduce }: { text: string; reduce: boolean | null }) {
   const words = text.split(' ');
+  // Real spaces between the words, so search engines and screen readers read normal text.
   return (
-    <h1 className="h-display" aria-label={text}>
+    <h2 className="h-display">
       {words.map((w, i) => (
-        <span key={i} aria-hidden="true" className="mr-[0.26em] inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] align-top">
-          <motion.span
-            className="inline-block origin-bottom-left"
-            initial={reduce ? { opacity: 0 } : { y: '115%', rotate: 7, opacity: 0 }}
-            animate={reduce ? { opacity: 1 } : { y: '0%', rotate: 0, opacity: 1 }}
-            transition={reduce ? { duration: 0.3 } : { type: 'spring', stiffness: 220, damping: 20, delay: 0.25 + i * 0.075 }}
-          >
-            {w}
-          </motion.span>
-        </span>
+        <Fragment key={i}>
+          {i > 0 && ' '}
+          <span className="inline-block overflow-hidden pb-[0.14em] -mb-[0.14em] align-top">
+            <m.span
+              className="inline-block origin-bottom-left"
+              initial={reduce ? { opacity: 0 } : { y: '115%', rotate: 7, opacity: 0 }}
+              animate={reduce ? { opacity: 1 } : { y: '0%', rotate: 0, opacity: 1 }}
+              transition={reduce ? { duration: 0.3 } : { type: 'spring', stiffness: 220, damping: 20, delay: 0.25 + i * 0.075 }}
+            >
+              {w}
+            </m.span>
+          </span>
+        </Fragment>
       ))}
-    </h1>
+    </h2>
   );
 }
 
 /* ---------- Slider ---------- */
 
-export default function HeroSlider() {
+function HeroSliderInner() {
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -169,7 +185,7 @@ export default function HeroSlider() {
     >
       {/* Scenes */}
       <AnimatePresence initial={false}>
-        <motion.div
+        <m.div
           key={slide.id}
           className="absolute inset-0"
           initial={{ opacity: 0 }}
@@ -179,12 +195,12 @@ export default function HeroSlider() {
           aria-hidden="true"
         >
           {slide.scene}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* Paper plane glides across on every change: the one big moment */}
       {!reduce && (
-        <motion.div
+        <m.div
           key={`flight-${index}`}
           aria-hidden="true"
           className="pointer-events-none absolute left-0 top-0 z-20 w-[clamp(60px,7vw,110px)]"
@@ -193,35 +209,31 @@ export default function HeroSlider() {
           transition={{ duration: 2.8, ease: 'easeInOut', delay: index === 0 ? 0.6 : 0.1 }}
         >
           <Plane />
-        </motion.div>
+        </m.div>
       )}
 
       {/* Copy */}
       <div className="container-x relative z-10 flex h-full items-start pt-[22vh] md:items-center md:pt-0">
         <div className={`max-w-[36rem] ${light ? 'text-paper' : 'text-ink'}`} aria-live={running ? 'off' : 'polite'}>
-          <AnimatePresence mode="wait">
-            <motion.div
+          <AnimatePresence mode="wait" initial={false}>
+            <m.div
               key={slide.id}
               exit={{ opacity: 0, y: reduce ? 0 : -12, transition: { duration: 0.22 } }}
             >
-              <motion.p
-                className="mb-4 inline-block rounded-full bg-paper px-4 py-1.5 font-display text-base font-bold text-ink shadow-[0_4px_0_rgba(42,34,80,0.18)] sm:text-lg"
-                initial={{ opacity: 0, y: reduce ? 0 : -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: reduce ? 0 : 0.1, duration: 0.4 }}
-              >
-                {practice.slogan}
-              </motion.p>
+              {/* The one fixed H1 of the home page. The big headline below changes with each slide. */}
+              <h1 className="mb-4 inline-block rounded-full bg-paper px-4 py-1.5 font-display text-base font-bold text-ink shadow-[0_4px_0_rgba(42,34,80,0.18)] sm:text-lg">
+                Pediatrician in Rego Park, Queens
+              </h1>
               <SplitWords text={slide.title} reduce={reduce} />
-              <motion.p
+              <m.p
                 className="mt-5 max-w-[30rem] text-[1.2rem] leading-relaxed"
                 initial={{ opacity: 0, y: reduce ? 0 : 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: reduce ? 0 : 0.95, duration: 0.5 }}
               >
                 {slide.text}
-              </motion.p>
-              <motion.div
+              </m.p>
+              <m.div
                 className="mt-7 flex flex-wrap gap-3"
                 initial={{ opacity: 0, scale: reduce ? 1 : 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -229,18 +241,18 @@ export default function HeroSlider() {
               >
                 <a href={practice.bookUrl} className="btn">Book a visit</a>
                 <a href={practice.phoneHref} className="btn btn-paper">Call {practice.phone}</a>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </AnimatePresence>
         </div>
       </div>
 
       {/* Controls */}
       <div className="absolute inset-x-0 bottom-12 z-20 flex items-center justify-center gap-3 md:bottom-14">
-        <button type="button" onClick={() => go(index - 1)} aria-label="Previous slide" className="grid size-11 place-items-center rounded-full bg-paper shadow-[0_4px_0_#cfc7ad]">
+        <button type="button" onClick={() => go(index - 1)} aria-label="Previous slide" className="grid size-12 place-items-center rounded-full bg-paper shadow-[0_4px_0_#cfc7ad]">
           <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="#2a2250" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
-        <div className="flex items-center gap-2 rounded-full bg-paper px-3 py-3 shadow-[0_4px_0_#cfc7ad]">
+        <div className="flex items-center rounded-full bg-paper px-1 shadow-[0_4px_0_#cfc7ad]">
           {slides.map((s, i) => (
             <button
               key={s.id}
@@ -248,23 +260,25 @@ export default function HeroSlider() {
               onClick={() => go(i)}
               aria-label={`Go to slide ${i + 1} of ${slides.length}`}
               aria-current={i === index}
-              className={`relative h-3 overflow-hidden rounded-full bg-sky-soft transition-all ${i === index ? 'w-12' : 'w-3'}`}
+              className="grid h-12 min-w-12 place-items-center"
             >
-              {i === index && (
-                <span
-                  key={`${index}-${running}`}
-                  className="absolute inset-0 origin-left rounded-full bg-coral"
-                  style={{ animation: running ? `progress ${SLIDE_MS}ms linear forwards` : undefined, transform: running ? undefined : 'scaleX(1)' }}
-                />
-              )}
+              <span className={`relative block h-3 overflow-hidden rounded-full bg-sky-soft transition-all ${i === index ? 'w-10' : 'w-3'}`}>
+                {i === index && (
+                  <span
+                    key={`${index}-${running}`}
+                    className="absolute inset-0 origin-left rounded-full bg-coral"
+                    style={{ animation: running ? `progress ${SLIDE_MS}ms linear forwards` : undefined, transform: running ? undefined : 'scaleX(1)' }}
+                  />
+                )}
+              </span>
             </button>
           ))}
         </div>
-        <button type="button" onClick={() => go(index + 1)} aria-label="Next slide" className="grid size-11 place-items-center rounded-full bg-paper shadow-[0_4px_0_#cfc7ad]">
+        <button type="button" onClick={() => go(index + 1)} aria-label="Next slide" className="grid size-12 place-items-center rounded-full bg-paper shadow-[0_4px_0_#cfc7ad]">
           <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="#2a2250" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
         {!reduce && (
-          <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play slideshow' : 'Pause slideshow'} className="grid size-11 place-items-center rounded-full bg-paper shadow-[0_4px_0_#cfc7ad]">
+          <button type="button" onClick={() => setPaused((p) => !p)} aria-label={paused ? 'Play slideshow' : 'Pause slideshow'} className="grid size-12 place-items-center rounded-full bg-paper shadow-[0_4px_0_#cfc7ad]">
             {paused ? (
               <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="#2a2250" /></svg>
             ) : (
@@ -274,5 +288,14 @@ export default function HeroSlider() {
         )}
       </div>
     </section>
+  );
+}
+
+// "domAnimation" is the small animation kit (enter, exit, hover). It loads much less code than the full one.
+export default function HeroSlider() {
+  return (
+    <LazyMotion features={domAnimation} strict>
+      <HeroSliderInner />
+    </LazyMotion>
   );
 }

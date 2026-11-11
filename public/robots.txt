@@ -1,6 +1,5 @@
 # Peds For Kids: everyone is welcome to read the site.
 User-agent: *
 Allow: /
-Disallow: /home-2/
 
 Sitemap: https://www.peds4kids.com/sitemap-index.xml

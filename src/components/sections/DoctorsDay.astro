@@ -1,4 +1,5 @@
 ---
+import Pic from '../ui/Pic.astro';
 import PaperEdge from '../ui/PaperEdge.astro';
 import { Balloon, Star } from '../art/Art';
 import { doctorsDay } from '../../data/events';
@@ -28,7 +29,7 @@ const rot = ['-1.5deg', '1deg', '-1deg', '1.5deg', '-0.5deg'];
         <li class="mb-6 break-inside-avoid">
           <div class="relative rounded-[1.25rem] bg-paper p-2 shadow-[0_7px_0_rgba(42,34,80,0.18)] transition-transform duration-200 hover:-translate-y-1 hover:rotate-0" style={`transform:rotate(${rot[i % rot.length]})`}>
             <span class="absolute -top-3 left-1/2 z-[2] h-5 w-16 -translate-x-1/2 -rotate-3 opacity-85" style={`background:${tape[i % tape.length]}`} aria-hidden="true"></span>
-            <img src={p.src} alt={p.alt} loading="lazy" class="block w-full rounded-[0.9rem]" />
+            <Pic sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 92vw" src={p.src} alt={p.alt} loading="lazy" class="block w-full rounded-[0.9rem]" />
           </div>
         </li>
       ))}

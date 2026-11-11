@@ -51,6 +51,9 @@ export const clinic = {
     postalCode: '11374',
     addressCountry: 'US',
   },
+  geo: { '@type': 'GeoCoordinates', latitude: 40.7272719, longitude: -73.8632016 },
+  // Assumption: mid-range price band. Ask the clinic to confirm.
+  priceRange: '$$',
   hasMap: practice.mapsUrl,
   openingHoursSpecification: openingHours,
   areaServed: serviceAreas.map((name) => ({ '@type': 'City', name })),

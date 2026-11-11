@@ -38,12 +38,13 @@ const faqLd = {
   mainEntity: t.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
 const url = `/services/${t.slug}/`;
+const fitDesc = (d: string) => (d.length + 36 <= 155 ? `${d} Call 718-268-9100 to book a visit.` : d);
 const shot = photos[t.photo];
-const webpage = { '@type': 'MedicalWebPage', '@id': abs(`${url}#webpage`), url: abs(url), name: `${t.title} in Rego Park, Queens`, description: t.description, isPartOf: { '@id': websiteId }, inLanguage: 'en-US' };
+const webpage = { '@type': 'MedicalWebPage', '@id': abs(`${url}#webpage`), url: abs(url), name: `${t.title} in Rego Park, Queens`, description: fitDesc(t.description), isPartOf: { '@id': websiteId }, inLanguage: 'en-US' };
 ---
 <BaseLayout
   title={`${t.title} in Rego Park, Queens | Peds For Kids`}
-  description={t.description}
+  description={fitDesc(t.description)}
   image={shot?.src?.startsWith('/') ? shot.src : undefined}
   imageAlt={shot?.alt}
   schema={[webpage]}
@@ -63,7 +64,7 @@ const webpage = { '@type': 'MedicalWebPage', '@id': abs(`${url}#webpage`), url: 
     <div class="container-x relative z-[2] grid items-center gap-12 md:grid-cols-[1.1fr_minmax(0,24rem)] lg:gap-20">
       <div>
         <nav aria-label="Breadcrumb" class="font-display text-base font-bold text-ink-soft">
-          <a href="/" class="hover:underline">Home</a> <span aria-hidden="true">/</span> <a href="/services" class="hover:underline">Services</a>
+          <a href="/" class="hover:underline">Home</a> <span aria-hidden="true">/</span> <a href="/services/" class="hover:underline">Services</a>
         </nav>
         <h1 class="h-display mt-3">{t.h1}</h1>
         <p class="lede mt-5 max-w-[56ch]">{t.lede}</p>
@@ -79,7 +80,7 @@ const webpage = { '@type': 'MedicalWebPage', '@id': abs(`${url}#webpage`), url: 
       </div>
       <div class="group relative mx-auto w-full max-w-sm">
         <span class="absolute -left-5 -top-4 h-full w-full -rotate-3 rounded-[45%_55%_40%_60%/50%_45%_55%_50%] bg-sun-soft" aria-hidden="true"></span>
-        <PhotoFrame slot={t.photo} shape="arch" tape="#ffd23f" class="relative aspect-[4/5] w-full transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.02] motion-reduce:transition-none" pos="center 30%" />
+        <PhotoFrame eager slot={t.photo} shape="arch" tape="#ffd23f" class="relative aspect-[4/5] w-full transition-transform duration-300 group-hover:-rotate-1 group-hover:scale-[1.02] motion-reduce:transition-none" pos="center 30%" />
       </div>
     </div>
   </section>
@@ -170,11 +171,11 @@ const webpage = { '@type': 'MedicalWebPage', '@id': abs(`${url}#webpage`), url: 
       <ul class="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
         {related.slice(0, 4).map((s, i) => (
           <li>
-            <ServiceCard href={`/services/${s.slug}`} title={s.title} text={s.text} glyph={s.glyph} color={s.color} slot={photoSlot(s)} tilt={tilt[i % 4]} />
+            <ServiceCard href={`/services/${s.slug}/`} title={s.title} text={s.text} glyph={s.glyph} color={s.color} slot={photoSlot(s)} tilt={tilt[i % 4]} />
           </li>
         ))}
       </ul>
-      <p class="mt-8"><a href="/services" class="font-display text-lg font-bold underline decoration-coral decoration-[3px] underline-offset-4">See all services</a></p>
+      <p class="mt-8"><a href="/services/" class="font-display text-lg font-bold underline decoration-coral decoration-[3px] underline-offset-4">See all services</a></p>
     </div>
   </section>
 

@@ -7,7 +7,7 @@ const { src, poster, label, class: cls = '' } = Astro.props;
   <span class="absolute -top-3 left-1/2 z-[2] h-6 w-24 -translate-x-1/2 -rotate-3 opacity-85" style="background:#ffd23f" aria-hidden="true"></span>
   <div class="h-full overflow-hidden rounded-[2rem] bg-paper p-2.5 shadow-[0_9px_0_rgba(42,34,80,0.2)]">
     <div class="relative h-full overflow-hidden rounded-[1.5rem] bg-ink">
-      <video class="h-full w-full object-cover" muted loop playsinline preload="metadata" poster={poster} aria-label={label}>
+      <video class="h-full w-full object-cover" muted loop playsinline preload="none" poster={poster} aria-label={label}>
         <source src={src} type="video/mp4" />
       </video>
       <button type="button" data-sound class="absolute bottom-3 right-3 flex items-center gap-2 rounded-full bg-paper px-4 py-2 font-display text-base font-bold shadow-[0_4px_0_rgba(42,34,80,0.25)] transition-transform hover:-translate-y-0.5" aria-pressed="false">

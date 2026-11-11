@@ -18,7 +18,7 @@ import { hours, practice, serviceAreas } from '../../data/site';
   <div class="container-x relative z-[2]">
     <div class="max-w-2xl">
       <h2 class="h-section">Say hello</h2>
-      <p class="lede mt-4">Questions, a new visit or a quick check on your plan? Give us a call or book a visit online.</p>
+      <p class="lede mt-4">Questions, a new visit or a quick check on your plan? Give us a call or book a visit online.{Astro.url.pathname !== '/contact/' && <> See all the ways to <a href="/contact/" class="font-bold underline decoration-sky decoration-[3px] underline-offset-4">contact us</a>.</>}</p>
       <div class="mt-6 flex flex-wrap gap-4">
         <a href={practice.phoneHref} class="btn btn-sun">Call {practice.phone}</a>
         <a href={practice.bookUrl} class="btn btn-paper">Book a visit</a>

@@ -1,4 +1,5 @@
 ---
+import Pic from '../../components/ui/Pic.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import PaperEdge from '../../components/ui/PaperEdge.astro';
@@ -8,7 +9,7 @@ import { allPosts, featuredPosts } from '../../data/blog';
 const shades = ['#8fcbe6', '#e3bd3a', '#f2a999', '#7fcf9f'];
 const posts = featuredPosts.map((f) => ({ ...f, post: allPosts.find((p) => p.slug === f.slug)! }));
 ---
-<BaseLayout title="Health blog | Peds For Kids" description="Clear answers to common children's health questions from Peds For Kids in Rego Park, Queens.">
+<BaseLayout title="Children's Health Blog | Peds For Kids Rego Park" description="Clear answers to common children's health questions, from fevers to development. Tips from Peds For Kids in Rego Park, Queens. Call 718-268-9100.">
   <PageHero crumb="Health blog" title="Answers for curious parents" lede="Short, clear reads on the health questions families ask us most." tone="sun" />
 
   <section class="section-pad relative bg-paper">
@@ -17,9 +18,9 @@ const posts = featuredPosts.map((f) => ({ ...f, post: allPosts.find((p) => p.slu
       <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {posts.map((p, i) => (
           <li class="flex">
-            <a href={`/blog/${p.slug}`} class="sheet group flex w-full flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet-shade:${shades[i % shades.length]};`}>
+            <a href={`/blog/${p.slug}/`} class="sheet group flex w-full flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1.5" style={`--sheet-shade:${shades[i % shades.length]};`}>
               <div class="relative z-[1] aspect-[4/3] overflow-hidden">
-                <img src={p.image} alt={p.alt} loading="lazy" width="900" height="675" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <Pic sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 92vw" src={p.image} alt={p.alt} loading="lazy" width="900" height="675" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
               </div>
               <div class="relative z-[1] flex flex-1 flex-col p-5">
                 <p class="text-sm font-bold text-ink-soft">{p.post.date}</p>

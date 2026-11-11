@@ -1,4 +1,5 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from 'framer-motion';
+import type { ComponentProps } from 'react';
 import { useEffect, useState } from 'react';
 
 // "peds / for / kids" with the brand colors. One word at a time, each with its own bar on the left.
@@ -20,7 +21,7 @@ function Word({ i }: { i: number }) {
   );
 }
 
-export default function AnimatedLogo({ size = 'md' }: { size?: 'md' | 'lg' }) {
+function AnimatedLogoInner({ size = 'md' }: { size?: 'md' | 'lg' }) {
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
 
@@ -46,13 +47,13 @@ export default function AnimatedLogo({ size = 'md' }: { size?: 'md' | 'lg' }) {
   return (
     <span role="img" aria-label="Peds for Kids" className={`relative flex items-center ${box}`}>
       <AnimatePresence mode="popLayout" initial={false}>
-        <motion.span
+        <m.span
           key={i}
           aria-hidden="true"
           className="absolute inset-0 flex items-center gap-2.5"
           exit={{ opacity: 0, y: -10, transition: { duration: 0.22 } }}
         >
-          <motion.span
+          <m.span
             className="h-[78%] w-[3px] origin-top rounded-full bg-ink"
             initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
@@ -60,7 +61,7 @@ export default function AnimatedLogo({ size = 'md' }: { size?: 'md' | 'lg' }) {
           />
           <span className={`flex font-display font-light leading-none tracking-tight ${text}`}>
             {words[i].text.split('').map((ch, k) => (
-              <motion.span
+              <m.span
                 key={k}
                 style={{ color: words[i].colors[k] }}
                 initial={{ opacity: 0, y: 14 }}
@@ -68,11 +69,20 @@ export default function AnimatedLogo({ size = 'md' }: { size?: 'md' | 'lg' }) {
                 transition={{ type: 'spring', stiffness: 380, damping: 20, delay: 0.1 + k * 0.07 }}
               >
                 {ch}
-              </motion.span>
+              </m.span>
             ))}
           </span>
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </span>
+  );
+}
+
+// "domAnimation" is the small animation kit (enter, exit, hover). It loads much less code than the full one.
+export default function AnimatedLogo(props: ComponentProps<typeof AnimatedLogoInner>) {
+  return (
+    <LazyMotion features={domAnimation} strict>
+      <AnimatedLogoInner {...props} />
+    </LazyMotion>
   );
 }

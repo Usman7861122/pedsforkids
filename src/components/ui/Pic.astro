@@ -1,0 +1,33 @@
+---
+// A fast image: AVIF and WebP copies in several sizes (made by scripts/optimize-images.mjs),
+// real width and height so the page does not jump, and the original as a fallback.
+// Images that are not in the manifest (for example links to other sites) become a plain <img>.
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  style?: string;
+  /** How wide the image is on screen, for example "(min-width: 1024px) 25vw, 92vw". */
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  width?: number | string;
+  height?: number | string;
+}
+const { src, alt = '', class: cls, style, sizes = '100vw', loading = 'lazy', fetchpriority, width, height } = Astro.props;
+
+type Entry = { w: number; h: number; base: string; widths: number[] };
+const files = import.meta.glob('../../data/imageManifest.json', { eager: true, import: 'default' }) as Record<string, Record<string, Entry>>;
+const manifest: Record<string, Entry> = Object.values(files)[0] ?? {};
+const m = manifest[src];
+const srcset = (ext: string) => m.widths.map((w) => `/images/_opt/${m.base}-${w}.${ext} ${w}w`).join(', ');
+---
+{m ? (
+  <picture>
+    <source type="image/avif" srcset={srcset('avif')} sizes={sizes} />
+    <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+    <img src={src} alt={alt} width={m.w} height={m.h} class={cls} style={style} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+  </picture>
+) : (
+  <img src={src} alt={alt} width={width} height={height} class={cls} style={style} loading={loading} decoding="async" fetchpriority={fetchpriority} />
+)}

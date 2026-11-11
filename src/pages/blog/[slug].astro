@@ -1,4 +1,5 @@
 ---
+import Pic from '../../components/ui/Pic.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/ui/PageHero.astro';
 import PaperEdge from '../../components/ui/PaperEdge.astro';
@@ -23,7 +24,16 @@ const from = Math.min(Math.max(0, idx - 1), others.length - 3);
 const more = others.slice(from, from + 3);
 const oldUrl = `https://www.peds4kids.com/blog/${post.slug}`;
 const url = `/blog/${post.slug}/`;
-const description = post.excerpt && post.excerpt.length >= 70 ? post.excerpt : `${post.title}: a plain-language health guide for parents from the pediatric team at Peds For Kids in Rego Park, Queens.`;
+const pick = (c: string[]) => c.find((x) => x.length >= 140 && x.length <= 155) ?? c.filter((x) => x.length <= 155).sort((a, b) => b.length - a.length)[0] ?? c[c.length - 1];
+const description = pick([
+  ...(post.excerpt ? [post.excerpt] : []),
+  `${post.title}: plain-language health advice for parents from the pediatric team at Peds For Kids in Rego Park, Queens. Call 718-268-9100.`,
+  `${post.title}: clear health tips for parents from Peds For Kids in Rego Park, Queens. Call 718-268-9100 to book a visit with our team.`,
+  `${post.title}: clear health tips for parents from the pediatric team at Peds For Kids in Rego Park, Queens. Call 718-268-9100 to book.`,
+  `${post.title}: health tips for parents from Peds For Kids in Rego Park, Queens, with care for babies, kids and teens. Call 718-268-9100.`,
+  `${post.title}: health tips for parents from Peds For Kids in Rego Park, Queens. Call 718-268-9100.`,
+]);
+const pageTitle = post.slug === 'common-cold' ? 'Common Cold in Kids: Care Tips | Peds For Kids' : `${post.title} | Peds For Kids`;
 const article = {
   '@type': 'BlogPosting',
   '@id': abs(`${url}#article`),
@@ -37,7 +47,7 @@ const article = {
   publisher: { '@id': clinicId },
 };
 ---
-<BaseLayout title={`${post.title} | Peds For Kids`} description={description} type="article" published={post.iso} schema={[article]} crumbs={[{ name: 'Health blog', path: '/blog/' }, { name: post.title, path: url }]}>
+<BaseLayout title={pageTitle} description={description} type="article" published={post.iso} schema={[article]} crumbs={[{ name: 'Health blog', path: '/blog/' }, { name: post.title, path: url }]}>
   <PageHero crumb="Health blog" title={post.title} tone="sun">
     <p class="mt-4 font-bold text-ink-soft">{post.date}{post.author && ` · By ${post.author}`}</p>
   </PageHero>
@@ -46,7 +56,7 @@ const article = {
     <PaperEdge variant="wave" class="text-paper" />
     <div class="container-x relative z-[2] grid gap-10 lg:grid-cols-[minmax(0,44rem)_1fr]">
       <article class="grid gap-8 text-lg leading-relaxed">
-        {feat && <img src={feat.image} alt={feat.alt} width="900" height="675" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover shadow-[0_7px_0_rgba(42,34,80,0.18)]" />}
+        {feat && <Pic sizes="(min-width: 1024px) 50vw, 92vw" src={feat.image} alt={feat.alt} width="900" height="675" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover shadow-[0_7px_0_rgba(42,34,80,0.18)]" />}
         {(feat?.summary || post.excerpt) && !body && <p class="lede">{feat?.summary || post.excerpt}</p>}
         {body && body.map((s) => (
           <div>
@@ -69,7 +79,7 @@ const article = {
         )}
         {slides && (
           <div class="grid gap-5">
-            {slides.map((src, n) => <img src={src} alt={`${post.title}, slide ${n + 1}`} loading="lazy" class="w-full rounded-[1rem] border-2 border-ink/15 bg-white" />)}
+            {slides.map((src, n) => <Pic sizes="(min-width: 1024px) 50vw, 92vw" src={src} alt={`${post.title}, slide ${n + 1}`} loading="lazy" class="w-full rounded-[1rem] border-2 border-ink/15 bg-white" />)}
           </div>
         )}
         {!body && !pdf && !slides && (
@@ -80,7 +90,7 @@ const article = {
         )}
         <p class="border-t-2 border-dashed border-ink/20 pt-6 text-base text-ink-soft">This article is for learning only. It does not replace advice from your child's doctor. For a medical emergency, call 911.</p>
         <div class="flex flex-wrap gap-4">
-          <a href="/blog" class="btn btn-paper">All articles</a>
+          <a href="/blog/" class="btn btn-paper">All articles</a>
           <a href={practice.bookUrl} class="btn">Book a visit</a>
         </div>
       </article>
@@ -90,7 +100,7 @@ const article = {
         <ul class="mt-4 grid gap-4">
           {more.map((p) => (
             <li>
-              <a href={`/blog/${p.slug}`} class="sheet block p-5 transition-transform duration-200 hover:-translate-y-1" style="--sheet-shade:#e3bd3a;">
+              <a href={`/blog/${p.slug}/`} class="sheet block p-5 transition-transform duration-200 hover:-translate-y-1" style="--sheet-shade:#e3bd3a;">
                 <span class="relative z-[1] block text-sm font-bold text-ink-soft">{p.date}</span>
                 <span class="relative z-[1] block font-display text-xl font-bold leading-snug">{p.title}</span>
               </a>

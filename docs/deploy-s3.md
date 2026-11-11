@@ -59,11 +59,3 @@ Repo > Settings > Secrets and variables > Actions:
 ## Run it
 
 Push to `main`, or GitHub > Actions > Deploy to S3 > Run workflow.
-
-## Put the workflow in place (one time)
-
-GitHub only runs workflows from `.github/workflows/`. Run this once in Terminal:
-
-```
-cd ~/pedsforkids && mkdir -p .github/workflows && git mv docs/deploy-s3.yml .github/workflows/deploy-s3.yml 2>/dev/null || mv docs/deploy-s3.yml .github/workflows/deploy-s3.yml
-```

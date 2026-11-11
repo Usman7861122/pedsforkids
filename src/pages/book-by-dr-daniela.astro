@@ -1,4 +1,5 @@
 ---
+import Pic from '../components/ui/Pic.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/ui/PageHero.astro';
 import PaperEdge from '../components/ui/PaperEdge.astro';
@@ -20,7 +21,7 @@ const authors = [
   { name: 'Dr. Shellie Hipsky, Ed.D.', role: 'Empowerment coach, author and former professor', text: 'A mom of two who has spoken at Harvard and Oxford. She turned the questions into easy lessons for parents.', sheet: '#e4dbfa', shade: '#bda9ef' },
 ];
 ---
-<BaseLayout title="The Prescription for a Happy and Healthy Child | Peds For Kids" description="Read The Prescription for a Happy and Healthy Child: 113 questions answered by Dr. Daniela Atanassova-Lineva, a top pediatrician in Rego Park, Queens.">
+<BaseLayout title="Prescription for a Happy and Healthy Child | Dr. Daniela" description="Read The Prescription for a Happy and Healthy Child: 113 questions answered by Dr. Daniela Atanassova-Lineva, a top pediatrician in Rego Park, Queens.">
   <PageHero crumb="Book by Dr. Daniela" title="A book by Dr. Daniela" lede="Answers to the questions new parents ask most, from the pediatrician who has the answers." tone="sun" />
 
   <!-- The book -->
@@ -35,9 +36,9 @@ const authors = [
       <div class="relative mx-auto w-full max-w-[17rem] rotate-2 md:max-w-[20rem]">
         <span class="absolute -top-3 left-1/2 z-[2] h-6 w-24 -translate-x-1/2 -rotate-3 opacity-85" style="background:#43c37a" aria-hidden="true"></span>
         <a href={book.amazon} target="_blank" rel="noopener" class="block rounded-2xl bg-paper p-3 shadow-[0_9px_0_rgba(42,34,80,0.2)] transition-transform hover:-translate-y-1 hover:rotate-0">
-          <img src={book.cover} alt={`Book cover: ${book.title}`} class="block w-full rounded-xl" />
+          <Pic sizes="(min-width: 768px) 320px, 272px" src={book.cover} alt={`Book cover: ${book.title}`} class="block w-full rounded-xl" />
         </a>
-        <img src={book.badge} alt="International Book Awards finalist" loading="lazy" class="absolute -bottom-6 -right-4 h-20 w-20 rotate-6 object-contain md:-right-8 md:h-24 md:w-24" />
+        <Pic sizes="96px" src={book.badge} alt="International Book Awards finalist" loading="lazy" class="absolute -bottom-6 -right-4 h-20 w-20 rotate-6 object-contain md:-right-8 md:h-24 md:w-24" />
       </div>
       <div>
         <h2 class="h-section">{book.title}</h2>
@@ -102,7 +103,7 @@ const authors = [
 
       <div class="mt-10 flex flex-wrap items-center gap-4">
         <a href={book.amazon} target="_blank" rel="noopener" class="btn btn-sun">Get the book on Amazon</a>
-        <a href="/about#meet" class="btn btn-paper">Meet Dr. Daniela</a>
+        <a href="/about/#meet" class="btn btn-paper">Meet Dr. Daniela</a>
       </div>
     </div>
   </section>

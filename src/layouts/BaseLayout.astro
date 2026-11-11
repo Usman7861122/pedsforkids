@@ -1,5 +1,14 @@
 ---
 import '../styles/global.css';
+// Fonts are served from our own site (no waiting on Google Fonts). Same weights as before.
+import '@fontsource/nunito/latin-300.css';
+import '@fontsource/nunito/latin-700.css';
+import '@fontsource/nunito/latin-800.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import nunito800 from '@fontsource/nunito/files/nunito-latin-800-normal.woff2?url';
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 import SiteHeader from '../components/islands/SiteHeader';
 import Footer from '../components/sections/Footer.astro';
 import { practice } from '../data/site';
@@ -31,7 +40,12 @@ const ogAlt = imageAlt ?? (image ? title : DEFAULT_OG.alt);
 const isHome = path === '/';
 
 // Breadcrumbs: pass `crumbs`, or get Home > page name for simple top-level pages.
-const autoName = title.split(' | ')[0];
+const crumbNames: Record<string, string> = {
+  '/about/': 'About us', '/blog/': 'Health blog', '/contact/': 'Contact', '/our-office/': 'Our office',
+  '/patient-forms/': 'Patient forms', '/providers/': 'Our providers', '/services/': 'Our services',
+  '/testimonials/': 'Reviews', '/book-by-dr-daniela/': "Dr. Daniela's book",
+};
+const autoName = crumbNames[path] ?? title.split(' | ')[0];
 const trail =
   crumbs ?? (!isHome && !noindex && path.split('/').filter(Boolean).length === 1 ? [{ name: autoName, path }] : []);
 const graph: Record<string, unknown>[] = [website, clinic, ...schema];
@@ -76,12 +90,10 @@ const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;700;800&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- The two fonts used on first screen start loading right away -->
+    <link rel="preload" href={nunito800} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
+    <slot name="head" />
     <script type="application/ld+json" set:html={toJson(jsonLd)} />
   </head>
   <body>
