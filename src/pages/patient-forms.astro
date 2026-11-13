@@ -12,6 +12,7 @@ const groups = [
     shade: '#8fcbe6', sheet: '#bfe8f8',
     items: [
       { name: 'New patient form', note: 'PDF. Print it, fill it in and bring it to your visit.', href: 'https://sa1s3optim.patientpop.com/assets/docs/451382.pdf', cta: 'Open the form' },
+      { name: 'Healthix consent form', note: 'PDF, 2 pages. Page 1 is the form to sign. Page 2 explains how your health information is shared. Print it and bring it to your visit.', href: '/forms/healthix-form.pdf', cta: 'Open the form' },
     ],
   },
   {
@@ -25,7 +26,7 @@ const groups = [
   },
 ];
 ---
-<BaseLayout title="New Patient Forms | Peds For Kids Rego Park" description="Download the new patient form for Peds For Kids in Rego Park, Queens, plus free child development tools for parents. Call 718-268-9100 to book a visit.">
+<BaseLayout title="New Patient Forms | Peds For Kids Rego Park" description="Download the new patient and Healthix consent forms for Peds For Kids in Rego Park, Queens. Call 718-268-9100 to book a visit.">
   <PageHero crumb="Patient forms" title="Patient forms" lede="Get your paperwork done before you come. Download the forms below, or call us if you need help." tone="sky">
     <div class="mt-8 flex flex-wrap gap-4">
       <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
