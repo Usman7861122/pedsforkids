@@ -68,7 +68,11 @@ export default function BookModal() {
     if (!appointmentEndpoint) { setStatus('error'); return; }
     setStatus('sending');
     try {
-      const res = await fetch(appointmentEndpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+      const res = await fetch(appointmentEndpoint, {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(data.entries())),
+        headers: { 'Content-Type': 'application/json' },
+      });
       if (!res.ok) throw new Error(String(res.status));
       form.reset();
       setStatus('done');
@@ -87,12 +91,13 @@ export default function BookModal() {
           <span aria-hidden="true">×</span>
         </button>
         <h2 id={titleId} className="pr-10 text-3xl">Book a visit</h2>
-        <p className="mt-2 text-ink-soft">Fill in the form and we will call you. Or call us at <a href={practice.phoneHref} className="font-bold underline">{practice.phone}</a>.</p>
+        <p className="mt-2 text-ink-soft">Fill in the form and we will call you. Or call us at <a href={practice.phoneHref} className="whitespace-nowrap font-bold underline">{practice.phone}</a>.</p>
 
         {status === 'done' ? (
-          <div role="status" className="mt-6 rounded-2xl bg-sun-soft p-5 font-bold">
-            Thank you! We got your request. We will contact you soon.
-            <button type="button" onClick={close} className="btn mt-4 block">Close</button>
+          <div role="status" className="mt-6 rounded-2xl bg-sun-soft p-6 text-center">
+            <p className="font-display text-3xl font-extrabold">Thank you!</p>
+            <p className="mt-2 text-lg font-bold">We got your request. Our team will call you soon to book your visit.</p>
+            <button type="button" onClick={close} className="btn mt-5 inline-flex">Close</button>
           </div>
         ) : (
           <form onSubmit={onSubmit} className="mt-6 grid gap-4" noValidate={false}>
@@ -122,7 +127,7 @@ export default function BookModal() {
             </label>
             {status === 'error' && (
               <p role="alert" className="rounded-xl bg-coral/20 p-3 font-bold">
-                Sorry, we could not send your request. Please call us at <a href={practice.phoneHref} className="underline">{practice.phone}</a>.
+                Sorry, we could not send your request. Please call us at <a href={practice.phoneHref} className="whitespace-nowrap underline">{practice.phone}</a>.
               </p>
             )}
             <button type="submit" disabled={status === 'sending'} className="btn justify-self-start">

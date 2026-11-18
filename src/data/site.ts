@@ -1,7 +1,8 @@
 // All homepage content lives here so pages stay clean and copy is easy to edit.
 
-// Where the Book a visit form sends its data (a form service URL). TODO: fill this in. Leave empty and the form shows a "please call us" message.
-export const appointmentEndpoint = '';
+// Where the Book a visit form sends its data: an AWS Lambda (peds4kids-appointment-form) that emails the clinic with SES.
+// The code is in docs/lambda/appointment-email.mjs.
+export const appointmentEndpoint = 'https://ghdhmajo5g2vjvqhvcwcex2mlm0tlkhy.lambda-url.us-east-1.on.aws/';
 
 export const practice = {
   name: 'Peds For Kids',
