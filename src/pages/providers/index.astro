@@ -25,7 +25,7 @@ const shade: Record<string, string> = { sun: '#e3c453', coral: '#f2a999', sky: '
 <BaseLayout title="Our Pediatricians in Rego Park, Queens | Peds For Kids" description="Meet the providers at Peds For Kids in Rego Park, Queens: Dr. Daniela Atanassova-Lineva and our board-certified nurse practitioners.">
   <PageHero crumb="Providers" title="Meet our providers" lede="Everyone on our team is board certified and loves working with kids. Pick who you would like to see when you book." tone="meadow">
     <div class="mt-8 flex flex-wrap gap-4">
-      <a href={practice.bookUrl} class="btn">Book a visit</a>
+      <a href="/contact/" data-book class="btn">Book a visit</a>
       <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
     </div>
   </PageHero>
@@ -57,7 +57,7 @@ const shade: Record<string, string> = { sun: '#e3c453', coral: '#f2a999', sky: '
                 {p.href === '/dr-daniela' ? (
                   <>
                     <a href={p.href} class="btn btn-meadow !px-5 !py-3 !text-base">Meet {p.short}</a>
-                    <a href={practice.bookUrl} class="font-bold underline decoration-coral decoration-[3px] underline-offset-4">Book with {p.short}</a>
+                    <a href="/contact/" data-book class="font-bold underline decoration-coral decoration-[3px] underline-offset-4">Book with {p.short}</a>
                   </>
                 ) : (
                   <>

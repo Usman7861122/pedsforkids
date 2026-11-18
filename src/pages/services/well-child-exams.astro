@@ -62,7 +62,7 @@ const webpage = { '@type': 'MedicalWebPage', '@id': abs(`${url}#webpage`), url: 
           {page.tags.map((t, i) => <li class="tag" style={`--tag-shade:${shades[i % shades.length]}`}>{t}</li>)}
         </ul>
         <div class="mt-8 flex flex-wrap gap-4">
-          <a href={practice.bookUrl} class="btn">Book a visit</a>
+          <a href="/contact/" data-book class="btn">Book a visit</a>
           <a href={practice.phoneHref} class="btn btn-paper">Call {practice.phone}</a>
         </div>
       </div>
@@ -180,7 +180,7 @@ const webpage = { '@type': 'MedicalWebPage', '@id': abs(`${url}#webpage`), url: 
             <li class="flex gap-3"><span class="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-coral" aria-hidden="true"></span>{b}</li>
           ))}
         </ul>
-        <a href={practice.bookUrl} class="btn relative z-[1] mt-7">Book a visit</a>
+        <a href="/contact/" data-book class="btn relative z-[1] mt-7">Book a visit</a>
       </div>
     </div>
   </section>

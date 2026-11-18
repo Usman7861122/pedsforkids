@@ -1,5 +1,8 @@
 // All homepage content lives here so pages stay clean and copy is easy to edit.
 
+// Where the Book a visit form sends its data (a form service URL). TODO: fill this in. Leave empty and the form shows a "please call us" message.
+export const appointmentEndpoint = '';
+
 export const practice = {
   name: 'Peds For Kids',
   legalName: 'Atanassova-Lineva MD Pediatrics PC',
@@ -10,7 +13,6 @@ export const practice = {
   fax: '877-926-5112',
   address: ['63-95 Austin St.', 'Rego Park, NY 11374'],
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=63-95+Austin+St+Rego+Park+NY+11374',
-  bookUrl: 'https://healow.com/apps/provider/daniela-atanassovalineva-840',
   social: [
     { name: 'Facebook', href: 'https://facebook.com/peds4kids' },
     { name: 'Instagram', href: 'https://instagram.com/peds4kids' },

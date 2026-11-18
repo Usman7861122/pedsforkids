@@ -59,7 +59,7 @@ export const clinic = {
   areaServed: serviceAreas.map((name) => ({ '@type': 'City', name })),
   availableService: services.map((s) => ({ '@type': 'MedicalProcedure', name: s.title, url: abs(`/services/${s.slug}/`) })),
   sameAs: practice.social.map((s) => s.href),
-  potentialAction: { '@type': 'ReserveAction', target: practice.bookUrl, name: 'Book a visit' },
+  potentialAction: { '@type': 'ReserveAction', target: abs('/contact/'), name: 'Book a visit' },
 };
 
 export const website = {

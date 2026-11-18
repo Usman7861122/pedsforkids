@@ -51,7 +51,7 @@ const shade: Record<string, string> = {
             {i === 0 ? (
               <>
                 <a href={profileHref(i)} class="relative z-[1] mb-6 mt-3 inline-block font-bold underline decoration-meadow decoration-[3px] underline-offset-4 hover:decoration-coral">Read about {p.short}</a>
-                <a href={practice.bookUrl} class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Book with {p.short}</a>
+                <a href="/contact/" data-book class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Book with {p.short}</a>
               </>
             ) : (
               <a href={profileHref(i)} class="btn btn-meadow relative z-[1] mx-auto mt-auto !px-5 !py-3 !text-base">Read more<span class="sr-only"> about {p.short}</span></a>

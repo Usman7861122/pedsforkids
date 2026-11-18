@@ -239,7 +239,7 @@ function HeroSliderInner() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={reduce ? { duration: 0.3 } : { type: 'spring', stiffness: 300, damping: 18, delay: 1.15 }}
               >
-                <a href={practice.bookUrl} className="btn">Book a visit</a>
+                <a href="/contact/" data-book className="btn">Book a visit</a>
                 <a href={practice.phoneHref} className="btn btn-paper">Call {practice.phone}</a>
               </m.div>
             </m.div>

@@ -209,7 +209,7 @@ function SiteHeaderInner() {
                 <PhoneIcon />
                 <span className="hidden 2xl:inline">{practice.phone}</span>
               </a>
-              <a href={practice.bookUrl} className="btn whitespace-nowrap !px-4 !py-2.5 !text-[0.95rem] sm:!px-5 sm:!py-3 sm:!text-base">Book a visit</a>
+              <a href="/contact/" data-book className="btn whitespace-nowrap !px-4 !py-2.5 !text-[0.95rem] sm:!px-5 sm:!py-3 sm:!text-base">Book a visit</a>
               <button
                 type="button"
                 className="grid size-11 place-items-center rounded-full bg-sky-soft xl:hidden"
@@ -319,7 +319,7 @@ function SiteHeaderInner() {
               </ul>
 
               <div className="mt-6 grid gap-3">
-                <a href={practice.bookUrl} className="btn">Book a visit</a>
+                <a href="/contact/" data-book className="btn">Book a visit</a>
                 <a href={practice.phoneHref} className="btn btn-paper">Call {practice.phone}</a>
               </div>
             </div>
