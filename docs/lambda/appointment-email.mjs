@@ -27,7 +27,9 @@ export const handler = async (event) => {
   } catch {
     return reply(400, { ok: false });
   }
-  if (data.company) return reply(200, { ok: true }); // hidden spam trap: pretend it worked
+  // Two bot signs: the hidden field is filled, or the form was sent in under 3 seconds (or without a timer).
+  // We pretend it worked, so a bot learns nothing, and send nothing.
+  if (data.company || !(Number(data.elapsed_ms) >= 3000)) return reply(200, { ok: true });
 
   const name = oneLine(data.name, 100);
   const email = oneLine(data.email, 150);

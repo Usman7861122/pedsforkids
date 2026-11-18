@@ -4,6 +4,8 @@ import { appointmentEndpoint, practice } from '../../data/site';
 // Same fields and dropdown options as the clinic's appointment form (all required).
 const hearOptions = ['Insurance', 'Google/Internet', 'Family/Friend', 'Doctor Referral', 'Social Media'];
 
+const MIN_FILL_MS = 3000;
+
 type Status = 'idle' | 'sending' | 'done' | 'error';
 
 const field =
@@ -14,6 +16,7 @@ export default function BookModal() {
   const [status, setStatus] = useState<Status>('idle');
   const dialogRef = useRef<HTMLDivElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
+  const openedAt = useRef(0); // when the pop up opened (for the too-fast check)
   const titleId = useId();
 
   const close = useCallback(() => {
@@ -30,6 +33,7 @@ export default function BookModal() {
       e.preventDefault();
       lastFocus.current = link as HTMLElement;
       setStatus('idle');
+      openedAt.current = Date.now();
       setOpen(true);
     };
     document.addEventListener('click', onClick);
@@ -64,7 +68,11 @@ export default function BookModal() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    if (data.get('company')) { setStatus('done'); return; } // hidden spam trap
+    // Two bot signs: the hidden field is filled, or the form was sent in under 3 seconds.
+    // Either way we pretend it worked, so the bot learns nothing, and we send nothing.
+    const elapsed = Date.now() - openedAt.current;
+    if (data.get('company') || elapsed < MIN_FILL_MS) { setStatus('done'); return; }
+    data.set('elapsed_ms', String(elapsed));
     if (!appointmentEndpoint) { setStatus('error'); return; }
     setStatus('sending');
     try {
@@ -101,7 +109,9 @@ export default function BookModal() {
           </div>
         ) : (
           <form onSubmit={onSubmit} className="mt-6 grid gap-4" noValidate={false}>
-            <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+            <div aria-hidden="true" className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden">
+              <label>Company <input type="text" name="company" tabIndex={-1} autoComplete="off" /></label>
+            </div>
             <label className="grid gap-1.5">
               <span className="sr-only">Name</span>
               <input type="text" name="name" required placeholder="Name" autoComplete="name" className={field} />
